@@ -1,25 +1,25 @@
 <!-- Version: 2.24.2 - October 03, 2026 -->
-<aside id="generation-metadata-panel" aria-label="Generation data" hidden>
+<aside id="generation-metadata-panel" aria-label="{{ _('Generation data') }}" hidden>
     <header>
         <div style="display:flex; align-items:center; gap:6px;">
-            <strong style="color:#fff; font-size:0.85rem;">⚙️ Generation Data</strong>
+            <strong style="color:#fff; font-size:0.85rem;">⚙️ {{ _('Generation Data') }}</strong>
             <span style="font-size:0.65rem; color:var(--text-muted); background:rgba(255,255,255,0.06); padding:1px 5px; border-radius:4px; border:1px solid rgba(255,255,255,0.1);">Shift+M</span>
         </div>
         <div style="display:flex; align-items:center; gap:8px;">
-            <button type="button" id="generation-copy-all" class="glass-btn" style="padding:2px 8px !important; height:24px !important; font-size:0.75rem !important;" disabled>Copy all</button>
-            <button type="button" id="gm-panel-switch" onclick="toggleGenerationMetadata(false)" class="gm-switch-btn" title="Turn OFF inspector (Shortcut: Shift+M)">
+            <button type="button" id="generation-copy-all" class="glass-btn" style="padding:2px 8px !important; height:24px !important; font-size:0.75rem !important;" disabled>{{ _('Copy all') }}</button>
+            <button type="button" id="gm-panel-switch" onclick="toggleGenerationMetadata(false)" class="gm-switch-btn" title="{{ _('Turn OFF inspector (Shortcut: Shift+M)') }}">
                 <span class="gm-switch-dot">●</span>
-                <span class="gm-switch-label">ON</span>
+                <span class="gm-switch-label">{{ _('ON') }}</span>
             </button>
         </div>
     </header>
     
     <!-- Pin Control Bar -->
     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; gap:8px;">
-        <button type="button" id="generation-metadata-pin" class="gm-pin-btn" onclick="toggleGenerationMetadataPin(true)" title="Pin/Lock overlay on this image (Shortcut: Alt+M)">
-            <span id="gm-pin-icon">📌</span> <span id="gm-pin-text">Pin Image</span> <kbd style="background:rgba(0,0,0,0.4); padding:1px 4px; border-radius:3px; font-size:0.65rem; border:1px solid rgba(255,255,255,0.15); margin-left:4px;">Alt+M</kbd>
+        <button type="button" id="generation-metadata-pin" class="gm-pin-btn" onclick="toggleGenerationMetadataPin(true)" title="{{ _('Pin/Lock overlay on this image (Shortcut: Alt+M)') }}">
+            <span id="gm-pin-icon">📌</span> <span id="gm-pin-text">{{ _('Pin Image') }}</span> <kbd style="background:rgba(0,0,0,0.4); padding:1px 4px; border-radius:3px; font-size:0.65rem; border:1px solid rgba(255,255,255,0.15); margin-left:4px;">Alt+M</kbd>
         </button>
-        <span id="generation-metadata-pin-status" style="font-size:0.7rem; color:var(--favorite-color,#ffc107); font-weight:bold; display:none;">🔒 PINNED</span>
+        <span id="generation-metadata-pin-status" style="font-size:0.7rem; color:var(--favorite-color,#ffc107); font-weight:bold; display:none;">🔒 {{ _('PINNED') }}</span>
     </div>
 
     <div id="generation-metadata-name" style="font-size:0.8rem; color:var(--primary-color); font-weight:bold; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin-bottom:8px; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:4px;"></div>

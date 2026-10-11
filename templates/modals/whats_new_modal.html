@@ -131,7 +131,7 @@
     <div class="wn-panel">
         
         <div class="wn-header">
-            <h3>✨ What's New in SmartGallery</h3>
+            <h3>{{ _("✨ What's New in SmartGallery") }}</h3>
             <button onclick="closeWhatsNewModal()" style="background:none; border:none; color:var(--text-muted); font-size:1.8rem; cursor:pointer; line-height:1;">×</button>
         </div>
 
@@ -142,20 +142,20 @@
 
         <div class="wn-footer">
             <div class="wn-nav-row">
-                <button class="glass-btn" id="wn-btn-prev" onclick="wnChangeSlide(-1)" style="min-width: 80px;">&larr; Prev</button>
+                <button class="glass-btn" id="wn-btn-prev" onclick="wnChangeSlide(-1)" style="min-width: 80px;">&larr; {{ _('Prev') }}</button>
                 <div class="wn-dots" id="wn-dots-container"></div>
-                <button class="glass-btn active-blue" id="wn-btn-next" onclick="wnChangeSlide(1)" style="min-width: 80px;">Next &rarr;</button>
+                <button class="glass-btn active-blue" id="wn-btn-next" onclick="wnChangeSlide(1)" style="min-width: 80px;">{{ _('Next') }} &rarr;</button>
             </div>
             
             <div style="display:flex; justify-content:space-between; align-items:center; border-top: 1px solid rgba(255,255,255,0.05); padding-top:15px; flex-wrap:wrap; gap:10px;">
                 <label class="wn-checkbox-label">
-                    <input type="checkbox" id="wn-dont-show"> Don't show this automatically again
+                    <input type="checkbox" id="wn-dont-show"> {{ _("Don't show this automatically again") }}
                 </label>
                 <a href="https://github.com/biagiomaf/smart-comfyui-gallery/blob/main/CHANGELOG.md" target="_blank" style="color:var(--primary-color); font-size:0.85rem; text-decoration:none; font-weight:bold;">
-                    📄 View Full Changelog (GitHub)
+                    📄 {{ _('View Full Changelog (GitHub)') }}
                 </a>
             </div>
-            <p class="wn-hint-text">You can always re-open this guide anytime from the Options (⚙️) menu.</p>
+            <p class="wn-hint-text">{{ _('You can always re-open this guide anytime from the Options (⚙️) menu.') }}</p>
         </div>
 
     </div>
@@ -174,7 +174,7 @@
         const dotsContainer = document.getElementById('wn-dots-container');
 
         if (!rawDataEl) {
-            track.innerHTML = '<div class="wn-slide" style="width:100%; display:flex; align-items:center; justify-content:center; color:var(--text-muted);">Changelog data not found.</div>';
+            track.innerHTML = `<div class="wn-slide" style="width:100%; display:flex; align-items:center; justify-content:center; color:var(--text-muted);">${t('Changelog data not found.')}</div>`;
             return false;
         }
 
@@ -216,10 +216,10 @@
                     if (index === 0) latestVersionId = vNum; // Save dynamically for Memory Keys
 
                     const color = colors[index % colors.length];
-                    const badge = index === 0 ? ' <span style="font-size:0.7rem; background:rgba(255,255,255,0.2); padding:2px 6px; border-radius:4px; vertical-align:middle; margin-left:8px; color:white;">LATEST</span>' : '';
+                    const badge = index === 0 ? ` <span style="font-size:0.7rem; background:rgba(255,255,255,0.2); padding:2px 6px; border-radius:4px; vertical-align:middle; margin-left:8px; color:white;">${t('LATEST')}</span>` : '';
                     
-                    slideContent += `<h4 style="color:${color};">🚀 Version ${vNum}${badge}</h4>`;
-                    slideContent += `<div class="wn-date">Released: ${vDate}</div>`;
+                    slideContent += `<h4 style="color:${color};">🚀 ${t('Version {version}', {version: vNum})}${badge}</h4>`;
+                    slideContent += `<div class="wn-date">${t('Released: {date}', {date: vDate})}</div>`;
                     return;
                 }
 
@@ -292,12 +292,12 @@
         btnPrev.style.visibility = currentWnSlide === 0 ? 'hidden' : 'visible';
         
         if (currentWnSlide === totalWnSlides - 1 || totalWnSlides === 0) {
-            btnNext.innerHTML = 'Got it! ✓';
+            btnNext.innerHTML = t('Got it! ✓');
             btnNext.classList.replace('active-blue', 'active-fuxia');
             btnNext.style.borderColor = 'var(--success-color)';
             btnNext.style.color = 'var(--success-color)';
         } else {
-            btnNext.innerHTML = 'Next &rarr;';
+            btnNext.innerHTML = `${t('Next')} &rarr;`;
             btnNext.classList.replace('active-fuxia', 'active-blue');
             btnNext.style.borderColor = '';
             btnNext.style.color = '';

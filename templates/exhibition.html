@@ -1,12 +1,28 @@
 <!-- Version: 2.24.2 - October 03, 2026 -->
 {% set app_logo_b64 = "data:image/png;base64,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" %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ lang }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SmartGallery Exhibition Mode</title>
+    <title>{{ _('SmartGallery Exhibition Mode') }}</title>
+    <script>window.lang = {{ lang | tojson }}; window.i18n = {{ t | tojson }};</script>
     <link rel="icon" type="image/png" href="{{ app_logo_b64 }}">
+    <script>
+    function t(key, vars){
+        var s = (window.i18n && window.i18n[key]) || key;
+        if (vars) for (var k in vars) s = s.split('{' + k + '}').join(vars[k]);
+        return s;
+    }
+    function toggleLanguage(){
+        var next = window.lang === 'zh' ? 'en' : 'zh';
+        fetch('/galleryout/api/set_lang', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'lang=' + next
+        }).then(function(){ location.reload(); });
+    }
+    </script>
  
     <style>
     :root {
@@ -1788,41 +1804,49 @@
     <!-- GENERAL OPTIONS POPOVER -->
     <div id="options-popover" style="display: none; position: absolute; background: rgba(20, 20, 20, 0.95); backdrop-filter: blur(15px); border: 1px solid var(--border-color); border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); z-index: 10000; padding: 15px; flex-direction: column; width: 260px;">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); margin-bottom: 10px; padding-bottom: 5px;">
-            <h4 style="margin: 0; color: var(--text-color);">⚙️ Gallery Options</h4>
-            <button onclick="toggleOptionsMenu(event)" title="Close Menu" style="background: transparent; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; line-height: 1; padding: 0 5px; transition: color 0.2s;">&times;</button>
+            <h4 style="margin: 0; color: var(--text-color);">⚙️ {{ _('Gallery Options') }}</h4>
+            <button onclick="toggleOptionsMenu(event)" title="{{ _('Close Menu') }}" style="background: transparent; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; line-height: 1; padding: 0 5px; transition: color 0.2s;">&times;</button>
         </div>
 
         <div class="opt-item" id="opt-btn-layout" onclick="toggleExhLayoutMode()" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer; border-radius: 8px; transition: 0.2s; border: 1px solid transparent;">
             <div>
-                <div class="opt-label" style="font-weight: 600; font-size: 0.9rem; color: white; display: flex; align-items: center; gap: 8px;">📄 Layout View</div>
-                <div style="font-size:0.75rem; color:var(--text-muted); line-height: 1.3; margin-top: 4px;">Toggle Grid/List mode.</div>
+                <div class="opt-label" style="font-weight: 600; font-size: 0.9rem; color: white; display: flex; align-items: center; gap: 8px;">📄 {{ _('Layout View') }}</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); line-height: 1.3; margin-top: 4px;">{{ _('Toggle Grid/List mode.') }}</div>
             </div>
-            <span class="opt-status" id="opt-status-layout" style="font-size: 0.8rem; font-weight: bold; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.5);">GRID</span>
+            <span class="opt-status" id="opt-status-layout" style="font-size: 0.8rem; font-weight: bold; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.5);">{{ _('GRID') }}</span>
         </div>
         <div style="height:1px; background:rgba(255,255,255,0.1); margin:10px 0;"></div>
         
         <div class="opt-item desktop-only" id="opt-btn-size" onclick="toggleGridSize()" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer; border-radius: 8px; transition: 0.2s; border: 1px solid transparent;">
             <div>
-                <div class="opt-label" style="font-weight: 600; font-size: 0.9rem; color: white; display: flex; align-items: center; gap: 8px;">🖼️ Thumbnail Size</div>
-                <div style="font-size:0.75rem; color:var(--text-muted); line-height: 1.3; margin-top: 4px;">Toggle Compact view.</div>
+                <div class="opt-label" style="font-weight: 600; font-size: 0.9rem; color: white; display: flex; align-items: center; gap: 8px;">🖼️ {{ _('Thumbnail Size') }}</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); line-height: 1.3; margin-top: 4px;">{{ _('Toggle Compact view.') }}</div>
             </div>
-            <span class="opt-status" id="opt-status-size" style="font-size: 0.8rem; font-weight: bold; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.5);">NORMAL</span>
+            <span class="opt-status" id="opt-status-size" style="font-size: 0.8rem; font-weight: bold; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.5);">{{ _('NORMAL') }}</span>
         </div>
 
         <div style="height:1px; background:rgba(255,255,255,0.1); margin:10px 0;" class="mobile-only"></div>
 
         <div class="opt-item mobile-only" id="opt-btn-mobile-2col" onclick="toggleMobileTwoCols()" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer; border-radius: 8px; transition: 0.2s; border: 1px solid transparent;">
             <div>
-                <div class="opt-label" style="font-weight: 600; font-size: 0.9rem; color: white; display: flex; align-items: center; gap: 8px;">📱 2-Column Grid</div>
-                <div style="font-size:0.75rem; color:var(--text-muted); line-height: 1.3; margin-top: 4px;">Show 2 compact thumbnails.</div>
+                <div class="opt-label" style="font-weight: 600; font-size: 0.9rem; color: white; display: flex; align-items: center; gap: 8px;">📱 {{ _('2-Column Grid') }}</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); line-height: 1.3; margin-top: 4px;">{{ _('Show 2 compact thumbnails.') }}</div>
             </div>
-            <span class="opt-status" id="opt-status-mobile-2col" style="font-size: 0.8rem; font-weight: bold; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.5);">OFF</span>
+            <span class="opt-status" id="opt-status-mobile-2col" style="font-size: 0.8rem; font-weight: bold; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.5);">{{ _('OFF') }}</span>
+        </div>
+        <div style="height:1px; background:rgba(255,255,255,0.1); margin:10px 0;"></div>
+        <div class="opt-item" id="opt-btn-lang" onclick="toggleLanguage()" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; cursor: pointer; border-radius: 8px; transition: 0.2s; border: 1px solid transparent;">
+            <div>
+                <div class="opt-label" style="font-weight: 600; font-size: 0.9rem; color: white; display: flex; align-items: center; gap: 8px;">🌐 {{ _('Language') }}</div>
+                <div style="font-size:0.75rem; color:var(--text-muted); line-height: 1.3; margin-top: 4px;">{{ _('Switch interface language between Chinese and English.') }}</div>
+            </div>
+            <span class="opt-status" id="opt-status-lang" style="font-size: 0.8rem; font-weight: bold; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.5); align-self:center;">{{ '中文' if lang=='zh' else 'English' }}</span>
         </div>
     </div>
 
     <aside class="exh-sidebar" id="sidebar">
-        <button class="sidebar-close-btn" onclick="toggleMenu()" title="Close sidebar">×</button>
-        <a href="#" onclick="activeSortCriteria='date'; activeSortOrder='desc'; updateSortUI(); if(document.getElementById('sort-select')) document.getElementById('sort-select').value='date_desc'; loadGallery('all', 'All Collections'); return false;" class="brand-link">
+        <button class="sidebar-close-btn" onclick="toggleMenu()" title="{{ _('Close sidebar') }}">×</button>
+        <a href="#" onclick="activeSortCriteria='date'; activeSortOrder='desc'; updateSortUI(); if(document.getElementById('sort-select')) document.getElementById('sort-select').value='date_desc'; loadGallery('all', t('All Collections')); return false;" class="brand-link">
             <div class="brand-block">
                 <img src="{{ app_logo_b64 }}" class="brand-logo">
                 <div class="brand-title">
@@ -1833,12 +1857,12 @@
         </a>
         <div class="sidebar-toolbar">
             <div class="sidebar-search-wrap">
-                <input type="text" id="category-search" class="search-input" placeholder="🔍 Search Collections...">
-                <button class="search-clear-btn" id="search-clear-btn" onclick="clearSearch()" title="Clear search">×</button>
+                <input type="text" id="category-search" class="search-input" placeholder="{{ _('🔍 Search Collections...') }}">
+                <button class="search-clear-btn" id="search-clear-btn" onclick="clearSearch()" title="{{ _('Clear search') }}">×</button>
             </div>
-            <button class="tool-btn" id="cat-sort-type" onclick="cycleCatSortType()" title="Toggle sort by name/date">A-Z</button>
-            <button class="tool-btn" id="cat-sort-dir" onclick="toggleCatSortDir()" title="Toggle sort direction">↓</button>
-            <button class="tool-btn" id="cat-nonempty-toggle" onclick="toggleCatNonEmpty()" title="Show only non-empty collections" aria-label="Show only non-empty collections" aria-pressed="false">&gt;0</button>
+            <button class="tool-btn" id="cat-sort-type" onclick="cycleCatSortType()" title="{{ _('Toggle sort by name/date') }}">A-Z</button>
+            <button class="tool-btn" id="cat-sort-dir" onclick="toggleCatSortDir()" title="{{ _('Toggle sort direction') }}">↓</button>
+            <button class="tool-btn" id="cat-nonempty-toggle" onclick="toggleCatNonEmpty()" title="{{ _('Show only non-empty collections') }}" aria-label="{{ _('Show only non-empty collections') }}" aria-pressed="false">&gt;0</button>
         </div>
         
         <ul class="nav-list" id="collection-list"></ul>
@@ -1858,12 +1882,12 @@
             
             <div style="display: flex; align-items: center; gap: 5px; flex-shrink: 0;">
                 {% if session.role in ['ADMIN', 'MANAGER'] %}
-                <button onclick="openUserManager()" title="User Management" style="background: none; border: 1px solid #9b30ff; color: #f0a0ff; cursor: pointer; padding: 4px 6px; border-radius: 6px; font-size: 0.9rem; transition: all 0.2s;">
+                <button onclick="openUserManager()" title="{{ _('User Management') }}" style="background: none; border: 1px solid #9b30ff; color: #f0a0ff; cursor: pointer; padding: 4px 6px; border-radius: 6px; font-size: 0.9rem; transition: all 0.2s;">
                     👥
                 </button>
                 {% endif %}
                 
-                <a href="#" onclick="confirmLogout(event)" title="Sign Out" style="color: var(--danger-color); text-decoration: none; font-size: 1.2rem; padding: 0 5px; line-height: 1; font-weight: bold; transition: opacity 0.2s;">
+                <a href="#" onclick="confirmLogout(event)" title="{{ _('Sign Out') }}" style="color: var(--danger-color); text-decoration: none; font-size: 1.2rem; padding: 0 5px; line-height: 1; font-weight: bold; transition: opacity 0.2s;">
                     ×
                 </a>
             </div>
@@ -1873,7 +1897,7 @@
             <a href="{{ github_url }}" target="_blank" class="gh-promo-link">
                 <svg class="gh-icon" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                 <div class="gh-text">
-                    Love this tool? Check it out on GitHub.<br>
+                    {{ _('Love this tool? Check it out on GitHub.') }}<br>
                 </div>
             </a>
         </div>
@@ -1883,79 +1907,79 @@
         <header class="exh-header">
             <div style="display:flex; align-items:center;">
                 <button id="mobile-menu-btn" onclick="toggleMenu()">☰</button>
-                <div class="collection-badge" id="page-title">{{ current_folder_info.display_name if (current_folder_info and current_folder_info.get('display_name')) else 'Gallery' }}</div>
-                <button type="button" class="tool-btn" id="exh-notes-btn" onclick="openExhNotesModal()" style="display:none; border-color:var(--favorite-color); color:var(--favorite-color); font-weight:bold; height:auto; padding:8px 15px; margin-left:12px; border-radius:20px; cursor:pointer;">📝 Collection Notes</button>
+                <div class="collection-badge" id="page-title">{{ current_folder_info.display_name if (current_folder_info and current_folder_info.get('display_name')) else _('Gallery') }}</div>
+                <button type="button" class="tool-btn" id="exh-notes-btn" onclick="openExhNotesModal()" style="display:none; border-color:var(--favorite-color); color:var(--favorite-color); font-weight:bold; height:auto; padding:8px 15px; margin-left:12px; border-radius:20px; cursor:pointer;">📝 {{ _('Collection Notes') }}</button>
             </div>
             
             <!-- Count + Shortcuts + Sort -->
             <div style="display:flex; align-items:center; gap:10px;">
-                <span class="file-count-badge" id="file-count-total">📂 0 Items</span>
-                
-                <button type="button" id="exh-filter-toggle-btn" class="tool-btn" onclick="toggleExhFilters(event)" title="Filter results" style="height:42px; padding:0 15px; font-weight:bold; font-size:0.95rem; border-radius:10px;">
-                    🔍 Filters <span id="exh-filter-count-badge" style="display:none; background:var(--primary-color); color:white; border-radius:50%; width:20px; height:20px; align-items:center; justify-content:center; margin-left:6px; font-size:0.75rem;">0</span>
-                    <span id="exh-filter-reset-icon" onclick="resetExhFilters(event)" title="Clear all filters" style="display:none; margin-left:8px; color:var(--danger-color); font-size:1.1rem; line-height:1;">✕</span>
+                <span class="file-count-badge" id="file-count-total">📂 {{ _('0 Items') }}</span>
+
+                <button type="button" id="exh-filter-toggle-btn" class="tool-btn" onclick="toggleExhFilters(event)" title="{{ _('Filter results') }}" style="height:42px; padding:0 15px; font-weight:bold; font-size:0.95rem; border-radius:10px;">
+                    🔍 {{ _('Filters') }} <span id="exh-filter-count-badge" style="display:none; background:var(--primary-color); color:white; border-radius:50%; width:20px; height:20px; align-items:center; justify-content:center; margin-left:6px; font-size:0.75rem;">0</span>
+                    <span id="exh-filter-reset-icon" onclick="resetExhFilters(event)" title="{{ _('Clear all filters') }}" style="display:none; margin-left:8px; color:var(--danger-color); font-size:1.1rem; line-height:1;">✕</span>
                 </button>
-                <button class="tool-btn" id="options-btn-exh"  onclick="toggleOptionsMenu(event)" title="Gallery Options" style="height:42px; width:42px; padding:0; display:flex; align-items:center; justify-content:center; border-radius:10px; font-size:1.2rem; flex-shrink:0;">⚙️</button>
-                <button class="tool-btn" onclick="toggleShortcutsHelp()" title="Keyboard Shortcuts" style="height:42px; width:auto; padding:0 15px; font-weight:bold; font-size:0.95rem; border-radius:10px; flex-shrink:0;">? Shortcuts</button>
+                <button class="tool-btn" id="options-btn-exh"  onclick="toggleOptionsMenu(event)" title="{{ _('Gallery Options') }}" style="height:42px; width:42px; padding:0; display:flex; align-items:center; justify-content:center; border-radius:10px; font-size:1.2rem; flex-shrink:0;">⚙️</button>
+                <button class="tool-btn" onclick="toggleShortcutsHelp()" title="{{ _('Keyboard Shortcuts') }}" style="height:42px; width:auto; padding:0 15px; font-weight:bold; font-size:0.95rem; border-radius:10px; flex-shrink:0;">{{ _('? Shortcuts') }}</button>
                 
                 {% if not global_blind_active %}
-                <button class="tool-btn" onclick="openMyRatingsInfoModal()" title="Show only my ratings" style="display: inline-flex !important; align-items: center; justify-content: center; height:42px; width:auto; padding:0 10px; font-weight:bold; font-size:0.95rem; border-radius:10px; border-color: {% if blind_rating %}var(--favorite-color){% else %}var(--glass-border){% endif %}; color: {% if blind_rating %}var(--favorite-color){% else %}white{% endif %};">
-                    <span class="desktop-only">🕵️ My Ratings: {{ 'ON' if blind_rating else 'OFF' }}</span>
-                    <span class="mobile-only">🕵️ {{ 'ON' if blind_rating else 'OFF' }}</span>
+                <button class="tool-btn" onclick="openMyRatingsInfoModal()" title="{{ _('Show only my ratings') }}" style="display: inline-flex !important; align-items: center; justify-content: center; height:42px; width:auto; padding:0 10px; font-weight:bold; font-size:0.95rem; border-radius:10px; border-color: {% if blind_rating %}var(--favorite-color){% else %}var(--glass-border){% endif %}; color: {% if blind_rating %}var(--favorite-color){% else %}white{% endif %};">
+                    <span class="desktop-only">🕵️ {{ _('My Ratings:') }} {{ _('ON') if blind_rating else _('OFF') }}</span>
+                    <span class="mobile-only">🕵️ {{ _('ON') if blind_rating else _('OFF') }}</span>
                 </button>
                 {% endif %}
                 
                 <!-- NEW: Desktop Sort Buttons (Visible only on Desktop) -->
                 <div class="sort-group-desktop" id="desktop-sort-bar">
-                    <button class="sort-btn-item active" data-sort="date" onclick="setSort('date')" title="Sort by Upload Date">
-                        <span>📅 Date</span> <span class="sort-direction-arrow">↓</span>
+                    <button class="sort-btn-item active" data-sort="date" onclick="setSort('date')" title="{{ _('Sort by Upload Date') }}">
+                        <span>📅 {{ _('Date') }}</span> <span class="sort-direction-arrow">↓</span>
                     </button>
-                    <button class="sort-btn-item" data-sort="name" onclick="setSort('name')" title="Sort Alphabetically">
-                        <span>🔤 Name</span> <span class="sort-direction-arrow">↑</span>
+                    <button class="sort-btn-item" data-sort="name" onclick="setSort('name')" title="{{ _('Sort Alphabetically') }}">
+                        <span>🔤 {{ _('Name') }}</span> <span class="sort-direction-arrow">↑</span>
                     </button>
-                    <button class="sort-btn-item" data-sort="rating" onclick="showExhSortMenu(event, 'exh-rating-menu')" title="Sort by Star Rating">
-                        <span>⭐ Rating</span> <span class="sort-direction-arrow">↓</span>
+                    <button class="sort-btn-item" data-sort="rating" onclick="showExhSortMenu(event, 'exh-rating-menu')" title="{{ _('Sort by Star Rating') }}">
+                        <span>⭐ {{ _('Rating') }}</span> <span class="sort-direction-arrow">↓</span>
                     </button>
-                    <button class="sort-btn-item" data-sort="comments" onclick="showExhSortMenu(event, 'exh-comments-menu')" title="Sort by Total Comments">
-                        <span>💬 Comment</span> <span class="sort-direction-arrow">↓</span>
+                    <button class="sort-btn-item" data-sort="comments" onclick="showExhSortMenu(event, 'exh-comments-menu')" title="{{ _('Sort by Total Comments') }}">
+                        <span>💬 {{ _('Comment') }}</span> <span class="sort-direction-arrow">↓</span>
                     </button>
                 </div>
 
                 <!-- Keep Mobile Dropdown (Hidden on Desktop via CSS) -->
                 <select class="glass-select mobile-only" id="sort-select" onchange="applySort()">
-                    <option value="date_desc">📅 Newest First</option>
-                    <option value="date_asc">📅 Oldest First</option>
-                    <option value="rating_desc">⭐ Top Rated</option>
-                    <option value="rating_asc">⭐ Lowest Rated</option>
-                    <option value="unrated_desc">⭐ Not Rated</option>
-                    <option value="comments_desc">💬 Most Discussed</option>
-                    <option value="comments_asc">💬 Least Discussed</option>
-                    <option value="uncommented_desc">💬 Not Commented</option>
-                    <option value="latestcomment_desc">💬🕒 Newest Comment</option> 
-                    <option value="name_asc">🔤 Name A-Z</option>
-                    <option value="name_desc">🔤 Name Z-A</option>
-                    <option value="size_desc">💾 Largest Size</option>
-                    <option value="size_asc">💾 Smallest Size</option>
-                    <option value="dimensions_desc">📐 Highest Res</option>
-                    <option value="dimensions_asc">📐 Lowest Res</option>
-                    <option value="duration_desc">⏳ Longest</option>
-                    <option value="duration_asc">⏳ Shortest</option>
+                    <option value="date_desc">📅 {{ _('Newest First') }}</option>
+                    <option value="date_asc">📅 {{ _('Oldest First') }}</option>
+                    <option value="rating_desc">⭐ {{ _('Top Rated') }}</option>
+                    <option value="rating_asc">⭐ {{ _('Lowest Rated') }}</option>
+                    <option value="unrated_desc">⭐ {{ _('Not Rated') }}</option>
+                    <option value="comments_desc">💬 {{ _('Most Discussed') }}</option>
+                    <option value="comments_asc">💬 {{ _('Least Discussed') }}</option>
+                    <option value="uncommented_desc">💬 {{ _('Not Commented') }}</option>
+                    <option value="latestcomment_desc">💬🕒 {{ _('Newest Comment') }}</option>
+                    <option value="name_asc">🔤 {{ _('Name A-Z') }}</option>
+                    <option value="name_desc">🔤 {{ _('Name Z-A') }}</option>
+                    <option value="size_desc">💾 {{ _('Largest Size') }}</option>
+                    <option value="size_asc">💾 {{ _('Smallest Size') }}</option>
+                    <option value="dimensions_desc">📐 {{ _('Highest Res') }}</option>
+                    <option value="dimensions_asc">📐 {{ _('Lowest Res') }}</option>
+                    <option value="duration_desc">⏳ {{ _('Longest') }}</option>
+                    <option value="duration_asc">⏳ {{ _('Shortest') }}</option>
                 </select>
             </div>
         </header>
 
     <div class="exh-list-header">
         <div class="hdr-index">#</div>
-        <div class="hdr-thumb">Media</div>
-        <div class="hdr-name sortable-hdr" data-sort="name" onclick="setSort('name')">Name</div>
-        <div class="hdr-rating sortable-hdr" data-sort="rating" onclick="setSort('rating')">Rating</div>
-        <div class="hdr-votes">Votes</div>
-        <div class="hdr-comments sortable-hdr" data-sort="comments" onclick="setSort('comments')">Comments</div>
-        <div class="hdr-size sortable-hdr" data-sort="size" onclick="setSort('size')">Size</div>
-        <div class="hdr-dims sortable-hdr" data-sort="dimensions" onclick="setSort('dimensions')">Dims</div>
-        <div class="hdr-dur sortable-hdr" data-sort="duration" onclick="setSort('duration')">Dur</div>
-        <div class="hdr-date sortable-hdr" data-sort="date" onclick="setSort('date')">Date</div>
-        <div class="hdr-actions">Action</div>
+        <div class="hdr-thumb">{{ _('Media') }}</div>
+        <div class="hdr-name sortable-hdr" data-sort="name" onclick="setSort('name')">{{ _('Name') }}</div>
+        <div class="hdr-rating sortable-hdr" data-sort="rating" onclick="setSort('rating')">{{ _('Rating') }}</div>
+        <div class="hdr-votes">{{ _('Votes') }}</div>
+        <div class="hdr-comments sortable-hdr" data-sort="comments" onclick="setSort('comments')">{{ _('Comments') }}</div>
+        <div class="hdr-size sortable-hdr" data-sort="size" onclick="setSort('size')">{{ _('Size') }}</div>
+        <div class="hdr-dims sortable-hdr" data-sort="dimensions" onclick="setSort('dimensions')">{{ _('Dims') }}</div>
+        <div class="hdr-dur sortable-hdr" data-sort="duration" onclick="setSort('duration')">{{ _('Dur') }}</div>
+        <div class="hdr-date sortable-hdr" data-sort="date" onclick="setSort('date')">{{ _('Date') }}</div>
+        <div class="hdr-actions">{{ _('Action') }}</div>
     </div>
     <div class="exh-grid" id="gallery-grid">
                 <!-- Items will be injected here via JS -->
@@ -1968,37 +1992,37 @@
         <div class="theater-actions-desktop" id="theater-toolbar-desktop" style="background: rgba(10,10,10,0.85); backdrop-filter: blur(15px); padding: 8px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; gap: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.8);">
             
             <!-- Left: Collapse Arrow -->
-            <button class="action-btn-circle" style="width:40px; height:40px; font-size:1rem;" title="Hide Toolbar (H)" onclick="toggleTheaterToolbar()">◀</button>
+            <button class="action-btn-circle" style="width:40px; height:40px; font-size:1rem;" title="{{ _('Hide Toolbar (H)') }}" onclick="toggleTheaterToolbar()">◀</button>
             
             <div style="width:1px; height:24px; background:rgba(255,255,255,0.2); margin: 0 4px;"></div>
             
             <!-- Menu Button -->
-            <button id="exh-menu-btn" class="action-btn-pill" style="height:40px; padding:0 15px; font-size: 0.85rem; font-weight:bold; letter-spacing:0.5px;" onclick="openExhMenu()">/ MENU</button>
+            <button id="exh-menu-btn" class="action-btn-pill" style="height:40px; padding:0 15px; font-size: 0.85rem; font-weight:bold; letter-spacing:0.5px;" onclick="openExhMenu()">{{ _('/ MENU') }}</button>
             
             <div style="width:1px; height:24px; background:rgba(255,255,255,0.2); margin: 0 4px;"></div>
 
             <!-- Media Tools -->
-            <button class="action-btn-circle" style="width:40px; height:40px; font-size:1.2rem;" title="Zoom Out (-)" onclick="zoomTheater(-0.2)">-</button>
-            <button class="action-btn-circle" style="width:40px; height:40px; font-size:1.2rem;" title="Zoom In (+)" onclick="zoomTheater(0.2)">+</button>
-            <button class="action-btn-circle" style="width:40px; height:40px; font-size:1.1rem;" title="Rotate (T)" onclick="rotateTheater()">🔄</button>
-            <a id="theater-dl-link-desk" class="action-btn-circle" style="width:40px; height:40px; font-size:1.1rem;" title="Download (S)" download>💾</a>
-            <a id="theater-open-tab-desk" class="action-btn-circle" style="width:40px; height:40px; font-size:1.1rem;" target="_blank" title="Open Original (O)">↗️</a>
+            <button class="action-btn-circle" style="width:40px; height:40px; font-size:1.2rem;" title="{{ _('Zoom Out (-)') }}" onclick="zoomTheater(-0.2)">-</button>
+            <button class="action-btn-circle" style="width:40px; height:40px; font-size:1.2rem;" title="{{ _('Zoom In (+)') }}" onclick="zoomTheater(0.2)">+</button>
+            <button class="action-btn-circle" style="width:40px; height:40px; font-size:1.1rem;" title="{{ _('Rotate (T)') }}" onclick="rotateTheater()">🔄</button>
+            <a id="theater-dl-link-desk" class="action-btn-circle" style="width:40px; height:40px; font-size:1.1rem;" title="{{ _('Download (S)') }}" download>💾</a>
+            <a id="theater-open-tab-desk" class="action-btn-circle" style="width:40px; height:40px; font-size:1.1rem;" target="_blank" title="{{ _('Open Original (O)') }}">↗️</a>
             
             <div style="width:1px; height:24px; background:rgba(255,255,255,0.2); margin: 0 4px;"></div>
 
             <!-- Panel Toggle -->
-            <button id="desk-toggle-panel-btn" class="action-btn-pill" title="Toggle Rating & Comments panel (G)" onclick="toggleTheaterPanel()" style="height:40px; font-size:1rem; border-color: var(--favorite-color); color: var(--favorite-color);">
+            <button id="desk-toggle-panel-btn" class="action-btn-pill" title="{{ _('Toggle Rating & Comments panel (G)') }}" onclick="toggleTheaterPanel()" style="height:40px; font-size:1rem; border-color: var(--favorite-color); color: var(--favorite-color);">
                 <span>⭐</span><span>💬</span>
             </button>
             
             <div style="width:1px; height:24px; background:rgba(255,255,255,0.2); margin: 0 4px;"></div>
 
             <!-- Global Close (Moved here to avoid UX confusion with side panel) -->
-            <button class="action-btn-circle" style="width:40px; height:40px; font-size:1.5rem; background:rgba(220, 53, 69, 0.15); color:#ff6b6b; border-color:#ff6b6b; padding-bottom:3px;" onclick="closeTheater()" title="Close Lightbox (Esc)" onmouseover="this.style.background='var(--danger-color)'; this.style.color='white';" onmouseout="this.style.background='rgba(220, 53, 69, 0.15)'; this.style.color='#ff6b6b';">×</button>
+            <button class="action-btn-circle" style="width:40px; height:40px; font-size:1.5rem; background:rgba(220, 53, 69, 0.15); color:#ff6b6b; border-color:#ff6b6b; padding-bottom:3px;" onclick="closeTheater()" title="{{ _('Close Lightbox (Esc)') }}" onmouseover="this.style.background='var(--danger-color)'; this.style.color='white';" onmouseout="this.style.background='rgba(220, 53, 69, 0.15)'; this.style.color='#ff6b6b';">×</button>
         </div>
         
         <!-- Ghost Button to SHOW Toolbar when it's hidden -->
-        <button id="ghost-show-toolbar-btn" class="action-btn-circle desktop-only" style="position: absolute; top: 20px; left: 20px; z-index: 2490; opacity: 0; pointer-events: none; transform: translateX(-20px); width:44px; height:44px; font-size:1.1rem; background:rgba(10,10,10,0.85); backdrop-filter:blur(10px);" onclick="toggleTheaterToolbar()" title="Show Toolbar (H)">▶</button>
+        <button id="ghost-show-toolbar-btn" class="action-btn-circle desktop-only" style="position: absolute; top: 20px; left: 20px; z-index: 2490; opacity: 0; pointer-events: none; transform: translateX(-20px); width:44px; height:44px; font-size:1.1rem; background:rgba(10,10,10,0.85); backdrop-filter:blur(10px);" onclick="toggleTheaterToolbar()" title="{{ _('Show Toolbar (H)') }}">▶</button>
 
         <!-- STAGE AREA (Image and Arrows) -->
         <div class="theater-stage" id="theater-stage-area">
@@ -2010,7 +2034,7 @@
         <!-- SIDE PANEL AREA -->
         <div class="theater-panel" style="position: relative;">
             <!-- New Intuitive Close X for the Panel (Top Right) -->
-            <button class="desktop-only" onclick="toggleTheaterPanel()" title="Close Panel (G)" style="position: absolute; top: 15px; right: 15px; z-index: 100; background: rgba(0,0,0,0.6); border: 1px solid #444; color: #ccc; width: 32px; height: 32px; border-radius: 50%; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; line-height: 1; padding-bottom: 2px;" onmouseover="this.style.background='var(--danger-color)'; this.style.color='white'; this.style.borderColor='white';" onmouseout="this.style.background='rgba(0,0,0,0.6)'; this.style.color='#ccc'; this.style.borderColor='#444';">×</button>
+            <button class="desktop-only" onclick="toggleTheaterPanel()" title="{{ _('Close Panel (G)') }}" style="position: absolute; top: 15px; right: 15px; z-index: 100; background: rgba(0,0,0,0.6); border: 1px solid #444; color: #ccc; width: 32px; height: 32px; border-radius: 50%; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; line-height: 1; padding-bottom: 2px;" onmouseover="this.style.background='var(--danger-color)'; this.style.color='white'; this.style.borderColor='white';" onmouseout="this.style.background='rgba(0,0,0,0.6)'; this.style.color='#ccc'; this.style.borderColor='#444';">×</button>
 
             <!-- Mobile Toolbar -->
             <div class="theater-mobile-toolbar" style="gap: 5px; flex-wrap: wrap;">
@@ -2036,19 +2060,19 @@
 
             <!-- NEW: Mobile Comments Accordion Toggle -->
             <div id="mob-comments-toggle-wrapper">
-                <button id="mob-toggle-comments-btn" class="send-btn-premium" style="width: 100%; height: 44px; background: #222; border: 1px solid #444;" onclick="toggleMobileComments()">💬 Show Comments</button>
+                <button id="mob-toggle-comments-btn" class="send-btn-premium" style="width: 100%; height: 44px; background: #222; border: 1px solid #444;" onclick="toggleMobileComments()">💬 {{ _('Show Comments') }}</button>
             </div>
 
             <div class="panel-body" id="comments-list"></div>
 
             <div class="panel-footer">
                 <div style="display:flex; align-items:center; gap:10px; margin-bottom: 10px; width: 100%;">
-                    <span style="font-size:0.85rem; color:var(--text-muted); white-space:nowrap; font-weight: bold;">Target:</span>
+                    <span style="font-size:0.85rem; color:var(--text-muted); white-space:nowrap; font-weight: bold;">{{ _('Target:') }}</span>
                     
                     <!-- Custom Searchable Dropdown for Exhibition -->
                     <div class="target-select-wrapper" id="exh-custom-target-wrapper">
                         <div class="target-select-trigger" onclick="toggleTargetDropdown(event)">
-                            <span id="target-selected-text">🌐 Public (Everyone)</span>
+                            <span id="target-selected-text">{{ _('🌐 Public (Everyone)') }}</span>
                             <span style="font-size: 0.7rem; opacity: 0.6;">▲</span>
                         </div>
                         <input type="hidden" id="target-audience" value="public">
@@ -2057,16 +2081,16 @@
                             <!-- Search box ONLY visible if staff (customers don't have a long list) -->
                             {% if session.role in ['ADMIN', 'MANAGER', 'STAFF'] %}
                             <div class="target-search-box">
-                                <input type="text" id="target-search-input" placeholder="Search user..." onkeyup="filterTargetOptions(this.value)" onclick="event.stopPropagation()">
+                                <input type="text" id="target-search-input" placeholder="{{ _('Search user...') }}" onkeyup="filterTargetOptions(this.value)" onclick="event.stopPropagation()">
                             </div>
                             {% endif %}
                             
                             <div class="target-options-list" id="target-options-container">
-                                <div class="target-opt" data-value="public" onclick="selectTarget('public', '🌐 Public (Everyone)')">🌐 Public (Everyone)</div>
-                                <div class="target-opt" data-value="internal" onclick="selectTarget('internal', '🔒 Private (Staff Only)')">🔒 Private (Staff Only)</div>
+                                <div class="target-opt" data-value="public" onclick="selectTarget('public', t('🌐 Public (Everyone)'))">{{ _('🌐 Public (Everyone)') }}</div>
+                                <div class="target-opt" data-value="internal" onclick="selectTarget('internal', t('🔒 Private (Staff Only)'))">{{ _('🔒 Private (Staff Only)') }}</div>
                                 
                                 {% if session.role in ['ADMIN', 'MANAGER', 'STAFF'] %}
-                                <div style="padding: 8px 15px; font-size: 0.75rem; color: var(--primary-color); text-transform: uppercase; font-weight: bold; background: #000;">Direct Comments</div>
+                                <div style="padding: 8px 15px; font-size: 0.75rem; color: var(--primary-color); text-transform: uppercase; font-weight: bold; background: #000;">{{ _('Direct Comments') }}</div>
                                 <div id="target-dynamic-users">
                                     <!-- Populated via JS -->
                                 </div>
@@ -2076,14 +2100,14 @@
                     </div>
 
                 </div>
-                <textarea class="chat-input" id="comment-input" rows="3" placeholder="Write a comment..."></textarea>
+                <textarea class="chat-input" id="comment-input" rows="3" placeholder="{{ _('Write a comment...') }}"></textarea>
                 <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-                    <button class="send-btn-premium" onclick="postComment()" style="flex: 1;">Post comment</button>
+                    <button class="send-btn-premium" onclick="postComment()" style="flex: 1;">{{ _('Post comment') }}</button>
                     <!-- Close button hidden on mobile footer as it's in top toolbar now -->
-                    <button class="send-btn-premium desktop-only" onclick="toggleTheaterPanel()" style="flex: 1; background: var(--surface-hover); border: 1px solid var(--border-color);">Hide Panel</button>
+                    <button class="send-btn-premium desktop-only" onclick="toggleTheaterPanel()" style="flex: 1; background: var(--surface-hover); border: 1px solid var(--border-color);">{{ _('Hide Panel') }}</button>
                 </div>
                 <div style="text-align: center; margin-top: 5px;">
-                    <a href="#" onclick="changeNickname(); return false;" class="nickname-link"><span style="filter: brightness(1.5);">👤</span> Change Nickname</a>
+                    <a href="#" onclick="changeNickname(); return false;" class="nickname-link"><span style="filter: brightness(1.5);">👤</span> {{ _('Change Nickname') }}</a>
                 </div>
             </div>
         </div>
@@ -2097,42 +2121,42 @@
     <div id="shortcuts-overlay" onclick="if(event.target===this) toggleShortcutsHelp()">
         <div class="sc-panel">
             <div class="sc-header">
-                <h3 style="margin:0; color:white;">⌨️ Keyboard Shortcuts</h3>
+                <h3 style="margin:0; color:white;">⌨️ {{ _('Keyboard Shortcuts') }}</h3>
                 <button onclick="toggleShortcutsHelp()" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;">×</button>
             </div>
             <div class="sc-body">
                 <div>
-                    <div class="sc-group-title">Grid Navigation</div>
-                    <div class="sc-row"><span>Move Selection</span> <span><span class="sc-key">←</span> <span class="sc-key">↑</span> <span class="sc-key">→</span> <span class="sc-key">↓</span></span></div>
-                    <div class="sc-row"><span>Open Lightbox</span> <span><span class="sc-key">Enter</span> / <span class="sc-key">V</span></span></div>
-                    <div class="sc-row"><span>First / Last Item</span> <span><span class="sc-key">Home</span> / <span class="sc-key">End</span></span></div>
-                    <div class="sc-row"><span>Scroll Page</span> <span><span class="sc-key">PgUp</span> / <span class="sc-key">PgDn</span></span></div>
+                    <div class="sc-group-title">{{ _('Grid Navigation') }}</div>
+                    <div class="sc-row"><span>{{ _('Move Selection') }}</span> <span><span class="sc-key">←</span> <span class="sc-key">↑</span> <span class="sc-key">→</span> <span class="sc-key">↓</span></span></div>
+                    <div class="sc-row"><span>{{ _('Open Lightbox') }}</span> <span><span class="sc-key">Enter</span> / <span class="sc-key">V</span></span></div>
+                    <div class="sc-row"><span>{{ _('First / Last Item') }}</span> <span><span class="sc-key">Home</span> / <span class="sc-key">End</span></span></div>
+                    <div class="sc-row"><span>{{ _('Scroll Page') }}</span> <span><span class="sc-key">PgUp</span> / <span class="sc-key">PgDn</span></span></div>
                 </div>
                 <div>
-                    <div class="sc-group-title">Quick Rating</div>
-                    <div class="sc-row"><span>Rate 1 Star</span> <span class="sc-key">1</span></div>
-                    <div class="sc-row"><span>Rate 2 Stars</span> <span class="sc-key">2</span></div>
-                    <div class="sc-row"><span>Rate 3 Stars</span> <span class="sc-key">3</span></div>
-                    <div class="sc-row"><span>Rate 4 Stars</span> <span class="sc-key">4</span></div>
-                    <div class="sc-row"><span>Rate 5 Stars</span> <span class="sc-key">5</span></div>
-                    <div class="sc-row"><span>Clear Rating</span> <span class="sc-key">0</span></div>
+                    <div class="sc-group-title">{{ _('Quick Rating') }}</div>
+                    <div class="sc-row"><span>{{ _('Rate 1 Star') }}</span> <span class="sc-key">1</span></div>
+                    <div class="sc-row"><span>{{ _('Rate 2 Stars') }}</span> <span class="sc-key">2</span></div>
+                    <div class="sc-row"><span>{{ _('Rate 3 Stars') }}</span> <span class="sc-key">3</span></div>
+                    <div class="sc-row"><span>{{ _('Rate 4 Stars') }}</span> <span class="sc-key">4</span></div>
+                    <div class="sc-row"><span>{{ _('Rate 5 Stars') }}</span> <span class="sc-key">5</span></div>
+                    <div class="sc-row"><span>{{ _('Clear Rating') }}</span> <span class="sc-key">0</span></div>
                 </div>
                 <div>
-                    <div class="sc-group-title">Lightbox Viewer</div>
-                    <div class="sc-row"><span>Previous / Next</span> <span><span class="sc-key">←</span> <span class="sc-key">→</span></span></div>
-                    <div class="sc-row"><span>Quick Menu</span> <span class="sc-key">/</span></div>
-                    <div class="sc-row"><span>Toggle Toolbar (Clean View)</span> <span class="sc-key">H</span></div>
-                    <div class="sc-row"><span>Toggle Ratings & Comments (Panel)</span> <span class="sc-key">G</span></div>
+                    <div class="sc-group-title">{{ _('Lightbox Viewer') }}</div>
+                    <div class="sc-row"><span>{{ _('Previous / Next') }}</span> <span><span class="sc-key">←</span> <span class="sc-key">→</span></span></div>
+                    <div class="sc-row"><span>{{ _('Quick Menu') }}</span> <span class="sc-key">/</span></div>
+                    <div class="sc-row"><span>{{ _('Toggle Toolbar (Clean View)') }}</span> <span class="sc-key">H</span></div>
+                    <div class="sc-row"><span>{{ _('Toggle Ratings & Comments (Panel)') }}</span> <span class="sc-key">G</span></div>
                     {% if global_blind_active and session.role in ['ADMIN', 'MANAGER', 'STAFF'] %}
-                    <div class="sc-row"><span style="color:var(--favorite-color);">Override Blind Rating</span> <span class="sc-key">B</span></div>
+                    <div class="sc-row"><span style="color:var(--favorite-color);">{{ _('Override Blind Rating') }}</span> <span class="sc-key">B</span></div>
                     {% endif %}
-                    <div class="sc-row"><span>Rotate 90°</span> <span class="sc-key">T</span></div>
-                    <div class="sc-row"><span>Zoom In / Out</span> <span><span class="sc-key">+</span> <span class="sc-key">-</span></span></div>
-                    <div class="sc-row"><span>Reset Zoom / Rot</span> <span class="sc-key">0</span></div>
-                    <div class="sc-row"><span>Pan Image</span> <span><span class="sc-key">Mouse Drag</span></span></div>
-                    <div class="sc-row"><span>Download</span> <span class="sc-key">S</span></div>
-                    <div class="sc-row"><span>Open New Tab</span> <span class="sc-key">O</span></div>
-                    <div class="sc-row"><span>Close</span> <span class="sc-key">Esc</span></div>
+                    <div class="sc-row"><span>{{ _('Rotate 90°') }}</span> <span class="sc-key">T</span></div>
+                    <div class="sc-row"><span>{{ _('Zoom In / Out') }}</span> <span><span class="sc-key">+</span> <span class="sc-key">-</span></span></div>
+                    <div class="sc-row"><span>{{ _('Reset Zoom / Rot') }}</span> <span class="sc-key">0</span></div>
+                    <div class="sc-row"><span>{{ _('Pan Image') }}</span> <span><span class="sc-key">Mouse Drag</span></span></div>
+                    <div class="sc-row"><span>{{ _('Download') }}</span> <span class="sc-key">S</span></div>
+                    <div class="sc-row"><span>{{ _('Open New Tab') }}</span> <span class="sc-key">O</span></div>
+                    <div class="sc-row"><span>{{ _('Close') }}</span> <span class="sc-key">Esc</span></div>
                 </div>
             </div>
         </div>
@@ -2143,25 +2167,25 @@
         <div style="background:var(--surface-color); border:1px solid {% if blind_rating %}var(--favorite-color){% else %}var(--primary-color){% endif %}; border-radius:16px; padding:30px; width:500px; max-width:95vw; box-shadow:0 20px 60px rgba(0,0,0,0.8); position:relative; text-align:left; overscroll-behavior:contain;">
             <button onclick="closeMyRatingsInfoModal()" style="position:absolute; top:15px; right:15px; background:transparent; border:none; color:var(--text-muted); font-size:1.8rem; cursor:pointer; line-height:1; transition:color 0.2s;" onmouseover="this.style.color='var(--danger-color)'" onmouseout="this.style.color='var(--text-muted)'">&times;</button>
             
-            <h3 style="margin-top:0; color:white; font-size:1.4rem; display:flex; align-items:center; gap:10px;">🕵️ Private Rating Mode</h3>
-            
+            <h3 style="margin-top:0; color:white; font-size:1.4rem; display:flex; align-items:center; gap:10px;">🕵️ {{ _('Private Rating Mode') }}</h3>
+
             <p style="color:var(--text-muted); line-height:1.6; font-size:0.95rem; margin-bottom:15px;">
-                Enable this mode to evaluate media without being influenced by other users.
+                {{ _('Enable this mode to evaluate media without being influenced by other users.') }}
             </p>
-            
+
             <ul style="color:#ccc; font-size:0.9rem; line-height:1.6; padding-left:20px; margin-bottom:20px;">
-                <li style="margin-bottom:8px;"><strong>Hide Global Averages:</strong> Other people's ratings are hidden from your view.</li>
-                <li style="margin-bottom:8px;"><strong>Personalized Sorting:</strong> Sorting by '⭐ Rating' will now use <em>your</em> personal votes instead of the global average.</li>
-                <li style="margin-bottom:8px;"><strong>Total Privacy:</strong> Perfect for giving honest, unbiased feedback.</li>
+                <li style="margin-bottom:8px;"><strong>{{ _('Hide Global Averages:') }}</strong> {{ _("Other people's ratings are hidden from your view.") }}</li>
+                <li style="margin-bottom:8px;"><strong>{{ _('Personalized Sorting:') }}</strong> {{ _("Sorting by '⭐ Rating' will now use") }} <em>{{ _('your') }}</em> {{ _('personal votes instead of the global average.') }}</li>
+                <li style="margin-bottom:8px;"><strong>{{ _('Total Privacy:') }}</strong> {{ _('Perfect for giving honest, unbiased feedback.') }}</li>
             </ul>
-            
+
             <div style="display:flex; gap:12px; margin-top:25px;">
                 {% if blind_rating %}
-                    <button onclick="closeMyRatingsInfoModal()" class="send-btn-premium" style="flex:1; background:var(--surface-hover); border:1px solid var(--border-color); color:white;">Keep ON</button>
-                    <button onclick="executeMyRatingsToggle()" class="send-btn-premium" style="flex:1; background:var(--danger-color);">Turn OFF</button>
+                    <button onclick="closeMyRatingsInfoModal()" class="send-btn-premium" style="flex:1; background:var(--surface-hover); border:1px solid var(--border-color); color:white;">{{ _('Keep ON') }}</button>
+                    <button onclick="executeMyRatingsToggle()" class="send-btn-premium" style="flex:1; background:var(--danger-color);">{{ _('Turn OFF') }}</button>
                 {% else %}
-                    <button onclick="closeMyRatingsInfoModal()" class="send-btn-premium" style="flex:1; background:var(--surface-hover); border:1px solid var(--border-color); color:white;">Keep OFF</button>
-                    <button onclick="executeMyRatingsToggle()" class="send-btn-premium" style="flex:1; background:var(--favorite-color); color:black;">Turn ON</button>
+                    <button onclick="closeMyRatingsInfoModal()" class="send-btn-premium" style="flex:1; background:var(--surface-hover); border:1px solid var(--border-color); color:white;">{{ _('Keep OFF') }}</button>
+                    <button onclick="executeMyRatingsToggle()" class="send-btn-premium" style="flex:1; background:var(--favorite-color); color:black;">{{ _('Turn ON') }}</button>
                 {% endif %}
             </div>
         </div>
@@ -2171,23 +2195,23 @@
     <div id="smart-alert-overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:20000; display:none; justify-content:center; align-items:center; backdrop-filter:blur(8px);">
         <div style="background:#1a1a1a; width:400px; max-width:85vw; border-radius:16px; border:1px solid var(--primary-color); border-top:4px solid var(--primary-color); padding:30px; box-shadow:0 20px 60px rgba(0,0,0,1); text-align:center;">
             <div style="font-size:2.5rem; margin-bottom:15px;">⚠️</div>
-            <h3 style="margin:0 0 15px 0; color:white; font-size:1.2rem;">Attention</h3>
+            <h3 style="margin:0 0 15px 0; color:white; font-size:1.2rem;">{{ _('Attention') }}</h3>
             <p id="smart-alert-msg" style="color:#bbb; line-height:1.5; margin-bottom:25px; font-size:1rem;"></p>
-            <button onclick="closeSmartAlert()" class="send-btn-premium" style="width:100%; height:45px;">OK</button>
+            <button onclick="closeSmartAlert()" class="send-btn-premium" style="width:100%; height:45px;">{{ _('OK') }}</button>
         </div>
     </div>
     <!-- SMART DIALOG OVERLAY (Confirm/Prompt) -->
     <div id="exh-dialog-overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:20000; display:none; justify-content:center; align-items:center; backdrop-filter:blur(8px);">
         <div style="background:#1a1a1a; width:400px; max-width:90vw; border-radius:16px; border:1px solid var(--primary-color); padding:30px; box-shadow:0 20px 60px #000; transform: scale(0.9); transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); display: flex; flex-direction: column; gap: 20px;" id="exh-dialog-panel">
-            <h3 id="exh-dialog-title" style="margin:0; color:white; font-size:1.3rem;">Confirm</h3>
+            <h3 id="exh-dialog-title" style="margin:0; color:white; font-size:1.3rem;">{{ _('Confirm') }}</h3>
             <p id="exh-dialog-msg" style="color:#bbb; line-height:1.5; margin:0; font-size:1rem;"></p>
             
             <!-- Hidden input for Prompt mode -->
             <input type="text" id="exh-dialog-input" class="chat-input" style="display:none; margin-bottom:0;" autocomplete="off">
             
             <div style="display:flex; gap:12px; justify-content:flex-end;">
-                <button id="exh-dialog-cancel" class="send-btn-premium" style="background:#333; border:1px solid #444; flex:1;">Cancel</button>
-                <button id="exh-dialog-confirm" class="send-btn-premium" style="flex:1;">Confirm</button>
+                <button id="exh-dialog-cancel" class="send-btn-premium" style="background:#333; border:1px solid #444; flex:1;">{{ _('Cancel') }}</button>
+                <button id="exh-dialog-confirm" class="send-btn-premium" style="flex:1;">{{ _('Confirm') }}</button>
             </div>
         </div>
     </div>
@@ -2196,7 +2220,7 @@
     <div id="exh-menu-overlay" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:5000; display:none; justify-content:center; align-items:center; opacity:0; transition:opacity 0.3s ease;">
         <div class="sc-panel" style="max-width: 600px; max-height: 85vh; display: flex; flex-direction: column;">
             <div class="sc-header">
-                <h2 style="margin:0; font-size:1.2rem; color:white;">⚡ Quick Menu & Shortcuts</h2>
+                <h2 style="margin:0; font-size:1.2rem; color:white;">⚡ {{ _('Quick Menu & Shortcuts') }}</h2>
                 <button class="close-btn" onclick="closeExhMenu()" style="background:none; border:none; color:#888; font-size:1.5rem; cursor:pointer;">×</button>
             </div>
             
@@ -2204,56 +2228,56 @@
                 
                 <div class="exh-action-row" onclick="closeExhMenu(); rotateTheater();">
                     <div class="ear-icon">🔄</div>
-                    <div class="ear-desc">Rotate Media 90°</div>
+                    <div class="ear-desc">{{ _('Rotate Media 90°') }}</div>
                     <div class="ear-key"><span class="key">T</span></div>
                 </div>
 
                 <div class="exh-action-row" onclick="closeExhMenu(); document.getElementById('theater-dl-link-desk').click();">
                     <div class="ear-icon">💾</div>
-                    <div class="ear-desc">Download Media File</div>
+                    <div class="ear-desc">{{ _('Download Media File') }}</div>
                     <div class="ear-key"><span class="key">S</span></div>
                 </div>
 
                 <div class="exh-action-row" onclick="closeExhMenu(); document.getElementById('theater-open-tab-desk').click();">
                     <div class="ear-icon">↗️</div>
-                    <div class="ear-desc">Open Full-res in New Tab</div>
+                    <div class="ear-desc">{{ _('Open Full-res in New Tab') }}</div>
                     <div class="ear-key"><span class="key">O</span></div>
                 </div>
 
                 <div class="exh-action-row" onclick="closeExhMenu(); toggleTheaterPanel();">
                     <div class="ear-icon" style="color:var(--favorite-color);">⭐</div>
-                    <div class="ear-desc">Toggle Rating & Comments Panel</div>
+                    <div class="ear-desc">{{ _('Toggle Rating & Comments Panel') }}</div>
                     <div class="ear-key"><span class="key">G</span></div>
                 </div>
                 
                 <div class="exh-action-row" onclick="closeExhMenu(); toggleTheaterToolbar();">
                     <div class="ear-icon">👁️</div>
-                    <div class="ear-desc">Hide/Show UI (Clean View)</div>
+                    <div class="ear-desc">{{ _('Hide/Show UI (Clean View)') }}</div>
                     <div class="ear-key"><span class="key">H</span></div>
                 </div>
 
                 {% if global_blind_active and session.role in ['ADMIN', 'MANAGER', 'STAFF'] %}
                 <div class="exh-action-row" onclick="closeExhMenu(); toggleAdminBlindRating();">
                     <div class="ear-icon" style="color:var(--favorite-color);">🕵️</div>
-                    <div class="ear-desc">Toggle Blind Rating Override</div>
+                    <div class="ear-desc">{{ _('Toggle Blind Rating Override') }}</div>
                     <div class="ear-key"><span class="key">B</span></div>
                 </div>
                 {% endif %}
 
                 <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;">
 
-                <div class="exh-action-row" onclick="closeExhMenu(); toggleTheaterPanel();" title="Click to toggle Rating Panel, or press 1-5 on keyboard">
+                <div class="exh-action-row" onclick="closeExhMenu(); toggleTheaterPanel();" title="{{ _('Click to toggle Rating Panel, or press 1-5 on keyboard') }}">
                     <div class="ear-icon" style="color:var(--favorite-color);">★</div>
-                    <div class="ear-desc">Rate 1 to 5 Stars</div>
+                    <div class="ear-desc">{{ _('Rate 1 to 5 Stars') }}</div>
                     <div class="ear-key">
                         <span class="key">1</span>
-                        <span style="color:#888; font-size:0.75rem; margin:0 4px; text-transform:uppercase;">to</span>
+                        <span style="color:#888; font-size:0.75rem; margin:0 4px; text-transform:uppercase;">{{ _('to') }}</span>
                         <span class="key">5</span>
                     </div>
                 </div>
                 <div class="exh-action-row" onclick="closeExhMenu(); submitRatingShortcut(0);">
                     <div class="ear-icon" style="color:#888;">🗑️</div>
-                    <div class="ear-desc">Clear Rating</div>
+                    <div class="ear-desc">{{ _('Clear Rating') }}</div>
                     <div class="ear-key"><span class="key">0</span></div>
                 </div>
 
@@ -2261,19 +2285,19 @@
 
                 <div class="exh-action-row" onclick="closeExhMenu(); closeTheater();">
                     <div class="ear-icon" style="color:var(--danger-color)">✕</div>
-                    <div class="ear-desc" style="color:var(--danger-color)">Close Lightbox</div>
+                    <div class="ear-desc" style="color:var(--danger-color)">{{ _('Close Lightbox') }}</div>
                     <div class="ear-key"><span class="key">Esc</span></div>
                 </div>
                 
                 <div class="exh-action-row" onclick="closeExhMenu();">
                     <div class="ear-icon">/</div>
-                    <div class="ear-desc">Close Quick Menu</div>
+                    <div class="ear-desc">{{ _('Close Quick Menu') }}</div>
                     <div class="ear-key"><span class="key">/</span></div>
                 </div>
 
             </div>
             <div style="padding: 15px; text-align: center; border-top: 1px solid var(--border-color); background: var(--surface-hover);">
-                <button class="send-btn-premium" style="width: 100%;" onclick="closeExhMenu()">Close Menu</button>
+                <button class="send-btn-premium" style="width: 100%;" onclick="closeExhMenu()">{{ _('Close Menu') }}</button>
             </div>
         </div>
     </div>
@@ -2418,23 +2442,23 @@
     <div id="custom-media-player" class="custom-player-wrapper">
         <div class="cp-progress-container">
             <div id="cp-waveform" class="cp-waveform-bg"></div>
-            <input type="range" id="cp-seekbar" class="cp-range" min="0" max="100" value="0" step="0.1" title="Seek">
+            <input type="range" id="cp-seekbar" class="cp-range" min="0" max="100" value="0" step="0.1" title="{{ _('Seek') }}">
         </div>
         <div class="cp-controls">
             <div style="display: flex; align-items: center; gap: 5px;">
-                <button id="cp-skip-back" class="cp-btn" title="Rewind 5s (Left Arrow)">↺</button>
-                <button id="cp-play-pause" class="cp-btn cp-play-btn" title="Play/Pause (Space)">⏸</button>
-                <button id="cp-skip-forward" class="cp-btn" title="Forward 5s (Right Arrow)">↻</button>
+                <button id="cp-skip-back" class="cp-btn" title="{{ _('Rewind 5s (Left Arrow)') }}">↺</button>
+                <button id="cp-play-pause" class="cp-btn cp-play-btn" title="{{ _('Play/Pause (Space)') }}">⏸</button>
+                <button id="cp-skip-forward" class="cp-btn" title="{{ _('Forward 5s (Right Arrow)') }}">↻</button>
                 <div id="cp-time-display" class="cp-time">00:00 / 00:00</div>
             </div>
             <div style="display: flex; gap: 10px; margin-left: auto;">
             <div class="cp-volume-wrapper" id="cp-wave-ctrl" style="display: none; margin-left: 0;">
-                <span style="font-size: 0.9rem; margin-right: 4px; cursor: help;" title="Waveform Amplitude">🌊</span>
-                <input type="range" id="cp-wave-slider" class="cp-vol-range" min="0.1" max="10.0" value="1.0" step="0.1" title="Waveform Amplitude">
+                <span style="font-size: 0.9rem; margin-right: 4px; cursor: help;" title="{{ _('Waveform Amplitude') }}">🌊</span>
+                <input type="range" id="cp-wave-slider" class="cp-vol-range" min="0.1" max="10.0" value="1.0" step="0.1" title="{{ _('Waveform Amplitude') }}">
             </div>
             <div class="cp-volume-wrapper" style="margin-left: 0;">
-                <button id="cp-mute-btn" class="cp-btn" style="width: 28px; height: 28px; font-size: 1rem;" title="Mute (M)">🔊</button>
-                <input type="range" id="cp-volume-slider" class="cp-vol-range" min="0" max="1" value="1" step="0.05" title="Volume">
+                <button id="cp-mute-btn" class="cp-btn" style="width: 28px; height: 28px; font-size: 1rem;" title="{{ _('Mute (M)') }}">🔊</button>
+                <input type="range" id="cp-volume-slider" class="cp-vol-range" min="0" max="1" value="1" step="0.05" title="{{ _('Volume') }}">
             </div>
             </div>
         </div>
@@ -2576,7 +2600,7 @@
                         }
                         
                         if (typeof showNotification === 'function') {
-                            showNotification(`Waveform Amplitude: ${nextAmp}x`, 'info', 1500);
+                            showNotification(t('Waveform Amplitude: {amp}x', {amp: nextAmp}), 'info', 1500);
                         }
                     };
                 }
@@ -2697,15 +2721,15 @@
     
     <!-- DETACHED SORT MENUS (EXHIBITION) -->
     <div id="exh-rating-menu" class="sort-popover">
-        <button onclick="applyExhSpecificSort('rating', 'desc')" id="btn-sort-rating-desc"><span>⭐ Highest Rated</span> <span>↓</span></button>
-        <button onclick="applyExhSpecificSort('rating', 'asc')" id="btn-sort-rating-asc"><span>⭐ Lowest Rated</span> <span>↑</span></button>
-        <button onclick="applyExhSpecificSort('unrated', 'desc')" id="btn-sort-unrated-desc"><span>∅ Not Rated</span> <span>-</span></button>
+        <button onclick="applyExhSpecificSort('rating', 'desc')" id="btn-sort-rating-desc"><span>⭐ {{ _('Highest Rated') }}</span> <span>↓</span></button>
+        <button onclick="applyExhSpecificSort('rating', 'asc')" id="btn-sort-rating-asc"><span>⭐ {{ _('Lowest Rated') }}</span> <span>↑</span></button>
+        <button onclick="applyExhSpecificSort('unrated', 'desc')" id="btn-sort-unrated-desc"><span>∅ {{ _('Not Rated') }}</span> <span>-</span></button>
     </div>
     <div id="exh-comments-menu" class="sort-popover">
-        <button onclick="applyExhSpecificSort('latestcomment', 'desc')" id="btn-sort-latestcomment-desc"><span>🕒 Newest Comments</span> <span>↓</span></button>
-        <button onclick="applyExhSpecificSort('comments', 'desc')" id="btn-sort-comments-desc"><span>💬 Most Discussed</span> <span>↓</span></button>
-        <button onclick="applyExhSpecificSort('comments', 'asc')" id="btn-sort-comments-asc"><span>💬 Least Discussed</span> <span>↑</span></button>
-        <button onclick="applyExhSpecificSort('uncommented', 'desc')" id="btn-sort-uncommented-desc"><span>∅ No Comments</span> <span>-</span></button>
+        <button onclick="applyExhSpecificSort('latestcomment', 'desc')" id="btn-sort-latestcomment-desc"><span>🕒 {{ _('Newest Comments') }}</span> <span>↓</span></button>
+        <button onclick="applyExhSpecificSort('comments', 'desc')" id="btn-sort-comments-desc"><span>💬 {{ _('Most Discussed') }}</span> <span>↓</span></button>
+        <button onclick="applyExhSpecificSort('comments', 'asc')" id="btn-sort-comments-asc"><span>💬 {{ _('Least Discussed') }}</span> <span>↑</span></button>
+        <button onclick="applyExhSpecificSort('uncommented', 'desc')" id="btn-sort-uncommented-desc"><span>∅ {{ _('No Comments') }}</span> <span>-</span></button>
     </div>
 
 
@@ -2759,7 +2783,7 @@
             
             const collId = (typeof currentCollectionId !== 'undefined' && currentCollectionId) ? currentCollectionId : 'all';
             const titleEl = document.getElementById('page-title');
-            const pageTitle = titleEl ? titleEl.textContent : 'Gallery';
+            const pageTitle = titleEl ? titleEl.textContent : t('Gallery');
             
             if (typeof loadGalleryInternal === 'function') {
                 loadGalleryInternal(collId, pageTitle);
@@ -2772,62 +2796,62 @@
     <!-- EXHIBITION FILTER PANEL -->
     <div class="search-overlay-panel" id="exh-search-panel">
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #333; padding-bottom:15px; margin-bottom:10px;">
-            <h3 style="margin:0; color:white; font-size:1.2rem;">🔍 Filter Gallery</h3>
+            <h3 style="margin:0; color:white; font-size:1.2rem;">🔍 {{ _('Filter Gallery') }}</h3>
             <button onclick="document.getElementById('exh-search-panel').classList.remove('visible')" style="background:none; border:none; color:#888; font-size:1.5rem; cursor:pointer;">×</button>
         </div>
         
         <div class="filter-form-grid">
             <div class="filter-group">
-                <label>Search Scope</label>
+                <label>{{ _('Search Scope') }}</label>
                 <div class="scope-options">
                     <label class="scope-label active" id="lbl-scope-local">
-                        <input type="radio" name="exh_scope" value="local" checked onchange="updateExhScopeUI()"> 📂 Current
+                        <input type="radio" name="exh_scope" value="local" checked onchange="updateExhScopeUI()"> 📂 {{ _('Current') }}
                     </label>
                     <label class="scope-label" id="lbl-scope-global">
-                        <input type="radio" name="exh_scope" value="global" onchange="updateExhScopeUI()"> 🌐 All Collections
+                        <input type="radio" name="exh_scope" value="global" onchange="updateExhScopeUI()"> 🌐 {{ _('All Collections') }}
                     </label>
                 </div>
                 <label class="recursive-wrapper" id="exh-recursive-wrapper">
                     <input type="checkbox" id="exh_recursive" onchange="this.parentElement.classList.toggle('active', this.checked); refreshExhExtensions();">
-                    <span>📂 Include Sub-Collections</span>
+                    <span>📂 {{ _('Include Sub-Collections') }}</span>
                 </label>
             </div>
-            
+
             <div class="filter-group">
-                <label>🔍 Smart File Search</label>
-                <div class="filter-hint">Use <code>,</code> for AND, <code>;</code> for OR. Prefix with <code>!</code> to exclude.</div>
-                <input type="text" id="exh_search_name" placeholder="Search filenames...">
+                <label>🔍 {{ _('Smart File Search') }}</label>
+                <div class="filter-hint">{{ _('Use') }} <code>,</code> {{ _('for AND,') }} <code>;</code> {{ _('for OR. Prefix with') }} <code>!</code> {{ _('to exclude.') }}</div>
+                <input type="text" id="exh_search_name" placeholder="{{ _('Search filenames...') }}">
             </div>
-            
+
             <div class="filter-group">
-                <label>📄 Extensions</label>
+                <label>📄 {{ _('Extensions') }}</label>
                 <div class="c-multi-select">
                     <button type="button" class="c-select-trigger" onclick="toggleCustomDropdown(event, 'exh-dropdown-ext')">
-                        <span class="trigger-text">Select extensions...</span>
+                        <span class="trigger-text">{{ _('Select extensions...') }}</span>
                         <span class="c-select-counter" id="exh-count-ext">0</span>
                     </button>
                     <div class="c-dropdown-menu" id="exh-dropdown-ext"></div>
                 </div>
             </div>
-            
+
             <div class="filter-group">
-                <label>📅 Date Range</label>
+                <label>📅 {{ _('Date Range') }}</label>
                 <div class="date-row" style="display: flex; gap: 10px; flex-wrap: wrap;">
                     <div style="flex: 1; min-width: 140px;">
-                        <label style="font-size: 0.7rem; color:#ddd; font-weight:normal; text-transform:none;">From:</label>
+                        <label style="font-size: 0.7rem; color:#ddd; font-weight:normal; text-transform:none;">{{ _('From:') }}</label>
                         <input type="date" id="exh_start_date" style="width:100%; box-sizing:border-box;" onclick="try{this.showPicker();}catch(e){}">
                     </div>
                     <div style="flex: 1; min-width: 140px;">
-                        <label style="font-size: 0.7rem; color:#ddd; font-weight:normal; text-transform:none;">To:</label>
+                        <label style="font-size: 0.7rem; color:#ddd; font-weight:normal; text-transform:none;">{{ _('To:') }}</label>
                         <input type="date" id="exh_end_date" style="width:100%; box-sizing:border-box;" onclick="try{this.showPicker();}catch(e){}">
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div style="display:flex; gap:15px; margin-top:20px;">
-            <button class="glass-btn" style="flex:1; background:#222; border-color:#444;" onclick="resetExhFilters(event)">🗑️ Reset</button>
-            <button class="glass-btn active-blue" style="flex:2;" onclick="applyExhFilters()">🚀 Apply Filters</button>
+            <button class="glass-btn" style="flex:1; background:#222; border-color:#444;" onclick="resetExhFilters(event)">🗑️ {{ _('Reset') }}</button>
+            <button class="glass-btn active-blue" style="flex:2;" onclick="applyExhFilters()">🚀 {{ _('Apply Filters') }}</button>
         </div>
     </div>
     
@@ -3085,7 +3109,7 @@ function renderMarkdownText(text) {
     // --- LOGOUT CONFIRMATION ---
     async function confirmLogout(event) {
         event.preventDefault();
-        const confirmed = await smartConfirm("🚪 Sign Out", "Are you sure you want to log out?");
+        const confirmed = await smartConfirm(t("🚪 Sign Out"), t("Are you sure you want to log out?"));
         if (confirmed) {
             window.location.href = "/galleryout/logout";
         }
@@ -3159,7 +3183,7 @@ function renderMarkdownText(text) {
         const status = document.getElementById('opt-status-layout');
         const btn = document.getElementById('opt-btn-layout');
         if (status) {
-            status.textContent = isExhListView ? 'LIST' : 'GRID';
+            status.textContent = isExhListView ? t('LIST') : t('GRID');
             status.style.color = isExhListView ? 'var(--success-color)' : 'var(--text-muted)';
         }
         if (btn) {
@@ -3186,7 +3210,7 @@ function renderMarkdownText(text) {
 
     // Global gallery and collection state
     let currentCollectionId = "{{ current_folder_info.collection_id if (current_folder_info and current_folder_info.get('collection_id')) else '' }}" || null;
-    let currentCollectionName = "{{ current_folder_info.display_name if (current_folder_info and current_folder_info.get('display_name')) else '' }}" || "All Collections";
+    let currentCollectionName = "{{ current_folder_info.display_name if (current_folder_info and current_folder_info.get('display_name')) else '' }}" || t('All Collections');
     let currentFiles = [], currentIndex = 0;
     let theaterPollingInterval = null;
     let displayedCount = 0, focusedGridIndex = -1;
@@ -3247,7 +3271,7 @@ function renderMarkdownText(text) {
         const targetText = document.getElementById('target-selected-text');
         if (targetInput && targetInput.value.startsWith('user:')) {
             targetInput.value = 'public';
-            if (targetText) targetText.innerHTML = '🌐 Public (Everyone)';
+            if (targetText) targetText.innerHTML = t('🌐 Public (Everyone)');
         }
     };
 
@@ -3280,7 +3304,7 @@ function renderMarkdownText(text) {
             ghostBtn.style.opacity = '1';
             ghostBtn.style.pointerEvents = 'auto';
             ghostBtn.style.transform = 'translateX(0)';
-            showNotification("Clean View enabled. Press 'H' or click the arrow to restore tools.", "info", 2000);
+            showNotification(t("Clean View enabled. Press 'H' or click the arrow to restore tools."), "info", 2000);
         } else {
             // Hide the ghost button
             ghostBtn.style.opacity = '0';
@@ -3332,7 +3356,7 @@ function renderMarkdownText(text) {
                 cachedUsersList = data.users;
                 container.innerHTML = cachedUsersList.map(u => {
                     const val = `user:${u.user_id}`;
-                    const txt = `👤 To: ${escapeHtml(u.full_name)} (@${escapeHtml(u.username)})`;
+                    const txt = `${t('👤 To:')} ${escapeHtml(u.full_name)} (@${escapeHtml(u.username)})`;
                     return `<div class="target-opt" data-value="${val}" onclick="selectTarget('${val}', '${txt}')">${txt}</div>`;
                 }).join('');
             }
@@ -3345,12 +3369,12 @@ function renderMarkdownText(text) {
     function setReplyTarget(uuid, authorName) {
         // Everyone can reply to Admin securely using 'internal'
         if (uuid === 'admin') {
-            selectTarget('internal', '🔒 Private (Staff Only)');
+            selectTarget('internal', t('🔒 Private (Staff Only)'));
         } 
         // Only Privileged users can reply directly to specific UUIDs
         else if (['ADMIN', 'MANAGER', 'STAFF'].includes(CURRENT_USER.role)) {
             const val = `user:${uuid}`;
-            const txt = `👤 To: ${authorName}`;
+            const txt = `${t('👤 To:')} ${authorName}`;
             
             // Dynamic injection if replying to a guest
             const dynamicContainer = document.getElementById('target-dynamic-users');
@@ -3522,11 +3546,11 @@ function renderMarkdownText(text) {
         overlay.onmousedown = (e) => { e.stopPropagation(); };
 
         overlay.innerHTML = `
-            <button class="ia-play-btn" title="Play/Pause">⏸</button>
+            <button class="ia-play-btn" title="${t('Play/Pause')}">⏸</button>
             <span class="ia-time current">00:00</span>
             <input type="range" class="ia-seek" min="0" max="100" value="0">
             <span class="ia-time total">00:00</span>
-            <button class="ia-close-btn" title="Close Player (Esc)">✕</button>
+            <button class="ia-close-btn" title="${t('Close Player (Esc)')}">✕</button>
         `;
 
         row.appendChild(overlay);
@@ -3738,9 +3762,9 @@ function renderMarkdownText(text) {
         const end = document.getElementById('exh_end_date').value;
         if (start && end && start > end) {
             if (typeof showNotification === 'function') {
-                showNotification('⚠️ Start Date cannot be after End Date.', 'error');
+                showNotification(t('⚠️ Start Date cannot be after End Date.'), 'error');
             } else {
-                alert('⚠️ Start Date cannot be after End Date.');
+                alert(t('⚠️ Start Date cannot be after End Date.'));
             }
             return;
         }
@@ -3850,8 +3874,8 @@ function renderMarkdownText(text) {
         grid.innerHTML = `
             <div class="empty-gallery">
                 <div class="empty-gallery-icon">📚</div>
-                <div class="empty-gallery-text">${isFiltered ? 'No results match your filters' : 'This gallery is empty'}</div>
-                <div class="empty-gallery-subtext">${isFiltered ? 'Try adjusting your search criteria' : 'No items to display in this collection'}</div>
+                <div class="empty-gallery-text">${isFiltered ? t('No results match your filters') : t('This gallery is empty')}</div>
+                <div class="empty-gallery-subtext">${isFiltered ? t('Try adjusting your search criteria') : t('No items to display in this collection')}</div>
             </div>
         `;
         const anchor = document.getElementById('load-more-anchor');
@@ -3889,12 +3913,12 @@ function renderMarkdownText(text) {
         const sizeItemEl = document.getElementById('opt-btn-size');
         if (sizeStatusEl && sizeItemEl) {
             if (gridSizePref === 'small') {
-                sizeStatusEl.textContent = "COMPACT";
+                sizeStatusEl.textContent = t("COMPACT");
                 sizeStatusEl.style.color = "var(--success-color)";
                 sizeItemEl.classList.add('active');
                 sizeItemEl.classList.remove('inactive');
             } else {
-                sizeStatusEl.textContent = "NORMAL";
+                sizeStatusEl.textContent = t("NORMAL");
                 sizeStatusEl.style.color = "var(--text-muted)";
                 sizeItemEl.classList.remove('active');
                 sizeItemEl.classList.add('inactive');
@@ -3905,12 +3929,12 @@ function renderMarkdownText(text) {
         const mobItemEl = document.getElementById('opt-btn-mobile-2col');
         if (mobStatusEl && mobItemEl) {
             if (mobileTwoCols) {
-                mobStatusEl.textContent = 'ON';
+                mobStatusEl.textContent = t('ON');
                 mobStatusEl.style.color = "var(--success-color)";
                 mobItemEl.classList.add('active');
                 mobItemEl.classList.remove('inactive');
             } else {
-                mobStatusEl.textContent = 'OFF';
+                mobStatusEl.textContent = t('OFF');
                 mobStatusEl.style.color = "var(--text-muted)";
                 mobItemEl.classList.remove('active');
                 mobItemEl.classList.add('inactive');
@@ -3999,7 +4023,7 @@ function renderMarkdownText(text) {
             // Update input placeholder to reflect identity
             const chatInput = document.getElementById('comment-input');
             if (chatInput) {
-                chatInput.placeholder = `Posting as ${CURRENT_USER.full_name}...`;
+                chatInput.placeholder = t('Posting as {name}...', {name: CURRENT_USER.full_name});
             }
         }
         const clearBtn = document.getElementById('search-clear-btn');
@@ -4053,7 +4077,7 @@ function renderMarkdownText(text) {
                 const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
                 if (macMediaEl && macMediaEl.tagName === 'VIDEO' && isMac && !e.shiftKey) {
                     if (!window.macDragHintShown) {
-                        showNotification("Hold 'Shift' + Drag to pan videos on macOS.", "info", 3000);
+                        showNotification(t("Hold 'Shift' + Drag to pan videos on macOS."), "info", 3000);
                         window.macDragHintShown = true;
                     }
                     return;
@@ -4141,13 +4165,13 @@ function renderMarkdownText(text) {
                 if (currentCollectionId !== 'all' && currentCollectionId !== null) {
                     const stillExists = allCollections.some(c => c.id == currentCollectionId && !c.restricted_access);
                     if (!stillExists) {
-                        showNotification("This collection is no longer accessible.", "warning");
-                        loadGallery('all', 'All Collections');
+                        showNotification(t("This collection is no longer accessible."), "warning");
+                        loadGallery('all', t('All Collections'));
                     } else if (activeCountChanged) {
                         loadGallery(currentCollectionId, document.getElementById('page-title').textContent);
                     }
                 } else if (currentCollectionId === 'all' && activeCountChanged) {
-                    loadGallery('all', 'All Collections');
+                    loadGallery('all', t('All Collections'));
                 }
             }
             
@@ -4156,7 +4180,7 @@ function renderMarkdownText(text) {
                 if (!window._initialGalleryLoaded) {
                     window._initialGalleryLoaded = true;
                     const targetId = currentCollectionId || 'all';
-                    const targetName = currentCollectionName || 'All Collections';
+                    const targetName = currentCollectionName || t('All Collections');
                     loadGallery(targetId, targetName);
                 }
             }
@@ -4176,8 +4200,8 @@ function renderMarkdownText(text) {
         grid.innerHTML = `
             <div class="empty-gallery">
                 <div class="empty-gallery-icon">📚</div>
-                <div class="empty-gallery-text">This gallery is empty</div>
-                <div class="empty-gallery-subtext">No items to display in this collection</div>
+                <div class="empty-gallery-text">${t('This gallery is empty')}</div>
+                <div class="empty-gallery-subtext">${t('No items to display in this collection')}</div>
             </div>
         `;
         // Ensure anchor is gone/reset
@@ -4385,7 +4409,7 @@ function renderMarkdownText(text) {
                                muted loop playsinline 
                                style="pointer-events:none; width:100%; height:auto; display:block;"
                                poster="/galleryout/thumbnail/${file.id}"></video>
-                        <div class="video-play-overlay" title="Play Preview" onclick="playVideoInGrid(event, this)">▶</div>
+                        <div class="video-play-overlay" title="${t('Play Preview')}" onclick="playVideoInGrid(event, this)">▶</div>
                     </div>`;
             } else if (file.type === 'audio') {
                 media = `
@@ -4424,19 +4448,19 @@ function renderMarkdownText(text) {
                 <div class="exh-list-index exh-list-only"></div>
                 ${media}
                 <div class="exh-info">
-                    <div class="exh-name" title="${escapeHtml(file.name)}" style="display:flex; align-items:center;"><span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1 1 auto; min-width:0;">${escapeHtml(file.name)}</span>${file.type === 'audio' ? ` <button class="inline-audio-btn" onclick="playInlineAudio(event, '${file.id}', this)" title="Play Audio">▶</button>` : ''}</div>
+                    <div class="exh-name" title="${escapeHtml(file.name)}" style="display:flex; align-items:center;"><span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1 1 auto; min-width:0;">${escapeHtml(file.name)}</span>${file.type === 'audio' ? ` <button class="inline-audio-btn" onclick="playInlineAudio(event, '${file.id}', this)" title="${t('Play Audio')}">▶</button>` : ''}</div>
                     <div class="exh-meta-row">
                         <div class="exh-meta-left">
-                            <div class="stars-outer" title="Rating">☆☆☆☆☆<div class="stars-inner" style="width:${starPct}%">★★★★★</div></div>
-                            <span class="vote-count" data-file-id="${file.id}" title="Total Votes">${file.vote_count || 0}</span>
-                            <span class="comment-count" title="Comments">💬 ${file.comment_count || 0}</span>
+                            <div class="stars-outer" title="${t('Rating')}">☆☆☆☆☆<div class="stars-inner" style="width:${starPct}%">★★★★★</div></div>
+                            <span class="vote-count" data-file-id="${file.id}" title="${t('Total Votes')}">${file.vote_count || 0}</span>
+                            <span class="comment-count" title="${t('Comments')}">💬 ${file.comment_count || 0}</span>
                             <span class="exh-list-only exh-size-col" style="color:var(--text-muted); font-size:0.85rem; text-align:right;">${sizeStr}</span>
                             <span class="exh-list-only exh-dims-col" style="color:var(--text-muted); font-size:0.85rem; text-align:center;">${dimsStr}</span>
                             <span class="exh-list-only exh-dur-col" style="color:var(--text-muted); font-size:0.85rem; text-align:center;">${durStr}</span>
                         </div>
                         <div class="exh-meta-right">
                             <span class="exh-date">${dateStr} ${timeStr}</span>
-                            <button class="exh-list-only exh-list-btn" onclick="event.stopPropagation(); openTheater(${absIdx});" title="View Media">👁️ View</button>
+                            <button class="exh-list-only exh-list-btn" onclick="event.stopPropagation(); openTheater(${absIdx});" title="${t('View Media')}">👁️ ${t('View')}</button>
                         </div>
                     </div>
                 </div>
@@ -4583,7 +4607,7 @@ function renderMarkdownText(text) {
         loaderDiv.className = 'theater-loader';
         
         const isGuest = !(['ADMIN', 'MANAGER', 'STAFF'].includes(CURRENT_USER.role));
-        const loadingMsg = isGuest ? "Preparing secure preview..." : "Loading media...";
+        const loadingMsg = isGuest ? t("Preparing secure preview...") : t("Loading media...");
         
         loaderDiv.innerHTML = `
             <div class="theater-spinner"></div>
@@ -4624,7 +4648,7 @@ function renderMarkdownText(text) {
                     if (typeof onMediaReady === 'function') onMediaReady();
                 })
                 .catch(() => {
-                    mediaEl.innerHTML = '<div style="color:var(--danger-color);text-align:center;padding:40px;">Failed to load document content.</div>';
+                    mediaEl.innerHTML = `<div style="color:var(--danger-color);text-align:center;padding:40px;">${t('Failed to load document content.')}</div>`;
                     if (typeof onMediaReady === 'function') onMediaReady();
                 });
         } else if (isVideo) {
@@ -4673,7 +4697,7 @@ function renderMarkdownText(text) {
                 
                 // Update loader text to inform the user
                 const statusText = loaderDiv.querySelector('.theater-loader-text');
-                if (statusText) statusText.textContent = "Repairing corrupted preview...";
+                if (statusText) statusText.textContent = t("Repairing corrupted preview...");
                 
                 // Append retry flag and cache-buster timestamp
                 const separator = mediaEl.src.includes('?') ? '&' : '?';
@@ -4688,9 +4712,9 @@ function renderMarkdownText(text) {
                 // Second attempt failed: show definitive error message
                 loaderDiv.innerHTML = `
                     <div style="color:var(--danger-color); font-weight:bold; padding: 20px;">
-                        ⚠️ Error Loading Media<br>
+                        ${t('⚠️ Error Loading Media')}<br>
                         <span style="font-size:0.8rem; font-weight:normal; color:#888;">
-                            The source file might be moved or corrupted.
+                            ${t('The source file might be moved or corrupted.')}
                         </span>
                     </div>
                 `;
@@ -4755,7 +4779,7 @@ function renderMarkdownText(text) {
         const ratingArea = document.getElementById('theater-rating-area');
         
         if (!list.hasChildNodes()) {
-            list.innerHTML = '<div style="color:#666; text-align:center; padding:20px;">Loading comments...</div>';
+            list.innerHTML = `<div style="color:#666; text-align:center; padding:20px;">${t('Loading comments...')}</div>`;
         }
         
         try {
@@ -4775,7 +4799,7 @@ function renderMarkdownText(text) {
 
             // 2. Generate Reset/Trash Button HTML if user has voted
             const resetBtnHtml = myRating > 0 ? 
-                `<button class="mobile-trash-btn" onclick="submitRating(0)" title="Delete Vote">🗑️</button>` : '';
+                `<button class="mobile-trash-btn" onclick="submitRating(0)" title="${t('Delete Vote')}">🗑️</button>` : '';
 
             // 3. Inject Responsive HTML Structure into #theater-rating-area
             // We use CSS media queries to show/hide the correct layout
@@ -4784,12 +4808,12 @@ function renderMarkdownText(text) {
                 <div class="desktop-rating-panel" style="background:rgba(255,255,255,0.03); padding:15px; border-radius:12px; border:1px solid #333; margin-top:15px;">
                      <div style="display:flex; justify-content:space-between; align-items:center;">
                         <div class="global-avg-row">
-                            <span class="global-label">Avg:</span>
+                            <span class="global-label">${t('Avg:')}</span>
                             <span class="global-val">${globalVotes > 0 ? `★ ${globalAvg.toFixed(1)}` : 'N/A'}</span>
-                            <span class="global-count">(${globalVotes} ${globalVotes === 1 ? 'vote' : 'votes'})</span>
+                            <span class="global-count">(${globalVotes} ${globalVotes === 1 ? t('vote') : t('votes')})</span>
                         </div>
                         <div style="display:flex; align-items:center; gap:10px;">
-                            <span style="font-size:0.8rem; text-transform:uppercase; color:#888;">My Rating:</span>
+                            <span style="font-size:0.8rem; text-transform:uppercase; color:#888;">${t('My Rating:')}</span>
                             <div class="interactive-stars" style="margin:0 !important; font-size:1.4rem !important;">${starsHtml}</div>
                             ${myRating > 0 ? '<button onclick="submitRating(0)" class="btn-reset-tiny">🗑️</button>' : ''}
                         </div>
@@ -4801,14 +4825,14 @@ function renderMarkdownText(text) {
                     <div class="mobile-rating-strip" style="padding: 8px 10px;">
                         <!-- Left Part: Global Average -->
                         <div class="mobile-rating-left" style="display: flex; align-items: center; gap: 4px;">
-                            <span style="font-size: 0.65rem; color: #888; text-transform: uppercase; font-weight: 700;">Avg:</span>
+                            <span style="font-size: 0.65rem; color: #888; text-transform: uppercase; font-weight: 700;">${t('Avg:')}</span>
                             <span class="mobile-rating-val">${globalVotes > 0 ? `★ ${globalAvg.toFixed(1)}` : '-'}</span>
                             <span style="font-size: 0.65rem; opacity: 0.6;">(${globalVotes})</span>
                         </div>
                         
                         <!-- Right Part: Personal Rating -->
                         <div class="mobile-rating-right" style="display: flex; align-items: center; gap: 6px;">
-                            <span style="font-size: 0.65rem; color: #888; text-transform: uppercase; font-weight: 700;">My:</span>
+                            <span style="font-size: 0.65rem; color: #888; text-transform: uppercase; font-weight: 700;">${t('My:')}</span>
                             <div class="interactive-stars" style="font-size: 1.4rem !important; margin:0 !important; gap:3px !important;">
                                 ${starsHtml}
                             </div>
@@ -4827,7 +4851,7 @@ function renderMarkdownText(text) {
             
             // 5. Render Messages
             if (data.comments.length === 0) {
-                list.innerHTML = '<div style="color:#555; text-align:center; padding:30px; font-size:0.9rem;">No comments yet. Be the first!</div>';
+                list.innerHTML = `<div style="color:#555; text-align:center; padding:30px; font-size:0.9rem;">${t('No comments yet. Be the first!')}</div>`;
             } else {
                 const prevScroll = list.scrollTop; // Maintains scroll position during polling
                 list.innerHTML = '';
@@ -4856,20 +4880,20 @@ function renderMarkdownText(text) {
                     const target = c.target_audience || 'public';
                     
                     if (target === 'internal') {
-                        const badgeText = isPrivilegedSession ? '🔒 Internal' : '🔒 Private (Staff Only)';
+                        const badgeText = isPrivilegedSession ? t('🔒 Internal') : t('🔒 Private (Staff Only)');
                         badgeHtml = `<div class="msg-badge internal">${badgeText}</div>`;
                     } else if (target.startsWith('user:')) {
-                        const tName = c.target_user_name ? escapeHtml(c.target_user_name) : 'User';
-                        badgeHtml = `<div class="msg-badge user">👤 To: ${tName}</div>`;
+                        const tName = c.target_user_name ? escapeHtml(c.target_user_name) : t('User');
+                        badgeHtml = `<div class="msg-badge user">${t('👤 To:')} ${tName}</div>`;
                     } else if (target === 'public') {
-                        badgeHtml = '<div class="msg-badge public">🌐 Public</div>';
+                        badgeHtml = `<div class="msg-badge public">${t('🌐 Public')}</div>`;
                     }
                     
                     // Show edit button only if owner
-                    const editBtn = canEdit ? `<span onclick="editComment(${c.id}, \`${safeText}\`)" style="cursor:pointer; color:var(--primary-color); margin-left:5px;" title="Edit">✏️</span>` : '';
+                    const editBtn = canEdit ? `<span onclick="editComment(${c.id}, \`${safeText}\`)" style="cursor:pointer; color:var(--primary-color); margin-left:5px;" title="${t('Edit')}">✏️</span>` : '';
                     
                     // Show delete button if owner OR Admin
-                    const deleteBtn = canDelete ? `<span onclick="deleteComment(${c.id})" style="cursor:pointer; color:var(--danger-color); margin-left:5px;" title="Delete">🗑️</span>` : '';
+                    const deleteBtn = canDelete ? `<span onclick="deleteComment(${c.id})" style="cursor:pointer; color:var(--danger-color); margin-left:5px;" title="${t('Delete')}">🗑️</span>` : '';
                     
                     const dateObj = new Date(c.created_at * 1000);
                     const dateStr = dateObj.toLocaleString([], {
@@ -4884,10 +4908,10 @@ function renderMarkdownText(text) {
                     // OR if the author is an Admin (anyone can reply to admin via 'internal')
                     const canReplyDirectly = isPrivilegedSession || isAdminComment;
                     
-                    let authorSpanHtml = `<span>${isAdminComment ? '🛡️ STAFF' : escapeHtml(c.author_name)} ${isMine ? '(You)' : ''}</span>`;
+                    let authorSpanHtml = `<span>${isAdminComment ? t('🛡️ STAFF') : escapeHtml(c.author_name)} ${isMine ? t('(You)') : ''}</span>`;
                     
                     if (canReplyDirectly && !isMine) {
-                        authorSpanHtml = `<span class="reply-author-name" onclick="setReplyTarget('${c.client_uuid}', '${safeAuthorStr}')" title="Click to reply">${isAdminComment ? '🛡️ STAFF' : escapeHtml(c.author_name)}</span>`;
+                        authorSpanHtml = `<span class="reply-author-name" onclick="setReplyTarget('${c.client_uuid}', '${safeAuthorStr}')" title="${t('Click to reply')}">${isAdminComment ? t('🛡️ STAFF') : escapeHtml(c.author_name)}</span>`;
                     }
 
                     div.innerHTML = `
@@ -4911,7 +4935,7 @@ function renderMarkdownText(text) {
             const overlay = document.getElementById('theater-overlay');
             if (mobBtn && !overlay.classList.contains('comments-maximized')) {
                 const cCount = data.comments.length;
-                mobBtn.innerHTML = cCount > 0 ? `💬 Show Comments (${cCount})` : `💬 Add a Comment`;
+                mobBtn.innerHTML = cCount > 0 ? t('💬 Show Comments ({n})', {n: cCount}) : t('💬 Add a Comment');
             }
             // ------------------------------------------------
 
@@ -4969,11 +4993,11 @@ function renderMarkdownText(text) {
         ).join('');
 
         const popupHtml = `
-            <h3 style="margin:0 0 15px 0; color:white; font-size:1.1rem; border-bottom:1px solid #333; padding-bottom:10px;">Assigned Collections</h3>
+            <h3 style="margin:0 0 15px 0; color:white; font-size:1.1rem; border-bottom:1px solid #333; padding-bottom:10px;">${t('Assigned Collections')}</h3>
             <div style="max-height: 40vh; overflow-y: auto; margin-bottom: 15px;">
                 ${listHtml}
             </div>
-            <button onclick="closeSmartAlert()" class="send-btn-premium" style="width:100%; height:45px;">Close</button>
+            <button onclick="closeSmartAlert()" class="send-btn-premium" style="width:100%; height:45px;">${t('Close')}</button>
         `;
         
         const alertBox = document.querySelector('#smart-alert-overlay > div');
@@ -4989,7 +5013,7 @@ function renderMarkdownText(text) {
         
         // 1. Basic validation: message cannot be empty
         if (!text) { 
-            smartAlert('Please enter a comment');
+            smartAlert(t('Please enter a comment'));
             return; 
         }
         
@@ -5003,10 +5027,10 @@ function renderMarkdownText(text) {
             // Guest Logic: Require a nickname if not already set in this session or localStorage
             if (!userName) {
                 // Use the new styled async Smart Dialog instead of the native browser prompt
-                const newNick = await smartPrompt("👤 Identification Required", "Please enter a name to post comments:", "");
+                const newNick = await smartPrompt(t("👤 Identification Required"), t("Please enter a name to post comments:"), "");
                 
                 if (!newNick || newNick.trim().length < 2) {
-                    smartAlert('A valid nickname (at least 2 characters) is required to post.');
+                    smartAlert(t('A valid nickname (at least 2 characters) is required to post.'));
                     return;
                 }
                 
@@ -5057,7 +5081,7 @@ function renderMarkdownText(text) {
                 // Smart Error Handling for multi-admin collisions
                 try {
                     const errorData = await res.json();
-                    smartAlert(errorData.message || 'Failed to post comment. Server rejected the request.');
+                    smartAlert(errorData.message || t('Failed to post comment. Server rejected the request.'));
                     
                     // If target was deleted by another admin, clean UI cache automatically
                     if (errorData.message && errorData.message.includes('deleted')) {
@@ -5066,12 +5090,12 @@ function renderMarkdownText(text) {
                         }
                     }
                 } catch (parseErr) {
-                    smartAlert('Failed to post comment. Server rejected the request.');
+                    smartAlert(t('Failed to post comment. Server rejected the request.'));
                 }
             }
         } catch(e) {
             console.error('Error posting comment:', e);
-            smartAlert('Failed to post comment. Please try again.');
+            smartAlert(t('Failed to post comment. Please try again.'));
         }
     }
 
@@ -5102,11 +5126,11 @@ function renderMarkdownText(text) {
         editUI.style.cssText = 'background:var(--surface-color); border:1px solid var(--border-color); border-radius:16px; padding:25px; max-width:600px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,0.9);';
         
         editUI.innerHTML = `
-            <h3 style="margin:0 0 15px 0; color:white; font-size:1.1rem;">✏️ Edit Comment</h3>
+            <h3 style="margin:0 0 15px 0; color:white; font-size:1.1rem;">${t('✏️ Edit Comment')}</h3>
             <textarea id="edit-comment-textarea" class="chat-input" rows="5" style="width:100%; margin-bottom:15px; min-height:120px;">${escapeHtml(currentText)}</textarea>
             <div style="display:flex; gap:10px;">
-                <button onclick="saveEditedComment(${commentId}, '${safeOriginalText}');" class="send-btn-premium" style="flex:1;">💾 Save Changes</button>
-                <button onclick="closeEditComment();" class="send-btn-premium" style="flex:1; background:var(--surface-hover); border:1px solid var(--border-color);">✕ Cancel</button>
+                <button onclick="saveEditedComment(${commentId}, '${safeOriginalText}');" class="send-btn-premium" style="flex:1;">${t('💾 Save Changes')}</button>
+                <button onclick="closeEditComment();" class="send-btn-premium" style="flex:1; background:var(--surface-hover); border:1px solid var(--border-color);">${t('✕ Cancel')}</button>
             </div>
         `;
         
@@ -5154,11 +5178,11 @@ function renderMarkdownText(text) {
                 // Optional: visual feedback
                 // smartAlert('Comment updated'); 
             } else {
-                smartAlert('Failed to edit comment');
+                smartAlert(t('Failed to edit comment'));
             }
         } catch(e) {
             console.error('Error editing comment:', e);
-            smartAlert('Failed to edit comment. Please try again.');
+            smartAlert(t('Failed to edit comment. Please try again.'));
         }
     }
     
@@ -5209,7 +5233,7 @@ function renderMarkdownText(text) {
             }
         } catch(e) {
             console.error('Error submitting rating:', e);
-            smartAlert("Error saving rating. Check connection.");
+            smartAlert(t("Error saving rating. Check connection."));
         }
     }
     
@@ -5223,7 +5247,7 @@ function renderMarkdownText(text) {
         if (isClosed) {
             btn.style.borderColor = "white";
             btn.style.color = "white";
-            showNotification("Panel closed. Press 'G' to reopen.", "info", 2000);
+            showNotification(t("Panel closed. Press 'G' to reopen."), "info", 2000);
         } else {
             btn.style.borderColor = "var(--favorite-color)";
             btn.style.color = "var(--favorite-color)";
@@ -5237,7 +5261,7 @@ function renderMarkdownText(text) {
         const isMaximized = overlay.classList.toggle('comments-maximized');
         
         if (isMaximized) {
-            btn.innerHTML = `🔽 Hide Comments & Chat`;
+            btn.innerHTML = `${t('🔽 Hide Comments & Chat')}`;
             btn.style.background = "var(--primary-color)";
             btn.style.borderColor = "var(--primary-color)";
             // Scroll list to bottom
@@ -5249,7 +5273,7 @@ function renderMarkdownText(text) {
             // Restore text based on count
             const list = document.getElementById('comments-list');
             const count = list.querySelectorAll('.comment-bubble').length;
-            btn.innerHTML = count > 0 ? `💬 Show Comments (${count})` : `💬 Add a Comment`;
+            btn.innerHTML = count > 0 ? t('💬 Show Comments ({n})', {n: count}) : t('💬 Add a Comment');
             btn.style.background = "#222";
             btn.style.borderColor = "#444";
         }
@@ -5507,15 +5531,15 @@ function renderMarkdownText(text) {
         allLi.innerHTML = `
             <span style="flex-shrink:0; width:15px; display:inline-block; margin-right:5px;"></span>
             <span style="flex-shrink:0; font-size:1.05rem; margin-right:8px;">🌈</span> 
-            <span class="nav-text-wrapper" style="font-weight: bold;">All Collections</span>
-            ${Number(allCollectionsCount) > 0 ? `<span class="collection-count" title="${allCollectionsCount} unique files">${allCollectionsCount}</span>` : ''}
+            <span class="nav-text-wrapper" style="font-weight: bold;">${t('All Collections')}</span>
+            ${Number(allCollectionsCount) > 0 ? `<span class="collection-count" title="${t('{n} unique files', {n: allCollectionsCount})}">${allCollectionsCount}</span>` : ''}
         `;
         allLi.onclick = () => { 
             activeSortCriteria = 'date';
             activeSortOrder = 'desc';
             updateSortUI();
             if (document.getElementById('sort-select')) document.getElementById('sort-select').value = 'date_desc';
-            loadGallery('all', 'All Collections', allLi); 
+            loadGallery('all', t('All Collections'), allLi); 
             if(window.innerWidth <= 1024) toggleMenu(); 
         };
         list.appendChild(allLi);
@@ -5554,8 +5578,8 @@ function renderMarkdownText(text) {
                 let iconStr = col.restricted_access ? "🔒" : (col.is_shared_access ? "👥" : "📚");
                 // Add tooltip for ADMIN users to see who the collection is shared with
                 if (col.is_shared_access && CURRENT_USER.role === 'ADMIN') {
-                    let sharedNames = col.shared_user_names ? col.shared_user_names : 'selected users';
-                    iconStr = `<span title="Shared with: ${escapeHtml(sharedNames)}" style="cursor:help;">👥</span>`;
+                    let sharedNames = col.shared_user_names ? col.shared_user_names : t('selected users');
+                    iconStr = `<span title="${t('Shared with: {name}', {name: escapeHtml(sharedNames)})}" style="cursor:help;">👥</span>`;
                 }
                 let hasNotes = col.note_count > 0 && !col.restricted_access;
                 let textStyle = hasNotes ? "color: var(--favorite-color); font-weight: bold;" : (col.is_shared_access ? "color: var(--favorite-color);" : (col.restricted_access ? "color: var(--text-muted); opacity: 0.6;" : ""));
@@ -5580,9 +5604,9 @@ function renderMarkdownText(text) {
                     <span class="exh-col-toggle" style="cursor:pointer; font-weight:bold; width:15px; display:inline-block; flex-shrink:0; text-align:center; color:var(--text-muted); margin-right:5px;">${toggleIcon}</span>
                     <span style="flex-shrink:0; font-size:1.05rem; margin-right:8px;">${iconStr}</span> 
                     <span class="nav-text-wrapper" style="${textStyle} ${col.restricted_access ? 'cursor:pointer;' : ''}">${escapeHtml(col.name)}</span>
-                    ${!col.restricted_access && Number(col.file_count) > 0 ? `<span class="collection-count" title="${col.file_count} directly tagged files">${col.file_count}</span>` : ''}
-                    ${hasChildren && !isExpanded && Number(col.descendant_file_count) > 0 ? `<span class="collection-count collection-count-descendant" title="${col.descendant_file_count} unique files in sub-collections">+${col.descendant_file_count}</span>` : ''}
-                    ${!col.restricted_access ? `<button class="nav-expand-btn" title="Show full name" onclick="showFullName(event, '${safeName}')">•••</button>` : ''}
+                    ${!col.restricted_access && Number(col.file_count) > 0 ? `<span class="collection-count" title="${t('{n} directly tagged files', {n: col.file_count})}">${col.file_count}</span>` : ''}
+                    ${hasChildren && !isExpanded && Number(col.descendant_file_count) > 0 ? `<span class="collection-count collection-count-descendant" title="${t('{n} unique files in sub-collections', {n: col.descendant_file_count})}">+${col.descendant_file_count}</span>` : ''}
+                    ${!col.restricted_access ? `<button class="nav-expand-btn" title="${t('Show full name')}" onclick="showFullName(event, '${safeName}')">•••</button>` : ''}
                 `;
                 
                 li.appendChild(itemDiv);
@@ -5683,9 +5707,9 @@ function renderMarkdownText(text) {
         popup.id = 'fullname-popup';
         popup.className = 'visible';
         popup.innerHTML = `
-            <h4 style="margin:0; color:var(--primary-color); text-transform:uppercase; font-size:0.8rem;">Full Name</h4>
+            <h4 style="margin:0; color:var(--primary-color); text-transform:uppercase; font-size:0.8rem;">${t('Full Name')}</h4>
             <div id="fullname-text">${text}</div>
-            <button class="glass-btn" onclick="closeFullNamePopup()">Close</button>
+            <button class="glass-btn" onclick="closeFullNamePopup()">${t('Close')}</button>
         `;
         
         // Close on background click (overlay effect)
@@ -5707,7 +5731,7 @@ function renderMarkdownText(text) {
 
     async function deleteComment(id) {
         // STYLE UPGRADE: Using SmartConfirm
-        const confirmed = await smartConfirm("🗑️ Delete Comment?", "This comment will be permanently removed. Proceed?");
+        const confirmed = await smartConfirm(t("🗑️ Delete Comment?"), t("This comment will be permanently removed. Proceed?"));
         if (!confirmed) return;
         
         try { 
@@ -5760,20 +5784,20 @@ function renderMarkdownText(text) {
         if (!button) return;
         button.classList.toggle('filter-active', catNonEmptyOnly);
         button.setAttribute('aria-pressed', String(catNonEmptyOnly));
-        button.title = catNonEmptyOnly ? 'Show all collections' : 'Show only non-empty collections';
+        button.title = catNonEmptyOnly ? t('Show all collections') : t('Show only non-empty collections');
         button.setAttribute('aria-label', button.title);
     }
     
     async function changeNickname() { 
         // STYLE UPGRADE: Using SmartPrompt
-        const newName = await smartPrompt("👤 User Profile", "Enter your nickname for comments:", userName);
+        const newName = await smartPrompt(t("👤 User Profile"), t("Enter your nickname for comments:"), userName);
         
         if(newName && newName.trim().length >= 2) { 
             userName = newName.trim(); 
             localStorage.setItem('sg_user_nickname', userName); 
-            showNotification("Nickname updated!", "success");
+            showNotification(t("Nickname updated!"), "success");
         } else if (newName !== null) {
-            smartAlert('Nickname must be at least 2 characters');
+            smartAlert(t('Nickname must be at least 2 characters'));
         }
     }
     
@@ -5860,12 +5884,12 @@ function renderMarkdownText(text) {
                 
                 if (activeSortCriteria === 'unrated' || activeSortCriteria === 'uncommented') {
                     arrow.textContent = '∅';
-                    btn.title = `Showing: Not ${criteria === 'rating' ? 'Rated' : 'Commented'}`;
+                    btn.title = criteria === 'rating' ? t('Showing: Not Rated') : t('Showing: Not Commented');
                 } else {
                     arrow.textContent = (activeSortOrder === 'asc') ? '↑' : '↓';
-                    const dirText = (activeSortOrder === 'asc') ? 'Ascending' : 'Descending';
+                    const dirText = (activeSortOrder === 'asc') ? t('Ascending') : t('Descending');
                     const label = btn.querySelector('span:first-child').textContent;
-                    btn.title = `Currently sorted by ${label} (${dirText})`;
+                    btn.title = t('Currently sorted by {label} ({dir})', {label: label, dir: dirText});
                 }
             } else {
                 btn.classList.remove('active');
@@ -5979,7 +6003,7 @@ function renderMarkdownText(text) {
             const countBadge = document.getElementById('file-count-total');
             if (countBadge) {
                 const filteredCount = currentFiles.length;
-                countBadge.textContent = `📂 ${filteredCount} ${filteredCount === 1 ? 'Item' : 'Items'}`;
+                countBadge.textContent = `📂 ${filteredCount} ${filteredCount === 1 ? t('Item') : t('Items')}`;
             }
 
             displayedCount = 0; 
@@ -6137,23 +6161,23 @@ function renderMarkdownText(text) {
     <div id="custom-media-player" class="custom-player-wrapper">
         <div class="cp-progress-container">
             <div id="cp-waveform" class="cp-waveform-bg"></div>
-            <input type="range" id="cp-seekbar" class="cp-range" min="0" max="100" value="0" step="0.1" title="Seek">
+            <input type="range" id="cp-seekbar" class="cp-range" min="0" max="100" value="0" step="0.1" title="{{ _('Seek') }}">
         </div>
         <div class="cp-controls">
             <div style="display: flex; align-items: center; gap: 5px;">
-                <button id="cp-skip-back" class="cp-btn" title="Rewind 5s (Left Arrow)">↺</button>
-                <button id="cp-play-pause" class="cp-btn cp-play-btn" title="Play/Pause (Space)">⏸</button>
-                <button id="cp-skip-forward" class="cp-btn" title="Forward 5s (Right Arrow)">↻</button>
+                <button id="cp-skip-back" class="cp-btn" title="{{ _('Rewind 5s (Left Arrow)') }}">↺</button>
+                <button id="cp-play-pause" class="cp-btn cp-play-btn" title="{{ _('Play/Pause (Space)') }}">⏸</button>
+                <button id="cp-skip-forward" class="cp-btn" title="{{ _('Forward 5s (Right Arrow)') }}">↻</button>
                 <div id="cp-time-display" class="cp-time">00:00 / 00:00</div>
             </div>
             <div style="display: flex; gap: 10px; margin-left: auto;">
             <div class="cp-volume-wrapper" id="cp-wave-ctrl" style="display: none; margin-left: 0;">
-                <span style="font-size: 0.9rem; margin-right: 4px; cursor: help;" title="Waveform Amplitude">🌊</span>
-                <input type="range" id="cp-wave-slider" class="cp-vol-range" min="0.1" max="10.0" value="1.0" step="0.1" title="Waveform Amplitude">
+                <span style="font-size: 0.9rem; margin-right: 4px; cursor: help;" title="{{ _('Waveform Amplitude') }}">🌊</span>
+                <input type="range" id="cp-wave-slider" class="cp-vol-range" min="0.1" max="10.0" value="1.0" step="0.1" title="{{ _('Waveform Amplitude') }}">
             </div>
             <div class="cp-volume-wrapper" style="margin-left: 0;">
-                <button id="cp-mute-btn" class="cp-btn" style="width: 28px; height: 28px; font-size: 1rem;" title="Mute (M)">🔊</button>
-                <input type="range" id="cp-volume-slider" class="cp-vol-range" min="0" max="1" value="1" step="0.05" title="Volume">
+                <button id="cp-mute-btn" class="cp-btn" style="width: 28px; height: 28px; font-size: 1rem;" title="{{ _('Mute (M)') }}">🔊</button>
+                <input type="range" id="cp-volume-slider" class="cp-vol-range" min="0" max="1" value="1" step="0.05" title="{{ _('Volume') }}">
             </div>
             </div>
         </div>
@@ -6394,15 +6418,15 @@ function renderMarkdownText(text) {
     
     <!-- DETACHED SORT MENUS (EXHIBITION) -->
     <div id="exh-rating-menu" class="sort-popover">
-        <button onclick="applyExhSpecificSort('rating', 'desc')" id="btn-sort-rating-desc"><span>⭐ Highest Rated</span> <span>↓</span></button>
-        <button onclick="applyExhSpecificSort('rating', 'asc')" id="btn-sort-rating-asc"><span>⭐ Lowest Rated</span> <span>↑</span></button>
-        <button onclick="applyExhSpecificSort('unrated', 'desc')" id="btn-sort-unrated-desc"><span>∅ Not Rated</span> <span>-</span></button>
+        <button onclick="applyExhSpecificSort('rating', 'desc')" id="btn-sort-rating-desc"><span>⭐ {{ _('Highest Rated') }}</span> <span>↓</span></button>
+        <button onclick="applyExhSpecificSort('rating', 'asc')" id="btn-sort-rating-asc"><span>⭐ {{ _('Lowest Rated') }}</span> <span>↑</span></button>
+        <button onclick="applyExhSpecificSort('unrated', 'desc')" id="btn-sort-unrated-desc"><span>∅ {{ _('Not Rated') }}</span> <span>-</span></button>
     </div>
     <div id="exh-comments-menu" class="sort-popover">
-        <button onclick="applyExhSpecificSort('latestcomment', 'desc')" id="btn-sort-latestcomment-desc"><span>🕒 Newest Comments</span> <span>↓</span></button>
-        <button onclick="applyExhSpecificSort('comments', 'desc')" id="btn-sort-comments-desc"><span>💬 Most Discussed</span> <span>↓</span></button>
-        <button onclick="applyExhSpecificSort('comments', 'asc')" id="btn-sort-comments-asc"><span>💬 Least Discussed</span> <span>↑</span></button>
-        <button onclick="applyExhSpecificSort('uncommented', 'desc')" id="btn-sort-uncommented-desc"><span>∅ No Comments</span> <span>-</span></button>
+        <button onclick="applyExhSpecificSort('latestcomment', 'desc')" id="btn-sort-latestcomment-desc"><span>🕒 {{ _('Newest Comments') }}</span> <span>↓</span></button>
+        <button onclick="applyExhSpecificSort('comments', 'desc')" id="btn-sort-comments-desc"><span>💬 {{ _('Most Discussed') }}</span> <span>↓</span></button>
+        <button onclick="applyExhSpecificSort('comments', 'asc')" id="btn-sort-comments-asc"><span>💬 {{ _('Least Discussed') }}</span> <span>↑</span></button>
+        <button onclick="applyExhSpecificSort('uncommented', 'desc')" id="btn-sort-uncommented-desc"><span>∅ {{ _('No Comments') }}</span> <span>-</span></button>
     </div>
 
 
@@ -6456,7 +6480,7 @@ function renderMarkdownText(text) {
             
             const collId = (typeof currentCollectionId !== 'undefined' && currentCollectionId) ? currentCollectionId : 'all';
             const titleEl = document.getElementById('page-title');
-            const pageTitle = titleEl ? titleEl.textContent : 'Gallery';
+            const pageTitle = titleEl ? titleEl.textContent : t('Gallery');
             
             if (typeof loadGalleryInternal === 'function') {
                 loadGalleryInternal(collId, pageTitle);
@@ -6469,62 +6493,62 @@ function renderMarkdownText(text) {
     <!-- EXHIBITION FILTER PANEL -->
     <div class="search-overlay-panel" id="exh-search-panel">
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #333; padding-bottom:15px; margin-bottom:10px;">
-            <h3 style="margin:0; color:white; font-size:1.2rem;">🔍 Filter Gallery</h3>
+            <h3 style="margin:0; color:white; font-size:1.2rem;">🔍 {{ _('Filter Gallery') }}</h3>
             <button onclick="document.getElementById('exh-search-panel').classList.remove('visible')" style="background:none; border:none; color:#888; font-size:1.5rem; cursor:pointer;">×</button>
         </div>
         
         <div class="filter-form-grid">
             <div class="filter-group">
-                <label>Search Scope</label>
+                <label>{{ _('Search Scope') }}</label>
                 <div class="scope-options">
                     <label class="scope-label active" id="lbl-scope-local">
-                        <input type="radio" name="exh_scope" value="local" checked onchange="updateExhScopeUI()"> 📂 Current
+                        <input type="radio" name="exh_scope" value="local" checked onchange="updateExhScopeUI()"> 📂 {{ _('Current') }}
                     </label>
                     <label class="scope-label" id="lbl-scope-global">
-                        <input type="radio" name="exh_scope" value="global" onchange="updateExhScopeUI()"> 🌐 All Collections
+                        <input type="radio" name="exh_scope" value="global" onchange="updateExhScopeUI()"> 🌐 {{ _('All Collections') }}
                     </label>
                 </div>
                 <label class="recursive-wrapper" id="exh-recursive-wrapper">
                     <input type="checkbox" id="exh_recursive" onchange="this.parentElement.classList.toggle('active', this.checked); refreshExhExtensions();">
-                    <span>📂 Include Sub-Collections</span>
+                    <span>📂 {{ _('Include Sub-Collections') }}</span>
                 </label>
             </div>
-            
+
             <div class="filter-group">
-                <label>🔍 Smart File Search</label>
-                <div class="filter-hint">Use <code>,</code> for AND, <code>;</code> for OR. Prefix with <code>!</code> to exclude.</div>
-                <input type="text" id="exh_search_name" placeholder="Search filenames...">
+                <label>🔍 {{ _('Smart File Search') }}</label>
+                <div class="filter-hint">{{ _('Use') }} <code>,</code> {{ _('for AND,') }} <code>;</code> {{ _('for OR. Prefix with') }} <code>!</code> {{ _('to exclude.') }}</div>
+                <input type="text" id="exh_search_name" placeholder="{{ _('Search filenames...') }}">
             </div>
-            
+
             <div class="filter-group">
-                <label>📄 Extensions</label>
+                <label>📄 {{ _('Extensions') }}</label>
                 <div class="c-multi-select">
                     <button type="button" class="c-select-trigger" onclick="toggleCustomDropdown(event, 'exh-dropdown-ext')">
-                        <span class="trigger-text">Select extensions...</span>
+                        <span class="trigger-text">{{ _('Select extensions...') }}</span>
                         <span class="c-select-counter" id="exh-count-ext">0</span>
                     </button>
                     <div class="c-dropdown-menu" id="exh-dropdown-ext"></div>
                 </div>
             </div>
-            
+
             <div class="filter-group">
-                <label>📅 Date Range</label>
+                <label>📅 {{ _('Date Range') }}</label>
                 <div class="date-row" style="display: flex; gap: 10px; flex-wrap: wrap;">
                     <div style="flex: 1; min-width: 140px;">
-                        <label style="font-size: 0.7rem; color:#ddd; font-weight:normal; text-transform:none;">From:</label>
+                        <label style="font-size: 0.7rem; color:#ddd; font-weight:normal; text-transform:none;">{{ _('From:') }}</label>
                         <input type="date" id="exh_start_date" style="width:100%; box-sizing:border-box;" onclick="try{this.showPicker();}catch(e){}">
                     </div>
                     <div style="flex: 1; min-width: 140px;">
-                        <label style="font-size: 0.7rem; color:#ddd; font-weight:normal; text-transform:none;">To:</label>
+                        <label style="font-size: 0.7rem; color:#ddd; font-weight:normal; text-transform:none;">{{ _('To:') }}</label>
                         <input type="date" id="exh_end_date" style="width:100%; box-sizing:border-box;" onclick="try{this.showPicker();}catch(e){}">
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div style="display:flex; gap:15px; margin-top:20px;">
-            <button class="glass-btn" style="flex:1; background:#222; border-color:#444;" onclick="resetExhFilters(event)">🗑️ Reset</button>
-            <button class="glass-btn active-blue" style="flex:2;" onclick="applyExhFilters()">🚀 Apply Filters</button>
+            <button class="glass-btn" style="flex:1; background:#222; border-color:#444;" onclick="resetExhFilters(event)">🗑️ {{ _('Reset') }}</button>
+            <button class="glass-btn active-blue" style="flex:2;" onclick="applyExhFilters()">🚀 {{ _('Apply Filters') }}</button>
         </div>
     </div>
     
@@ -6565,7 +6589,7 @@ function renderMarkdownText(text) {
 <div id="exh-notes-overlay" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:9999; display:none; justify-content:center; align-items:center;">
     <div style="background:var(--surface-color); border:1px solid var(--favorite-color); border-top:4px solid var(--favorite-color); border-radius:16px; width:750px; max-width:95vw; height:85vh; padding:25px; box-shadow:0 20px 60px rgba(0,0,0,0.9); display:flex; flex-direction:column; gap:15px; overscroll-behavior:contain;">
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px;">
-            <h3 style="margin:0; color:white; display:flex; align-items:center; gap:10px;">📝 Collection Notes</h3>
+            <h3 style="margin:0; color:white; display:flex; align-items:center; gap:10px;">{{ _('📝 Collection Notes') }}</h3>
             <button onclick="closeExhNotesModal()" style="background:none; border:none; color:var(--text-muted); font-size:1.8rem; cursor:pointer;">×</button>
         </div>
         
@@ -6576,10 +6600,10 @@ function renderMarkdownText(text) {
 
         <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; border-top:1px solid rgba(255,255,255,0.1); padding-top:12px;">
             <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-                <button class="send-btn-premium" onclick="openExhNoteInTheater()" style="font-size:0.85rem; height:40px; background:#2a2a2a; border: 1px solid #444; color:white;">⭐/💬 Rate & Comment Note</button>
-                <a class="send-btn-premium" id="exh-notes-download-btn" href="#" download style="font-size:0.85rem; height:40px; text-decoration:none; background:var(--surface-hover); border:1px solid var(--border-color);">💾 Download Note</a>
+                <button class="send-btn-premium" onclick="openExhNoteInTheater()" style="font-size:0.85rem; height:40px; background:#2a2a2a; border: 1px solid #444; color:white;">{{ _('⭐/💬 Rate & Comment Note') }}</button>
+                <a class="send-btn-premium" id="exh-notes-download-btn" href="#" download style="font-size:0.85rem; height:40px; text-decoration:none; background:var(--surface-hover); border:1px solid var(--border-color);">{{ _('💾 Download Note') }}</a>
             </div>
-            <button class="send-btn-premium" style="background:#222; border:1px solid #444; height:40px;" onclick="closeExhNotesModal()">Close</button>
+            <button class="send-btn-premium" style="background:#222; border:1px solid #444; height:40px;" onclick="closeExhNotesModal()">{{ _('Close') }}</button>
         </div>
     </div>
 </div>
@@ -6654,7 +6678,7 @@ function renderExhNoteView() {
     fetch(`/galleryout/file/${currentNote.id}`)
         .then(r => r.text())
         .then(text => { contentBox.innerHTML = renderMarkdownText(text); })
-        .catch(() => { contentBox.innerHTML = '<div style="color:red; text-align:center;">Failed to load note content.</div>'; });
+        .catch(() => { contentBox.innerHTML = `<div style="color:red; text-align:center;">${t('Failed to load note content.')}</div>`; });
 
     const dlBtn = document.getElementById('exh-notes-download-btn');
     if (dlBtn) dlBtn.href = `/galleryout/download/${currentNote.id}`;
@@ -6685,7 +6709,7 @@ function openExhNoteInTheater() {
         if (overlay) overlay.classList.add('comments-maximized');
         const mobBtn = document.getElementById('mob-toggle-comments-btn');
         if (mobBtn) {
-            mobBtn.innerHTML = `🔽 Hide Comments & Chat`;
+            mobBtn.innerHTML = `${t('🔽 Hide Comments & Chat')}`;
             mobBtn.style.background = "var(--primary-color)";
             mobBtn.style.borderColor = "var(--primary-color)";
         }

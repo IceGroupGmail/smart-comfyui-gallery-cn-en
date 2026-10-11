@@ -689,6 +689,32 @@ def management_api_only(f):
 # --- FLASK APP INITIALIZATION ---
 app = Flask(__name__, static_folder='templates', static_url_path='/static')
 app.secret_key = SECRET_KEY
+
+# __SG_I18N_PATCH__
+from i18n import detect_lang as _i18n_detect_lang, translate as _i18n_translate, get_dict as _i18n_get_dict
+
+@app.context_processor
+def inject_i18n():
+    lang = _i18n_detect_lang(session, request)
+    def _(key, **kwargs):
+        return _i18n_translate(key, lang, **kwargs)
+    return {"lang": lang, "t": _i18n_get_dict(lang), "_": _}
+
+@app.template_filter("_")
+def _i18n_filter(key):
+    return _i18n_translate(key, _i18n_detect_lang(session, request))
+
+@app.route("/galleryout/api/set_lang", methods=["POST"])
+def set_lang():
+    lang = request.form.get("lang", "zh")
+    if lang not in ("zh", "en"):
+        lang = "zh"
+    session["lang"] = lang
+    resp = jsonify({"status": "success", "lang": lang})
+    resp.set_cookie("lang", lang, max_age=60 * 60 * 24 * 365)
+    return resp
+# __SG_I18N_PATCH_END__
+
 gallery_view_cache = []
 folder_config_cache = None
 FFPROBE_EXECUTABLE_PATH = None

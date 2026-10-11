@@ -298,33 +298,33 @@
                     optAsc.value = b.key + '|asc';
                     
                     if (b.key === 'name') {
-                        optDesc.text = 'Name: Z-A ↓';
-                        optAsc.text = 'Name: A-Z ↑';
+                        optDesc.text = t('Name: Z-A ↓');
+                        optAsc.text = t('Name: A-Z ↑');
                     } else if (b.key === 'date' || b.key === 'mtime') {
-                        optDesc.text = 'Date: Newest ↓';
-                        optAsc.text = 'Date: Oldest ↑';
+                        optDesc.text = t('Date: Newest ↓');
+                        optAsc.text = t('Date: Oldest ↑');
                     } else if (b.key === 'rating') {
-                        optDesc.text = 'Rating: Highest ↓';
-                        optAsc.text = 'Rating: Lowest ↑';
+                        optDesc.text = t('Rating: Highest ↓');
+                        optAsc.text = t('Rating: Lowest ↑');
                     } else if (b.key === 'size') {
-                        optDesc.text = 'Size: Largest ↓';
-                        optAsc.text = 'Size: Smallest ↑';
+                        optDesc.text = t('Size: Largest ↓');
+                        optAsc.text = t('Size: Smallest ↑');
                     } else if (b.key === 'duration') {
-                        optDesc.text = 'Duration: Longest ↓';
-                        optAsc.text = 'Duration: Shortest ↑';
+                        optDesc.text = t('Duration: Longest ↓');
+                        optAsc.text = t('Duration: Shortest ↑');
                     } else if (b.key === 'comments') {
-                        optDesc.text = 'Comments: Most ↓';
-                        optAsc.text = 'Comments: Least ↑';
+                        optDesc.text = t('Comments: Most ↓');
+                        optAsc.text = t('Comments: Least ↑');
                     } else if (b.key === 'dimensions' || b.key === 'dims') {
-                        optDesc.text = 'Resolution: Highest ↓';
-                        optAsc.text = 'Resolution: Lowest ↑';
+                        optDesc.text = t('Resolution: Highest ↓');
+                        optAsc.text = t('Resolution: Lowest ↑');
                     } else if (b.key === 'type') {
-                        optDesc.text = 'Type: Z-A ↓';
-                        optAsc.text = 'Type: A-Z ↑';
+                        optDesc.text = t('Type: Z-A ↓');
+                        optAsc.text = t('Type: A-Z ↑');
                     } else {
                         const capKey = b.key.charAt(0).toUpperCase() + b.key.slice(1);
-                        optDesc.text = capKey + ': Desc ↓';
-                        optAsc.text = capKey + ': Asc ↑';
+                        optDesc.text = t('{key}: Desc ↓', {key: capKey});
+                        optAsc.text = t('{key}: Asc ↑', {key: capKey});
                     }
                     
                     mobSelect.appendChild(optDesc);
@@ -352,11 +352,11 @@
         
         if (isListView) {
             document.body.classList.add('list-view-active');
-            if (status) { status.textContent = 'LIST'; status.className = 'opt-status on'; status.style.backgroundColor = "var(--primary-color)"; status.style.color = "#fff"; }
+            if (status) { status.textContent = t('LIST'); status.className = 'opt-status on'; status.style.backgroundColor = "var(--primary-color)"; status.style.color = "#fff"; }
             if (btn) btn.classList.add('active');
         } else {
             document.body.classList.remove('list-view-active');
-            if (status) { status.textContent = 'GRID'; status.className = 'opt-status off'; status.style.backgroundColor = ""; status.style.color = ""; }
+            if (status) { status.textContent = t('GRID'); status.className = 'opt-status off'; status.style.backgroundColor = ""; status.style.color = ""; }
             if (btn) btn.classList.remove('active');
         }
         if (typeof updateFocusStatusBar === 'function') updateFocusStatusBar();
@@ -408,11 +408,11 @@
         overlay.onmousedown = (e) => { e.stopPropagation(); };
 
         overlay.innerHTML = `
-            <button class="ia-play-btn" title="Play/Pause">⏸</button>
+            <button class="ia-play-btn" title="${t('Play/Pause')}">⏸</button>
             <span class="ia-time current">00:00</span>
             <input type="range" class="ia-seek" min="0" max="100" value="0">
             <span class="ia-time total">00:00</span>
-            <button class="ia-close-btn" title="Close Player (Esc)">✕</button>
+            <button class="ia-close-btn" title="${t('Close Player (Esc)')}">✕</button>
         `;
 
         row.appendChild(overlay);

@@ -66,7 +66,7 @@
         <div class="omni-header-container">
             <h3 style="margin:0; font-size:1.3rem; color:white; display:flex; align-items:center; gap:10px;">⚡ OmniQuery <span style="font-size:0.8rem; background:#9b59b6; color:#fff; padding:2px 6px; border-radius:4px;">AI-SQL</span></h3>
             <div style="display:flex; gap:10px; align-items:center;">
-            <button onclick="document.getElementById('omni-help-modal').style.display='flex';" class="glass-btn omni-help-btn" style="border-radius:20px; padding:6px 16px; display:flex; justify-content:center; align-items:center; font-weight:bold; background:rgba(52,219,152,0.15); color:#34db98; border:1px solid #34db98; font-size:0.9rem; text-transform:uppercase;" title="How to use OmniQuery">✨ <span class="omni-help-text" style="margin-left:5px;">Readme first! Understand OmniQuery</span></button>
+            <button onclick="document.getElementById('omni-help-modal').style.display='flex';" class="glass-btn omni-help-btn" style="border-radius:20px; padding:6px 16px; display:flex; justify-content:center; align-items:center; font-weight:bold; background:rgba(52,219,152,0.15); color:#34db98; border:1px solid #34db98; font-size:0.9rem; text-transform:uppercase;" title="{{ _('How to use OmniQuery') }}">✨ <span class="omni-help-text" style="margin-left:5px;">{{ _('Readme first! Understand OmniQuery') }}</span></button>
             <button onclick="closeOmniQueryModal()" style="background:none; border:none; color:var(--text-muted); font-size:1.5rem; cursor:pointer;">&times;</button>
         </div>
         </div>
@@ -82,10 +82,10 @@
                 <h4 id="omni-dialog-title" style="color:white; margin-top:0; font-size:1.2rem;"></h4>
                 <p id="omni-dialog-message" style="color:#ccc; font-size:0.95rem; margin-bottom:20px; word-wrap: break-word;"></p>
                 <input type="text" id="omni-dialog-input" style="display:none; width:100%; box-sizing:border-box; padding:10px; margin-bottom:20px; border-radius:6px; border:1px solid #555; background:#111; color:white;">
-                <textarea id="omni-dialog-desc" style="display:none; width:100%; box-sizing:border-box; padding:10px; margin-bottom:20px; border-radius:6px; border:1px solid #555; background:#111; color:white; resize:vertical; min-height:80px;" placeholder="Query description (optional)..."></textarea>
+                <textarea id="omni-dialog-desc" style="display:none; width:100%; box-sizing:border-box; padding:10px; margin-bottom:20px; border-radius:6px; border:1px solid #555; background:#111; color:white; resize:vertical; min-height:80px;" placeholder="{{ _('Query description (optional)...') }}"></textarea>
                 <div style="display:flex; justify-content:center; gap:10px;">
-                    <button id="omni-dialog-cancel" class="glass-btn">Cancel</button>
-                    <button id="omni-dialog-confirm" class="glass-btn">Confirm</button>
+                    <button id="omni-dialog-cancel" class="glass-btn">{{ _('Cancel') }}</button>
+                    <button id="omni-dialog-confirm" class="glass-btn">{{ _('Confirm') }}</button>
                 </div>
             </div>
         </div>
@@ -93,34 +93,34 @@
         <!-- LLM Links Modal -->
         <div id="omni-llm-modal" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:100; justify-content:center; align-items:center;">
             <div style="background:#1a1a1a; border:1px solid #9b59b6; border-radius:12px; padding:25px; width:450px; max-width:90%; text-align:center; box-shadow: 0 10px 40px rgba(155, 89, 182, 0.2);">
-                <h3 style="color:#e0b0ff; margin-top:0; font-size:1.4rem;">📋 Prompt Copied!</h3>
+                <h3 style="color:#e0b0ff; margin-top:0; font-size:1.4rem;">📋 {{ _('Prompt Copied!') }}</h3>
                 <p style="color:#ccc; font-size:0.95rem; margin-bottom:25px; line-height:1.5;">
-                    The prompt is now in your clipboard.<br>Open one of these AI assistants, paste the prompt, and let it generate the SQL query. Then return here and paste it in the right panel.
+                    {{ _('The prompt is now in your clipboard.<br>Open one of these AI assistants, paste the prompt, and let it generate the SQL query. Then return here and paste it in the right panel.') }}
                 </p>
                 <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:25px;">
-                    <button onclick="openLLM('about:blank')" class="glass-btn" style="justify-content:center; padding:12px; border-color:#ccc; color:#fff; font-weight:bold;">📄 Open new empty tab</button>
-                    <button onclick="openLLM('https://chatgpt.com')" class="glass-btn" style="justify-content:center; padding:12px; border-color:#10a37f; color:#10a37f; font-weight:bold;">🟩 Open ChatGPT</button>
-                    <button onclick="openLLM('https://gemini.google.com')" class="glass-btn" style="justify-content:center; padding:12px; border-color:#4285f4; color:#4285f4; font-weight:bold;">🟦 Open Google Gemini</button>
-                    <button onclick="openLLM('https://claude.ai')" class="glass-btn" style="justify-content:center; padding:12px; border-color:#d97757; color:#d97757; font-weight:bold;">🟧 Open Claude</button>
-                    <button onclick="openLLM('https://chat.deepseek.com')" class="glass-btn" style="justify-content:center; padding:12px; border-color:#4d6bfe; color:#4d6bfe; font-weight:bold;">🟦 Open DeepSeek</button>
+                    <button onclick="openLLM('about:blank')" class="glass-btn" style="justify-content:center; padding:12px; border-color:#ccc; color:#fff; font-weight:bold;">📄 {{ _('Open new empty tab') }}</button>
+                    <button onclick="openLLM('https://chatgpt.com')" class="glass-btn" style="justify-content:center; padding:12px; border-color:#10a37f; color:#10a37f; font-weight:bold;">🟩 {{ _('Open ChatGPT') }}</button>
+                    <button onclick="openLLM('https://gemini.google.com')" class="glass-btn" style="justify-content:center; padding:12px; border-color:#4285f4; color:#4285f4; font-weight:bold;">🟦 {{ _('Open Google Gemini') }}</button>
+                    <button onclick="openLLM('https://claude.ai')" class="glass-btn" style="justify-content:center; padding:12px; border-color:#d97757; color:#d97757; font-weight:bold;">🟧 {{ _('Open Claude') }}</button>
+                    <button onclick="openLLM('https://chat.deepseek.com')" class="glass-btn" style="justify-content:center; padding:12px; border-color:#4d6bfe; color:#4d6bfe; font-weight:bold;">🟦 {{ _('Open DeepSeek') }}</button>
                 </div>
-                <button onclick="document.getElementById('omni-llm-modal').style.display='none';" class="glass-btn" style="padding:8px 20px;">Close</button>
+                <button onclick="document.getElementById('omni-llm-modal').style.display='none';" class="glass-btn" style="padding:8px 20px;">{{ _('Close') }}</button>
             </div>
         </div>
 
         <!-- Saved Queries Modal -->
         <div id="omni-queries-modal" style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:10; display:none; flex-direction:column; padding:30px; box-sizing:border-box;">
             <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
-                <h3 style="color:white; margin:0;">📂 Saved Queries</h3>
-                <button onclick="closeQueriesModal()" class="glass-btn" style="padding:4px 10px;">Close</button>
+                <h3 style="color:white; margin:0;">📂 {{ _('Saved Queries') }}</h3>
+                <button onclick="closeQueriesModal()" class="glass-btn" style="padding:4px 10px;">{{ _('Close') }}</button>
             </div>
             <div class="omni-search-wrapper">
-                <input type="search" id="omni-query-search" class="omni-search-input" placeholder="Search name or description..." oninput="filterOmniQueries()">
+                <input type="search" id="omni-query-search" class="omni-search-input" placeholder="{{ _('Search name or description...') }}" oninput="filterOmniQueries()">
                 <select id="omni-query-sort" class="glass-btn" style="background:#111; color:white;" onchange="renderOmniQueries()">
-                    <option value="name_asc">Name (A-Z)</option>
-                    <option value="name_desc">Name (Z-A)</option>
-                    <option value="date_desc" selected>Newest First</option>
-                    <option value="date_asc">Oldest First</option>
+                    <option value="name_asc">{{ _('Name (A-Z)') }}</option>
+                    <option value="name_desc">{{ _('Name (Z-A)') }}</option>
+                    <option value="date_desc" selected>{{ _('Newest First') }}</option>
+                    <option value="date_asc">{{ _('Oldest First') }}</option>
                 </select>
             </div>
             <ul id="omni-queries-list" class="omni-queries-list"></ul>
@@ -130,19 +130,19 @@
         <!-- OmniQuery Help Modal -->
         <div id="omni-help-modal" onclick="if(event.target===this) this.style.display='none';" style="display:none; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:200; justify-content:center; align-items:center; padding:20px; box-sizing:border-box; backdrop-filter:blur(4px);">
             <div style="background:#1a1a1a; border:1px solid #34db98; border-radius:12px; padding:30px; width:600px; max-width:100%; max-height:100%; overflow-y:auto; box-shadow: 0 10px 40px rgba(52, 219, 152, 0.2);">
-                <h3 style="color:#34db98; margin-top:0; font-size:1.5rem; display:flex; align-items:center; gap:10px;">🌌 OmniQuery AI-SQL Guide</h3>
+                <h3 style="color:#34db98; margin-top:0; font-size:1.5rem; display:flex; align-items:center; gap:10px;">🌌 {{ _('OmniQuery AI-SQL Guide') }}</h3>
                 <div style="color:#ccc; font-size:0.95rem; line-height:1.6;">
-                    <p><b>OmniQuery does NOT replace the standard "Filters" panel.</b></p>
-                    <p>The standard <i>Filters</i> panel is incredibly powerful and easy to use as a form. However, if you have highly specific needs, are a power user, or want to save unique search criteria, OmniQuery is the brilliant, original solution.</p>
-                    <h4 style="color:#e0b0ff; margin-bottom:5px; margin-top:20px;">🗣️ Natural Language Search</h4>
-                    <p style="margin-top:0;">OmniQuery exposes all database tables so you can cross-reference your data using natural language. It acts as an expert Prompt Engineer, preparing a tailored prompt that you can submit to your favorite LLM. The LLM will return the "magic" SQL query to run here.</p>
-                    <h4 style="color:#e0b0ff; margin-bottom:5px; margin-top:20px;">🛡️ Bulletproof Security</h4>
-                    <p style="margin-top:0;">Your data is completely safe. The SmartGallery DAM backend strictly allows only <code>SELECT</code> (read-only) queries. Updates or destructive commands are physically blocked.</p>
-                    <h4 style="color:#e0b0ff; margin-bottom:5px; margin-top:20px;">💻 For SQL Veterans</h4>
-                    <p style="margin-top:0;">If you know SQL, you can compose the query yourself! In the first part of the prompt panel, you will find the full database structure and rules to cross-reference data.</p>
+                    <p><b>{{ _("OmniQuery does NOT replace the standard \"Filters\" panel.") }}</b></p>
+                    <p>{{ _('The standard <i>Filters</i> panel is incredibly powerful and easy to use as a form. However, if you have highly specific needs, are a power user, or want to save unique search criteria, OmniQuery is the brilliant, original solution.') }}</p>
+                    <h4 style="color:#e0b0ff; margin-bottom:5px; margin-top:20px;">🗣️ {{ _('Natural Language Search') }}</h4>
+                    <p style="margin-top:0;">{{ _("OmniQuery exposes all database tables so you can cross-reference your data using natural language. It acts as an expert Prompt Engineer, preparing a tailored prompt that you can submit to your favorite LLM. The LLM will return the \"magic\" SQL query to run here.") }}</p>
+                    <h4 style="color:#e0b0ff; margin-bottom:5px; margin-top:20px;">🛡️ {{ _('Bulletproof Security') }}</h4>
+                    <p style="margin-top:0;">{{ _('Your data is completely safe. The SmartGallery DAM backend strictly allows only <code>SELECT</code> (read-only) queries. Updates or destructive commands are physically blocked.') }}</p>
+                    <h4 style="color:#e0b0ff; margin-bottom:5px; margin-top:20px;">💻 {{ _('For SQL Veterans') }}</h4>
+                    <p style="margin-top:0;">{{ _('If you know SQL, you can compose the query yourself! In the first part of the prompt panel, you will find the full database structure and rules to cross-reference data.') }}</p>
                 </div>
                 <div style="display:flex; justify-content:flex-end; margin-top:30px;">
-                    <button onclick="document.getElementById('omni-help-modal').style.display='none';" class="glass-btn" style="padding:10px 30px; font-weight:bold; background:#34db98; color:#000;">OHHH WOW! Got it.</button>
+                    <button onclick="document.getElementById('omni-help-modal').style.display='none';" class="glass-btn" style="padding:10px 30px; font-weight:bold; background:#34db98; color:#000;">{{ _('OHHH WOW! Got it.') }}</button>
                 </div>
             </div>
         </div>
@@ -150,16 +150,16 @@
         <!-- Saved Prompts Modal -->
         <div id="omni-prompts-modal" onclick="if(event.target===this) this.style.display='none';" style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:10; display:none; flex-direction:column; padding:30px; box-sizing:border-box;">
             <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
-                <h3 style="color:#e0b0ff; margin:0;">📂 Saved Prompts</h3>
-                <button onclick="closePromptsModal()" class="glass-btn" style="padding:4px 10px;">Close</button>
+                <h3 style="color:#e0b0ff; margin:0;">📂 {{ _('Saved Prompts') }}</h3>
+                <button onclick="closePromptsModal()" class="glass-btn" style="padding:4px 10px;">{{ _('Close') }}</button>
             </div>
             <div class="omni-search-wrapper">
-                <input type="search" id="omni-prompt-search" class="omni-search-input" placeholder="Search name or description..." oninput="filterOmniPrompts()">
+                <input type="search" id="omni-prompt-search" class="omni-search-input" placeholder="{{ _('Search name or description...') }}" oninput="filterOmniPrompts()">
                 <select id="omni-prompt-sort" class="glass-btn" style="background:#111; color:white;" onchange="renderOmniPrompts()">
-                    <option value="name_asc">Name (A-Z)</option>
-                    <option value="name_desc">Name (Z-A)</option>
-                    <option value="date_desc" selected>Newest First</option>
-                    <option value="date_asc">Oldest First</option>
+                    <option value="name_asc">{{ _('Name (A-Z)') }}</option>
+                    <option value="name_desc">{{ _('Name (Z-A)') }}</option>
+                    <option value="date_desc" selected>{{ _('Newest First') }}</option>
+                    <option value="date_asc">{{ _('Oldest First') }}</option>
                 </select>
             </div>
             <ul id="omni-prompts-list" class="omni-queries-list"></ul>
@@ -168,8 +168,8 @@
         <!-- Preview Modal -->
         <div id="omni-preview-modal" style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:20; display:none; flex-direction:column; padding:30px; box-sizing:border-box;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                <h3 style="color:#3498db; margin:0;">🔍 Query Preview (<span id="omni-preview-count">0</span> records)</h3>
-                <button onclick="closePreviewModal()" class="glass-btn" style="padding:4px 10px;">Close</button>
+                <h3 style="color:#3498db; margin:0;">🔍 {{ _('Query Preview') }} (<span id="omni-preview-count">0</span> {{ _('records') }})</h3>
+                <button onclick="closePreviewModal()" class="glass-btn" style="padding:4px 10px;">{{ _('Close') }}</button>
             </div>
             <div id="omni-preview-content" class="omni-preview-table-container"></div>
         </div>
@@ -177,31 +177,31 @@
             <!-- Left Panel: Prompt Editor & Schema -->
             <div class="omni-left-panel">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-shrink:0;">
-                    <h4 style="margin:0; color:#e0b0ff;">1. Prepare AI Prompt</h4>
-                    <button onclick="toggleOmniFullscreen('omniquery-prompt-text', this)" class="glass-btn" style="padding:4px 8px; font-size:0.8rem; background:rgba(155,89,182,0.2); border-color:#9b59b6; color:#e0b0ff;" title="Zen Mode / Maximize">⛶</button>
+                    <h4 style="margin:0; color:#e0b0ff;">1. {{ _('Prepare AI Prompt') }}</h4>
+                    <button onclick="toggleOmniFullscreen('omniquery-prompt-text', this)" class="glass-btn" style="padding:4px 8px; font-size:0.8rem; background:rgba(155,89,182,0.2); border-color:#9b59b6; color:#e0b0ff;" title="{{ _('Zen Mode / Maximize') }}">⛶</button>
                 </div>
-                <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:10px; flex-shrink:0;">Review or edit this prompt, then copy it to your favorite LLM to generate the query.</p>
+                <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:10px; flex-shrink:0;">{{ _('Review or edit this prompt, then copy it to your favorite LLM to generate the query.') }}</p>
                 
                 <!-- Active Prompt Context -->
                 <div id="omni-active-prompt-bar" style="display:none; background:rgba(155, 89, 182, 0.15); border:1px solid #9b59b6; color:#e0b0ff; padding:8px 12px; border-radius:6px; margin-bottom:10px; font-size:0.85rem; align-items:center; justify-content:space-between; flex-shrink:0;">
-                    <span><i style="margin-right:5px; font-style:normal;">📝</i> Editing: <b id="omni-active-prompt-name"></b></span>
+                    <span><i style="margin-right:5px; font-style:normal;">📝</i> {{ _('Editing:') }} <b id="omni-active-prompt-name"></b></span>
                 </div>
 
                 <textarea id="omniquery-default-dictionary" style="display:none;">{{ omniquery_dictionary }}</textarea>
                 <textarea id="omniquery-prompt-text" style="flex:2; width:100%; min-height:300px; background:#111; border:1px solid #444; border-radius:8px; color:#aaa; font-family:monospace; padding:10px; font-size:0.85rem; resize:vertical; margin-bottom:15px; box-sizing:border-box;" oninput="localStorage.setItem('sg_omniquery_prompt', this.value);"></textarea>
 
                 <div class="omni-btn-group">
-                    <button onclick="promptSavePrompt()" class="glass-btn" title="Save this Prompt">💾 Save</button>
-                    <button onclick="openPromptsModal()" class="glass-btn" title="Load saved Prompt">📂 Load</button>
-                    <button onclick="clearActiveOmniPrompt()" class="glass-btn" title="Clear panel">Clear</button>
-                    <button onclick="loadFactoryPrompt()" id="omni-reset-tmpl-btn" class="glass-btn" title="Load Factory Default">🔄 Factory</button>
-                    <button onclick="copyOmniPrompt()" class="glass-btn active-blue" id="omni-copy-btn">📋 Copy</button>
+                    <button onclick="promptSavePrompt()" class="glass-btn" title="{{ _('Save this Prompt') }}">💾 {{ _('Save') }}</button>
+                    <button onclick="openPromptsModal()" class="glass-btn" title="{{ _('Load saved Prompt') }}">📂 {{ _('Load') }}</button>
+                    <button onclick="clearActiveOmniPrompt()" class="glass-btn" title="{{ _('Clear panel') }}">{{ _('Clear') }}</button>
+                    <button onclick="loadFactoryPrompt()" id="omni-reset-tmpl-btn" class="glass-btn" title="{{ _('Load Factory Default') }}">🔄 {{ _('Factory') }}</button>
+                    <button onclick="copyOmniPrompt()" class="glass-btn active-blue" id="omni-copy-btn">📋 {{ _('Copy') }}</button>
                 </div>
                 
                 <div id="schema-ref-header" style="flex-shrink:0; margin-bottom:10px;">
 
                 
-                    <button onclick="document.getElementById('schema-ref-content').style.display='block'; this.parentElement.style.display='none';" class="glass-btn" style="font-size:0.85rem; color:#e0b0ff; background:rgba(224,176,255,0.1); border-color:#9b59b6;">📊 View Schema Reference</button>
+                    <button onclick="document.getElementById('schema-ref-content').style.display='block'; this.parentElement.style.display='none';" class="glass-btn" style="font-size:0.85rem; color:#e0b0ff; background:rgba(224,176,255,0.1); border-color:#9b59b6;">📊 {{ _('View Schema Reference') }}</button>
 
                 
                 </div>
@@ -211,13 +211,13 @@
 
                 
                     <pre style="font-size:0.75rem; color:#888; background:#111; padding:15px; border-radius:8px; overflow-x:auto; margin:0; white-space:pre-wrap;"><b>files</b>
-id (TEXT) - Primary Key
+id (TEXT) - {{ _('Primary Key') }}
 path (TEXT)
-mtime (REAL) - Unix timestamp
-last_scanned - Unix timestamp
+mtime (REAL) - {{ _('Unix timestamp') }}
+last_scanned - {{ _('Unix timestamp') }}
 name (TEXT)
 type (TEXT) - 'image', 'video', etc.
-size (INTEGER) - bytes
+size (INTEGER) - {{ _('bytes') }}
 dimensions(TEXT: pixels ex. '640x480')
 duration(TEXT: ex. 03:19 min:secs) 
 is_favorite (INTEGER)
@@ -232,7 +232,7 @@ name (TEXT)
 type (TEXT) - 'user_album', 'system_flag'
 is_public (INTEGER) - 1 or 0
 shared_users (TEXT) - "1,2,4"
-parent_id(INTEGER: for nested collections)
+parent_id(INTEGER: {{ _('for nested collections') }})
 
 <b>collection_files</b>
 collection_id (INTEGER)
@@ -248,7 +248,7 @@ email
 phone_number
 start_date (DATE)
 expiry_date (DATE)
-last_login - Unix timestamp
+last_login - {{ _('Unix timestamp') }}
 
 <b>file_ratings</b>
 file_id (TEXT)
@@ -263,7 +263,7 @@ comment_text (TEXT)
 target_audience (TEXT)</pre>
 
                 
-                    <button onclick="this.parentElement.style.display='none'; document.getElementById('schema-ref-header').style.display='block';" class="glass-btn" style="margin-top:5px;">Close</button>
+                    <button onclick="this.parentElement.style.display='none'; document.getElementById('schema-ref-header').style.display='block';" class="glass-btn" style="margin-top:5px;">{{ _('Close') }}</button>
 
                 
                 </div>
@@ -272,29 +272,29 @@ target_audience (TEXT)</pre>
             <!-- Right Panel: SQL Input & Execute -->
             <div class="omni-right-panel">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-shrink:0;">
-                    <h4 style="margin:0; color:#3498db;">2. Execute Query</h4>
-                    <button onclick="toggleOmniFullscreen('omniquery-input', this)" class="glass-btn" style="padding:4px 8px; font-size:0.8rem; background:rgba(52,152,219,0.2); border-color:#3498db; color:#52a1ff;" title="Zen Mode / Maximize">⛶</button>
+                    <h4 style="margin:0; color:#3498db;">2. {{ _('Execute Query') }}</h4>
+                    <button onclick="toggleOmniFullscreen('omniquery-input', this)" class="glass-btn" style="padding:4px 8px; font-size:0.8rem; background:rgba(52,152,219,0.2); border-color:#3498db; color:#52a1ff;" title="{{ _('Zen Mode / Maximize') }}">⛶</button>
                 </div>
-                <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:15px; flex-shrink:0;">Paste the SQL returned by the AI here. Only SELECT queries are permitted (Read-Only).</p>
+                <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:15px; flex-shrink:0;">{{ _('Paste the SQL returned by the AI here. Only SELECT queries are permitted (Read-Only).') }}</p>
                 
                 <!-- Feedback Box for 0 results or errors -->
                 <div id="omni-feedback-box" style="display:none; padding:12px; border-radius:8px; margin-bottom:15px; font-size:0.9rem; font-weight:bold; flex-shrink:0;"></div>
                 
                 <!-- Active Query Context -->
                 <div id="omni-active-query-bar" style="display:none; background:rgba(52, 152, 219, 0.15); border:1px solid #3498db; color:#52a1ff; padding:8px 12px; border-radius:6px; margin-bottom:10px; font-size:0.85rem; align-items:center; justify-content:space-between; flex-shrink:0;">
-                    <span><i style="margin-right:5px; font-style:normal;">📝</i> Editing: <b id="omni-active-query-name"></b></span>
+                    <span><i style="margin-right:5px; font-style:normal;">📝</i> {{ _('Editing:') }} <b id="omni-active-query-name"></b></span>
                 </div>
                 
                 <textarea id="omniquery-input" style="flex:1; width:100%; min-height:120px; background:#111; border:1px solid #444; border-radius:8px; color:#52a1ff; font-family:monospace; padding:15px; font-size:0.95rem; resize:vertical; box-sizing:border-box; margin-bottom:15px;" placeholder="SELECT f.id FROM files f..." oninput="localStorage.setItem('sg_omniquery_sql', this.value);"></textarea>
                 
                 <div class="omni-btn-group">
-                    <button onclick="promptSaveQuery()" class="glass-btn" title="Save this SQL">💾 Save</button>
-                    <button onclick="openQueriesModal()" class="glass-btn" title="Load saved SQL">📂 Load</button>
-                    <button onclick="clearActiveOmniQuery()" class="glass-btn">Clear</button>
-                    <button onclick="pasteOmniQuery()" class="glass-btn" title="Paste from Clipboard" style="background:rgba(52, 152, 219, 0.2); border-color:#3498db; color:#52a1ff;">📋 Paste</button>
+                    <button onclick="promptSaveQuery()" class="glass-btn" title="{{ _('Save this SQL') }}">💾 {{ _('Save') }}</button>
+                    <button onclick="openQueriesModal()" class="glass-btn" title="{{ _('Load saved SQL') }}">📂 {{ _('Load') }}</button>
+                    <button onclick="clearActiveOmniQuery()" class="glass-btn">{{ _('Clear') }}</button>
+                    <button onclick="pasteOmniQuery()" class="glass-btn" title="{{ _('Paste from Clipboard') }}" style="background:rgba(52, 152, 219, 0.2); border-color:#3498db; color:#52a1ff;">📋 {{ _('Paste') }}</button>
 
-                    <button onclick="previewOmniQuery()" id="omni-preview-btn" class="glass-btn" style="background:#2980b9; color:white; border-color:#2980b9;">🔍 Preview</button>
-                    <button onclick="executeOmniQuery()" id="omni-exec-btn" class="glass-btn" style="flex: 1 1 100px; background:#9b59b6; border-color:#8e44ad; color:white; font-weight:bold;">🚀 Run Query</button>
+                    <button onclick="previewOmniQuery()" id="omni-preview-btn" class="glass-btn" style="background:#2980b9; color:white; border-color:#2980b9;">🔍 {{ _('Preview') }}</button>
+                    <button onclick="executeOmniQuery()" id="omni-exec-btn" class="glass-btn" style="flex: 1 1 100px; background:#9b59b6; border-color:#8e44ad; color:white; font-weight:bold;">🚀 {{ _('Run Query') }}</button>
                 </div>
             </div>
 
@@ -427,12 +427,12 @@ target_audience (TEXT)</pre>
         fb.style.display = 'none';
 
         if (!sqlInput) {
-            showOmniFeedback("Please enter a SQL query.", true);
+            showOmniFeedback(t('Please enter a SQL query.'), true);
             return;
         }
 
         const btn = document.getElementById('omni-exec-btn');
-        btn.innerHTML = '⏳ Running...';
+        btn.innerHTML = '⏳ ' + t('Running...');
         btn.disabled = true;
 
         try {
@@ -449,30 +449,30 @@ target_audience (TEXT)</pre>
                 const promptText = document.getElementById('omniquery-prompt-text').value;
                 localStorage.setItem('sg_omniquery_prompt', promptText);
                 
-                if (data.session_id) {
-                    if(typeof showNotification === 'function') showNotification(`Query successful! Found ${data.count || 0} results.`, "success");
+                if(data.session_id) {
+                    if(typeof showNotification === 'function') showNotification(t('Query successful! Found {n} results.', {n: data.count || 0}), "success");
                     
                     // --- ALERT FOR "ORDER BY" ---
                     if (/ORDER\s+BY/i.test(sqlInput)) {
                         await omniCustomDialog({
                             type: 'alert',
-                            title: 'Custom Sort Detected ⚖️',
-                            message: 'Your query contains an "ORDER BY" clause. Standard UI sorting buttons will be disabled for these results to respect your custom order.',
-                            confirmText: 'Understood'
+                            title: t('Custom Sort Detected') + ' ⚖️',
+                            message: t("Your query contains an \"ORDER BY\" clause. Standard UI sorting buttons will be disabled for these results to respect your custom order."),
+                            confirmText: t('Understood')
                         });
                     }
 
                     window.location.href = `{{ url_for('gallery_view', folder_key=current_folder_key) }}?omniquery_id=${data.session_id}`;
                 } else {
-                    showOmniFeedback("Query executed successfully, but returned 0 records. Try adjusting your SQL.", false);
+                    showOmniFeedback(t('Query executed successfully, but returned 0 records. Try adjusting your SQL.'), false);
                 }
             } else {
-                showOmniFeedback("SQL Error: " + data.message, true);
+                showOmniFeedback(t('SQL Error: {message}', {message: data.message}), true);
             }
         } catch (e) {
-            showOmniFeedback("Network error occurred.", true);
+            showOmniFeedback(t('Network error occurred.'), true);
         } finally {
-            btn.innerHTML = '🚀 Run Query';
+            btn.innerHTML = '🚀 ' + t('Run Query');
             btn.disabled = false;
         }
     }
@@ -495,7 +495,7 @@ target_audience (TEXT)</pre>
             btnElement.classList.remove('active-blue');
         } else {
             el.classList.add('omni-maximized');
-            btnElement.innerHTML = '✖ Close';
+            btnElement.innerHTML = '✖ ' + t('Close');
             btnElement.classList.add('active-blue');
             setTimeout(() => el.focus(), 100);
         }
@@ -537,7 +537,7 @@ target_audience (TEXT)</pre>
     function omniCustomDialog(options) {
         return new Promise((resolve) => {
             const dialog = document.getElementById('omni-custom-dialog');
-            document.getElementById('omni-dialog-title').innerText = options.title || 'Attention';
+            document.getElementById('omni-dialog-title').innerText = options.title || t('Attention');
             document.getElementById('omni-dialog-message').innerHTML = options.message || '';
             const input = document.getElementById('omni-dialog-input');
             const desc = document.getElementById('omni-dialog-desc');
@@ -559,10 +559,10 @@ target_audience (TEXT)</pre>
                 btnCancel.style.display = 'block';
             } else if (options.type === 'save_query') {
                 input.style.display = 'block';
-                input.placeholder = 'Filename (e.g., cool_name)';
+                input.placeholder = t('Filename (e.g., cool_name)');
                 input.value = options.defaultValue || '';
                 desc.style.display = 'block';
-                desc.placeholder = 'Description (optional)...';
+                desc.placeholder = t('Description (optional)...');
                 desc.value = options.defaultDesc || '';
                 btnCancel.style.display = 'block';
             } else {
@@ -571,7 +571,7 @@ target_audience (TEXT)</pre>
                 btnCancel.style.display = 'block';
             }
 
-            btnConfirm.innerText = options.confirmText || 'Confirm';
+            btnConfirm.innerText = options.confirmText || t('Confirm');
             
             if(options.danger) {
                 btnConfirm.style.background = '#e74c3c';
@@ -626,7 +626,7 @@ target_audience (TEXT)</pre>
                 document.execCommand('copy');
                 successCb();
             } catch (err) {
-                if(typeof showNotification === 'function') showNotification('Clipboard API not supported.', 'error');
+                if(typeof showNotification === 'function') showNotification(t('Clipboard API not supported.'), 'error');
             }
             document.body.removeChild(textArea);
         }
@@ -647,9 +647,9 @@ target_audience (TEXT)</pre>
     async function loadFactoryPrompt() {
         const confirmReset = await omniCustomDialog({
             type: 'confirm',
-            title: 'Load Factory Prompt',
-            message: 'Are you sure you want to load the factory default template? This will replace your current prompt text.',
-            confirmText: 'Load Factory',
+            title: t('Load Factory Prompt'),
+            message: t('Are you sure you want to load the factory default template? This will replace your current prompt text.'),
+            confirmText: t('Load Factory'),
             danger: true
         });
         if(!confirmReset) return;
@@ -667,7 +667,7 @@ target_audience (TEXT)</pre>
                 clearActiveOmniPrompt();
                 promptArea.value = data.template; 
 
-                if(typeof showNotification === 'function') showNotification('Factory prompt loaded.', 'info');
+                if(typeof showNotification === 'function') showNotification(t('Factory prompt loaded.'), 'info');
                 
                 setTimeout(() => {
                     promptArea.focus();
@@ -679,13 +679,13 @@ target_audience (TEXT)</pre>
                 showOmniFeedback(data.message, true);
             }
         } catch(e) {}
-        btn.innerHTML = '🔄 Factory';
+        btn.innerHTML = '🔄 ' + t('Factory');
     }
 
     async function promptSavePrompt(retryName = null, retryDesc = null) {
         const promptArea = document.getElementById('omniquery-prompt-text');
         let promptText = promptArea.value.trim();
-        if(!promptText) return showOmniFeedback("No prompt text to save.", true);
+        if(!promptText) return showOmniFeedback(t('No prompt text to save.'), true);
         
         if(cachedOmniPrompts.length === 0) {
             await fetchOmniPromptsSilently(); 
@@ -702,11 +702,11 @@ target_audience (TEXT)</pre>
 
         const result = await omniCustomDialog({
             type: 'save_query',
-            title: 'Save Prompt',
-            message: 'Enter a name and an optional description for this prompt:',
+            title: t('Save Prompt'),
+            message: t('Enter a name and an optional description for this prompt:'),
             defaultValue: defName,
             defaultDesc: defDesc,
-            confirmText: 'Save'
+            confirmText: t('Save')
         });
         
         if(!result || !result.name) return;
@@ -718,12 +718,12 @@ target_audience (TEXT)</pre>
         let isCurrentFile = currentLoadedPromptName && (currentLoadedPromptName.toLowerCase() === promptFileName.toLowerCase());
         
         if(exists) {
-            let msg = isCurrentFile ? `Update the currently loaded prompt '${result.name}'?` : `A prompt named '${result.name}' already exists. Do you want to overwrite it?`;
+            let msg = isCurrentFile ? t("Update the currently loaded prompt '{name}'?", {name: result.name}) : t("A prompt named '{name}' already exists. Do you want to overwrite it?", {name: result.name});
             const confirmOverwrite = await omniCustomDialog({
                 type: 'confirm',
-                title: isCurrentFile ? 'Update Prompt' : 'Overwrite Prompt',
+                title: isCurrentFile ? t('Update Prompt') : t('Overwrite Prompt'),
                 message: msg,
-                confirmText: isCurrentFile ? 'Update' : 'Overwrite',
+                confirmText: isCurrentFile ? t('Update') : t('Overwrite'),
                 danger: !isCurrentFile
             });
             if(!confirmOverwrite) {
@@ -741,7 +741,7 @@ target_audience (TEXT)</pre>
             });
             const data = await res.json();
             if (data.status === 'success') {
-                if(typeof showNotification === 'function') showNotification('Prompt saved.', 'success');
+                if(typeof showNotification === 'function') showNotification(t('Prompt saved.'), 'success');
                 currentLoadedPromptName = promptFileName;
                 currentLoadedPromptDesc = result.description;
                 document.getElementById('omni-active-prompt-name').innerText = result.name;
@@ -791,14 +791,14 @@ target_audience (TEXT)</pre>
             const li = document.createElement('li');
             li.className = 'omni-query-item';
             li.innerHTML = `
-                <div style="flex:1; margin-right:10px; cursor:pointer;" onclick="loadOmniPrompt('${p.name}')" title="Click to load">
+                <div style="flex:1; margin-right:10px; cursor:pointer;" onclick="loadOmniPrompt('${p.name}')" title="${t('Click to load')}">
                     <div class="omni-query-name" style="margin:0; color:#e0b0ff;">${p.name}</div>
                     ${descHtml}
                 </div>
                 <div class="omni-query-date">${dateStr}</div>
                 <div class="omni-query-actions">
-                    <button onclick="renameOmniPrompt('${p.name}')" class="glass-btn" style="padding:2px 8px; font-size:0.75rem;">Rename</button>
-                    <button onclick="deleteOmniPrompt('${p.name}')" class="glass-btn" style="padding:2px 8px; font-size:0.75rem; color:#ff4757; border-color:#ff4757;">Delete</button>
+                    <button onclick="renameOmniPrompt('${p.name}')" class="glass-btn" style="padding:2px 8px; font-size:0.75rem;">${t('Rename')}</button>
+                    <button onclick="deleteOmniPrompt('${p.name}')" class="glass-btn" style="padding:2px 8px; font-size:0.75rem; color:#ff4757; border-color:#ff4757;">${t('Delete')}</button>
                 </div>
             `;
             list.appendChild(li);
@@ -824,7 +824,7 @@ target_audience (TEXT)</pre>
                 document.getElementById('omni-active-prompt-bar').style.display = 'flex';
 
                 closePromptsModal();
-                if(typeof showNotification === 'function') showNotification('Prompt loaded.', 'success');
+                if(typeof showNotification === 'function') showNotification(t('Prompt loaded.'), 'success');
             } else showOmniFeedback(data.message, true);
         } catch(e) {}
     }
@@ -832,9 +832,9 @@ target_audience (TEXT)</pre>
     async function deleteOmniPrompt(name) {
         const confirmDel = await omniCustomDialog({
             type: 'confirm',
-            title: 'Delete Prompt',
-            message: `Are you sure you want to delete '${name}'?`,
-            confirmText: 'Delete',
+            title: t('Delete Prompt'),
+            message: t("Are you sure you want to delete '{name}'?", {name: name}),
+            confirmText: t('Delete'),
             danger: true
         });
         if(!confirmDel) return;
@@ -854,10 +854,10 @@ target_audience (TEXT)</pre>
     async function renameOmniPrompt(oldName) {
         const newName = await omniCustomDialog({
             type: 'prompt',
-            title: 'Rename Prompt',
-            message: `Enter new filename for '${oldName}':`,
+            title: t('Rename Prompt'),
+            message: t("Enter new filename for '{name}':", {name: oldName}),
             defaultValue: oldName,
-            confirmText: 'Rename'
+            confirmText: t('Rename')
         });
         if(!newName || newName === oldName) return;
         try {
@@ -877,7 +877,7 @@ target_audience (TEXT)</pre>
     async function promptSaveQuery(retryName = null, retryDesc = null) {
         const sqlArea = document.getElementById('omniquery-input');
         let sql = sqlArea.value.trim();
-        if(!sql) return showOmniFeedback("Nothing to save.", true);
+        if(!sql) return showOmniFeedback(t('Nothing to save.'), true);
         
         if(cachedOmniQueries.length === 0) {
             await fetchOmniQueriesSilently(); 
@@ -911,11 +911,11 @@ target_audience (TEXT)</pre>
 
         const result = await omniCustomDialog({
             type: 'save_query',
-            title: 'Save Query',
-            message: 'Enter a name and an optional description for this query:',
+            title: t('Save Query'),
+            message: t('Enter a name and an optional description for this query:'),
             defaultValue: defName,
             defaultDesc: defDesc,
-            confirmText: 'Save'
+            confirmText: t('Save')
         });
         
         if(!result || !result.name) return;
@@ -927,12 +927,12 @@ target_audience (TEXT)</pre>
         let isCurrentFile = currentLoadedQueryName && (currentLoadedQueryName.toLowerCase() === queryFileName.toLowerCase());
         
         if(exists) {
-            let msg = isCurrentFile ? `Update the currently loaded query '${result.name}'?` : `A query named '${result.name}' already exists. Do you want to overwrite it?`;
+            let msg = isCurrentFile ? t("Update the currently loaded query '{name}'?", {name: result.name}) : t("A query named '{name}' already exists. Do you want to overwrite it?", {name: result.name});
             const confirmOverwrite = await omniCustomDialog({
                 type: 'confirm',
-                title: isCurrentFile ? 'Update Query' : 'Overwrite Query',
+                title: isCurrentFile ? t('Update Query') : t('Overwrite Query'),
                 message: msg,
-                confirmText: isCurrentFile ? 'Update' : 'Overwrite',
+                confirmText: isCurrentFile ? t('Update') : t('Overwrite'),
                 danger: !isCurrentFile
             });
             if(!confirmOverwrite) {
@@ -958,7 +958,7 @@ target_audience (TEXT)</pre>
             });
             const data = await res.json();
             if (data.status === 'success') {
-                if(typeof showNotification === 'function') showNotification('Query saved.', 'success');
+                if(typeof showNotification === 'function') showNotification(t('Query saved.'), 'success');
                 currentLoadedQueryName = queryFileName;
                 currentLoadedQueryDesc = result.description;
                 document.getElementById('omni-active-query-name').innerText = result.name;
@@ -1008,14 +1008,14 @@ target_audience (TEXT)</pre>
             const li = document.createElement('li');
             li.className = 'omni-query-item';
             li.innerHTML = `
-                <div style="flex:1; margin-right:10px; cursor:pointer;" onclick="loadOmniQuery('${q.name}')" title="Click to load">
+                <div style="flex:1; margin-right:10px; cursor:pointer;" onclick="loadOmniQuery('${q.name}')" title="${t('Click to load')}">
                     <div class="omni-query-name" style="margin:0;">${q.name}</div>
                     ${descHtml}
                 </div>
                 <div class="omni-query-date">${dateStr}</div>
                 <div class="omni-query-actions">
-                    <button onclick="renameOmniQuery('${q.name}')" class="glass-btn" style="padding:2px 8px; font-size:0.75rem;">Rename</button>
-                    <button onclick="deleteOmniQuery('${q.name}')" class="glass-btn" style="padding:2px 8px; font-size:0.75rem; color:#ff4757; border-color:#ff4757;">Delete</button>
+                    <button onclick="renameOmniQuery('${q.name}')" class="glass-btn" style="padding:2px 8px; font-size:0.75rem;">${t('Rename')}</button>
+                    <button onclick="deleteOmniQuery('${q.name}')" class="glass-btn" style="padding:2px 8px; font-size:0.75rem; color:#ff4757; border-color:#ff4757;">${t('Delete')}</button>
                 </div>
             `;
             list.appendChild(li);
@@ -1041,7 +1041,7 @@ target_audience (TEXT)</pre>
                 document.getElementById('omni-active-query-bar').style.display = 'flex';
 
                 closeQueriesModal();
-                if(typeof showNotification === 'function') showNotification('Query loaded.', 'success');
+                if(typeof showNotification === 'function') showNotification(t('Query loaded.'), 'success');
             } else showOmniFeedback(data.message, true);
         } catch(e) {}
     }
@@ -1049,9 +1049,9 @@ target_audience (TEXT)</pre>
     async function deleteOmniQuery(name) {
         const confirmDel = await omniCustomDialog({
             type: 'confirm',
-            title: 'Delete Query',
-            message: `Are you sure you want to delete '${name}'?`,
-            confirmText: 'Delete',
+            title: t('Delete Query'),
+            message: t("Are you sure you want to delete '{name}'?", {name: name}),
+            confirmText: t('Delete'),
             danger: true
         });
         if(!confirmDel) return;
@@ -1071,10 +1071,10 @@ target_audience (TEXT)</pre>
     async function renameOmniQuery(oldName) {
         const newName = await omniCustomDialog({
             type: 'prompt',
-            title: 'Rename Query',
-            message: `Enter new filename for '${oldName}':`,
+            title: t('Rename Query'),
+            message: t("Enter new filename for '{name}':", {name: oldName}),
             defaultValue: oldName,
-            confirmText: 'Rename'
+            confirmText: t('Rename')
         });
         if(!newName || newName === oldName) return;
         try {
@@ -1097,7 +1097,7 @@ target_audience (TEXT)</pre>
 
     async function previewOmniQuery() {
         const sqlInput = document.getElementById('omniquery-input').value.trim();
-        if (!sqlInput) return showOmniFeedback("Please enter a SQL query to preview.", true);
+        if (!sqlInput) return showOmniFeedback(t('Please enter a SQL query to preview.'), true);
         
         const btn = document.getElementById('omni-preview-btn');
         btn.innerHTML = '⏳...';
@@ -1114,7 +1114,7 @@ target_audience (TEXT)</pre>
                 const container = document.getElementById('omni-preview-content');
                 
                 if (data.count === 0) {
-                    container.innerHTML = '<div style="padding:20px; color:#aaa;">0 records found.</div>';
+                    container.innerHTML = `<div style="padding:20px; color:#aaa;">${t('0 records found.')}</div>`;
                 } else {
                     let html = '<table class="omni-preview-table"><thead><tr>';
                     data.columns.forEach(col => html += `<th>${col}</th>`);
@@ -1136,12 +1136,12 @@ target_audience (TEXT)</pre>
                 
                 document.getElementById('omni-preview-modal').style.display = 'flex';
             } else {
-                showOmniFeedback("Preview SQL Error: " + data.message, true);
+                showOmniFeedback(t('Preview SQL Error: {message}', {message: data.message}), true);
             }
         } catch(e) {
-            showOmniFeedback("Network error.", true);
+            showOmniFeedback(t('Network error.'), true);
         }
-        btn.innerHTML = '🔍 Preview';
+        btn.innerHTML = '🔍 ' + t('Preview');
     }
 
     // --- END OMNIQUERY EXTENDED JS ---
@@ -1155,7 +1155,7 @@ target_audience (TEXT)</pre>
             sqlInput.value = text;
             localStorage.setItem('sg_omniquery_sql', text);
             if (typeof showNotification === 'function') {
-                showNotification('Pasted from clipboard.', 'success');
+                showNotification(t('Pasted from clipboard.'), 'success');
             }
             return;
         } catch (err) {
@@ -1180,14 +1180,14 @@ target_audience (TEXT)</pre>
         box.style.cssText = 'background:#1a1a1a; border:1px solid #3498db; border-radius:12px; padding:25px; width:450px; max-width:90vw; text-align:center; color:#ccc; box-shadow:0 10px 40px rgba(52,152,219,0.2);';
 
         box.innerHTML = `
-            <h4 style="color:#3498db; margin-top:0;">📋 Paste from Clipboard</h4>
+            <h4 style="color:#3498db; margin-top:0;">📋 ${t('Paste from Clipboard')}</h4>
             <p style="margin-bottom:15px;">
-                Press <b>Ctrl+V</b> (or <b>Cmd+V</b> on Mac) to paste your SQL query below.
+                ${t('Press {ctrlKey} (or {cmdKey} on Mac) to paste your SQL query below.', {ctrlKey: '<b>Ctrl+V</b>', cmdKey: '<b>Cmd+V</b>'})}
             </p>
             <textarea id="omni-paste-area" style="width:100%; height:120px; background:#111; color:white; border:1px solid #555; border-radius:8px; padding:10px; margin-bottom:15px; font-family:monospace; resize:vertical;" autofocus></textarea>
             <div style="display:flex; justify-content:center; gap:10px;">
-                <button id="omni-paste-confirm" class="glass-btn" style="padding:8px 20px; background:#3498db; color:white; border:none;">Confirm</button>
-                <button id="omni-paste-cancel" class="glass-btn" style="padding:8px 20px;">Cancel</button>
+                <button id="omni-paste-confirm" class="glass-btn" style="padding:8px 20px; background:#3498db; color:white; border:none;">${t('Confirm')}</button>
+                <button id="omni-paste-cancel" class="glass-btn" style="padding:8px 20px;">${t('Cancel')}</button>
             </div>
         `;
 
@@ -1211,7 +1211,7 @@ target_audience (TEXT)</pre>
                 sqlInput.value = text;
                 localStorage.setItem('sg_omniquery_sql', text);
                 if (typeof showNotification === 'function') {
-                    showNotification('Pasted from clipboard.', 'success');
+                    showNotification(t('Pasted from clipboard.'), 'success');
                 }
             }
             overlay.remove();

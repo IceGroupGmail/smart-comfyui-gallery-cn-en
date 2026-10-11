@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>CComfyUI Queue Deck</title>
+<title>{{ _('CComfyUI Queue Deck') }}</title>
 
 <style>
 /* ============================================================
@@ -1388,37 +1388,37 @@ body {
         <div class="cq-header">
             <div class="cq-title">
                 <span class="cq-bolt">⚡</span>
-                ComfyUI Queue Deck
+                {{ _('ComfyUI Queue Deck') }}
                 <span id="cq-pill" class="cq-pill wait">
                     <span class="dot"></span>
-                    <span id="cq-pill-txt">CHECKING</span>
+                    <span id="cq-pill-txt">{{ _('CHECKING') }}</span>
                 </span>
             </div>
-            <button class="cq-x" onclick="closeComfyQueueModal()" title="Close (Esc)">&times;</button>
+            <button class="cq-x" onclick="closeComfyQueueModal()" title="{{ _('Close (Esc)') }}">&times;</button>
         </div>
 
         <div class="cq-urlbar">
-            <span class="cq-urlbar-lbl">🔗 ComfyUI URL</span>
+            <span class="cq-urlbar-lbl">{{ _('🔗 ComfyUI URL') }}</span>
             <input type="text" id="cq-url-input" class="cq-url-input"
                    placeholder="http://127.0.0.1:8188" autocomplete="off" spellcheck="false">
-            <button class="cq-btn accent" id="cq-url-save">💾 Save</button>
-            <button class="cq-btn" id="cq-url-reset">↺ Reset</button>
+            <button class="cq-btn accent" id="cq-url-save">{{ _('💾 Save') }}</button>
+            <button class="cq-btn" id="cq-url-reset">{{ _('↺ Reset') }}</button>
         </div>
 
         <div class="cq-body" id="cq-body"></div>
 
         <div class="cq-footer">
             <span class="url" id="cq-url"></span>
-            <span class="hint">Shift+Q toggle · ESC close &amp; stop all data streams</span>
+            <span class="hint">{{ _('Shift+Q toggle · ESC close & stop all data streams') }}</span>
         </div>
 
         <!-- Job info dialog -->
         <div class="cq-confirm" id="cq-info">
             <div class="cq-confirm-box" style="width:680px; max-width:94%;">
-                <h3 id="cq-i-title">ℹ️ Job Details</h3>
+                <h3 id="cq-i-title">{{ _('ℹ️ Job Details') }}</h3>
                 <div class="msg" id="cq-i-body" style="max-height:62vh; overflow-y:auto;"></div>
                 <div class="cq-confirm-acts">
-                    <button class="cq-btn" id="cq-i-close">Close</button>
+                    <button class="cq-btn" id="cq-i-close">{{ _('Close') }}</button>
                 </div>
             </div>
         </div>
@@ -1426,10 +1426,10 @@ body {
         <!-- Node JSON viewer -->
         <div class="cq-confirm" id="cq-nodejson" style="z-index:65;">
             <div class="cq-confirm-box" style="width:720px; max-width:94%;">
-                <h3 id="cq-nj-title">🧩 Node JSON</h3>
+                <h3 id="cq-nj-title">{{ _('🧩 Node JSON') }}</h3>
                 <pre class="cq-nj-pre" id="cq-nj-body"></pre>
                 <div class="cq-confirm-acts">
-                    <button class="cq-btn" id="cq-nj-close">Close</button>
+                    <button class="cq-btn" id="cq-nj-close">{{ _('Close') }}</button>
                 </div>
             </div>
         </div>
@@ -1439,17 +1439,17 @@ body {
             <div class="cq-confirm-box" style="width:740px; max-width:94%;">
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px; border-bottom:1px solid #1c2740; padding-bottom:10px;">
                     <div style="display:flex; align-items:center; gap:10px;">
-                        <h3 id="cq-rv-title" style="margin:0; font-size:1.1rem; color:#fff;">🖼️ Job Result</h3>
+                        <h3 id="cq-rv-title" style="margin:0; font-size:1.1rem; color:#fff;">{{ _('🖼️ Job Result') }}</h3>
                         <span id="cq-rv-counter" class="cq-avg-pill" style="display:inline-flex; font-size:0.72rem; padding:2px 8px;">1 / 1</span>
                     </div>
                     <div style="display:flex; align-items:center; gap:8px;">
-                        <span id="cq-rv-status" class="t done" style="font-weight:800; font-size:0.85rem;">SUCCESS</span>
+                        <span id="cq-rv-status" class="t done" style="font-weight:800; font-size:0.85rem;">{{ _('SUCCESS') }}</span>
                         <span id="cq-rv-duration-pill" class="cq-avg-pill" style="display:inline-flex; font-size:0.75rem; padding:3px 10px;">⏱️ --</span>
                     </div>
                 </div>
                 <div class="msg" id="cq-rv-body" style="max-height:70vh; overflow-y:auto;"></div>
                 <div class="cq-confirm-acts">
-                    <button class="cq-btn" id="cq-rv-close">Close</button>
+                    <button class="cq-btn" id="cq-rv-close">{{ _('Close') }}</button>
                 </div>
             </div>
         </div>
@@ -1459,18 +1459,18 @@ body {
         <div id="cq-rv-fullscreen" role="dialog" aria-modal="true">
             <div class="cq-rv-fs-header">
                 <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-                    <span style="font-weight:800; color:#fff; font-size:0.95rem; text-shadow: 0 2px 8px rgba(0,0,0,0.8);">🖼️ Result Preview</span>
+                    <span style="font-weight:800; color:#fff; font-size:0.95rem; text-shadow: 0 2px 8px rgba(0,0,0,0.8);">{{ _('🖼️ Result Preview') }}</span>
                     <span id="cq-rv-fs-counter" class="cq-avg-pill" style="display:inline-flex; font-size:0.72rem; padding:2px 8px;">1 / 1</span>
-                    <span id="cq-rv-fs-dim" class="cq-dim-pill" style="display:none;">📐 Calculating…</span>
+                    <span id="cq-rv-fs-dim" class="cq-dim-pill" style="display:none;">{{ _('📐 Calculating…') }}</span>
                 </div>
                 <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
                     <div class="cq-zoom-bar">
-                        <button type="button" class="cq-btn" onclick="cqChangeFsZoom(-0.25)" title="Zoom Out (-)" style="padding:2px 8px; font-size:0.75rem;">−</button>
+                        <button type="button" class="cq-btn" onclick="cqChangeFsZoom(-0.25)" title="{{ _('Zoom Out (-)') }}" style="padding:2px 8px; font-size:0.75rem;">−</button>
                         <span id="cq-rv-fs-zoom-level" style="font-family:ui-monospace,Consolas,monospace; font-size:0.75rem; font-weight:800; color:#7dd3fc; min-width:44px; text-align:center;">100%</span>
-                        <button type="button" class="cq-btn" onclick="cqChangeFsZoom(0.25)" title="Zoom In (+)" style="padding:2px 8px; font-size:0.75rem;">+</button>
-                        <button type="button" class="cq-btn" onclick="cqResetFsZoom()" title="Reset Zoom (0)" style="padding:2px 8px; font-size:0.72rem;">Reset</button>
+                        <button type="button" class="cq-btn" onclick="cqChangeFsZoom(0.25)" title="{{ _('Zoom In (+)') }}" style="padding:2px 8px; font-size:0.75rem;">+</button>
+                        <button type="button" class="cq-btn" onclick="cqResetFsZoom()" title="{{ _('Reset Zoom (0)') }}" style="padding:2px 8px; font-size:0.72rem;">{{ _('Reset') }}</button>
                     </div>
-                    <button type="button" class="cq-btn" onclick="cqCloseResultFullscreen()" title="Exit Fullscreen (Esc)">⤓ Exit Fullscreen</button>
+                    <button type="button" class="cq-btn" onclick="cqCloseResultFullscreen()" title="{{ _('Exit Fullscreen (Esc)') }}">{{ _('⤓ Exit Fullscreen') }}</button>
                 </div>
             </div>
 
@@ -1481,12 +1481,12 @@ body {
                 <div class="cq-rv-fs-media-wrap" id="cq-rv-fs-media-wrap"></div>
             </div>
 
-            <button type="button" class="cq-rv-fs-arrow left" id="cq-rv-fs-prev" onclick="cqNavigateResult(-1)" title="Previous Job (Left Arrow)">&lt;</button>
-            <button type="button" class="cq-rv-fs-arrow right" id="cq-rv-fs-next" onclick="cqNavigateResult(1)" title="Next Job (Right Arrow)">&gt;</button>
+            <button type="button" class="cq-rv-fs-arrow left" id="cq-rv-fs-prev" onclick="cqNavigateResult(-1)" title="{{ _('Previous Job (Left Arrow)') }}">&lt;</button>
+            <button type="button" class="cq-rv-fs-arrow right" id="cq-rv-fs-next" onclick="cqNavigateResult(1)" title="{{ _('Next Job (Right Arrow)') }}">&gt;</button>
 
             <div class="cq-rv-fs-footer">
-                <span class="hint" style="font-size:0.72rem; color:#94a3b8; text-shadow: 0 2px 8px rgba(0,0,0,0.9);">Wheel / +/- to Zoom · Drag to Pan · Double-click to Toggle · ← / → to Navigate · S to Download · ESC to Exit</span>
-                <button type="button" class="cq-btn accent" id="cq-rv-fs-btn-dl" onclick="cqDownloadCurrentMedia(this)">⬇ Download Output</button>
+                <span class="hint" style="font-size:0.72rem; color:#94a3b8; text-shadow: 0 2px 8px rgba(0,0,0,0.9);">{{ _('Wheel / +/- to Zoom · Drag to Pan · Double-click to Toggle · ← / → to Navigate · S to Download · ESC to Exit') }}</span>
+                <button type="button" class="cq-btn accent" id="cq-rv-fs-btn-dl" onclick="cqDownloadCurrentMedia(this)">{{ _('⬇ Download Output') }}</button>
             </div>
         </div>
 
@@ -1496,8 +1496,8 @@ body {
                 <h3 id="cq-c-title"></h3>
                 <div class="msg" id="cq-c-msg"></div>
                 <div class="cq-confirm-acts">
-                    <button class="cq-btn" id="cq-c-cancel">Cancel</button>
-                    <button class="cq-btn danger" id="cq-c-ok">Confirm</button>
+                    <button class="cq-btn" id="cq-c-cancel">{{ _('Cancel') }}</button>
+                    <button class="cq-btn danger" id="cq-c-ok">{{ _('Confirm') }}</button>
                 </div>
             </div>
         </div>
@@ -1728,7 +1728,7 @@ return String(u).replace(/\/+$/, '');
         var originalHtml = btn ? btn.innerHTML : '';
         if (btn) {
             btn.disabled = true;
-            btn.innerHTML = '⏳ Downloading…';
+            btn.innerHTML = t('⏳ Downloading…');
         }
 
         var restore = function () {
@@ -1796,10 +1796,10 @@ return String(u).replace(/\/+$/, '');
         }
 
         document.body.classList.add('modal-open');
-        setPill('wait', 'CHECKING');
+        setPill('wait', t('CHECKING'));
 
         $('cq-body').innerHTML =
-            '<div class="cq-connerr"><div class="ic">⏳</div><p>Connecting to ComfyUI…</p></div>';
+            '<div class="cq-connerr"><div class="ic">⏳</div><p>' + t('Connecting to ComfyUI…') + '</p></div>';
 
         fetch('/galleryout/api/comfy_server_default')
             .then(function (r) {
@@ -2066,7 +2066,7 @@ return String(u).replace(/\/+$/, '');
 
         var v = inp.value.trim().replace(/\/+$/, '');
         if (!/^https?:\/\/.+/i.test(v)) {
-            addEvent('error', 'Invalid ComfyUI URL format.', 'ERROR');
+            addEvent('error', t('Invalid ComfyUI URL format.'), t('ERROR'));
             return;
         }
 
@@ -2075,7 +2075,7 @@ return String(u).replace(/\/+$/, '');
         $('cq-url').textContent = v;
 
         cqSoftReset();
-        setPill('wait', 'CHECKING');
+        setPill('wait', t('CHECKING'));
         checkConnection();
     }
 
@@ -2088,7 +2088,7 @@ return String(u).replace(/\/+$/, '');
         $('cq-url').textContent = CQ.url;
 
         cqSoftReset();
-        setPill('wait', 'CHECKING');
+        setPill('wait', t('CHECKING'));
         checkConnection();
     }
 
@@ -2125,7 +2125,7 @@ return String(u).replace(/\/+$/, '');
             $('cq-c-msg').innerHTML = html;
 
             var ok = $('cq-c-ok');
-            ok.innerHTML = okText || 'Confirm';
+            ok.innerHTML = okText || t('Confirm');
             ok.className = 'cq-btn' + (danger ? ' danger' : '');
 
             $('cq-confirm').classList.add('visible');
@@ -2157,8 +2157,8 @@ return String(u).replace(/\/+$/, '');
     function checkConnection() {
         if (!/^https?:\/\/.+/i.test(CQ.url)) {
             renderConnError(
-                'Invalid ComfyUI URL configured.',
-                'Use the <b>🔗 ComfyUI URL</b> bar above, or set <code>COMFYUI_SERVER_URL</code>.'
+                t('Invalid ComfyUI URL configured.'),
+                t('Use the {bar} bar above, or set {env}.', {bar: '<b>' + t('🔗 ComfyUI URL') + '</b>', env: '<code>COMFYUI_SERVER_URL</code>'})
             );
             return;
         }
@@ -2172,7 +2172,7 @@ return String(u).replace(/\/+$/, '');
                 if (!CQ.open) return;
 
                 CQ.stats = data;
-                setPill('ok', 'CONNECTED');
+                setPill('ok', t('CONNECTED'));
 
                 try {
                     renderDashboard();
@@ -2195,11 +2195,11 @@ return String(u).replace(/\/+$/, '');
             .catch(function (err) {
                 if (!CQ.open) return;
 
-                setPill('err', 'OFFLINE');
+                setPill('err', t('OFFLINE'));
                 renderConnError(
-                    'ComfyUI is not reachable.',
-                    'Could not connect to <code>' + esc(CQ.url) + '</code>.<br>' +
-                    'Make sure ComfyUI is running, then set the address in the <b>🔗 ComfyUI URL</b> bar above.<br>' +
+                    t('ComfyUI is not reachable.'),
+                    t('Could not connect to {url}.', {url: '<code>' + esc(CQ.url) + '</code>'}) + '<br>' +
+                    t('Make sure ComfyUI is running, then set the address in the {bar} bar above.', {bar: '<b>' + t('🔗 ComfyUI URL') + '</b>'}) + '<br>' +
                     '<small>(' + esc(err.message || err) + ')</small>'
                 );
             });
@@ -2211,7 +2211,7 @@ return String(u).replace(/\/+$/, '');
             '<div class="ic">🔌</div>' +
             '<h3>' + esc(title) + '</h3>' +
             '<p>' + body + '</p>' +
-            '<button class="cq-btn" onclick="cqRetry()">🔄 Retry Connection</button>' +
+            '<button class="cq-btn" onclick="cqRetry()">' + t('🔄 Retry Connection') + '</button>' +
             '</div>';
     }
 
@@ -2222,7 +2222,7 @@ return String(u).replace(/\/+$/, '');
         var inp = $('cq-url-input');
         if (inp) inp.value = CQ.url;
 
-        setPill('wait', 'CHECKING');
+        setPill('wait', t('CHECKING'));
         checkConnection();
     };
 
@@ -2237,11 +2237,11 @@ return String(u).replace(/\/+$/, '');
 
                     '<div class="cq-card">' +
                         '<div class="cq-card-title">' +
-                            '<span>🚀 Current Job</span>' +
+                            '<span>' + t('🚀 Current Job') + '</span>' +
                             '<span id="cq-job-id" style="color:#64748b;font-family:monospace;"></span>' +
                         '</div>' +
                         '<div class="cq-prog-row">' +
-                            '<span class="cq-prog-label" id="cq-prog-label">Idle — no job running</span>' +
+                            '<span class="cq-prog-label" id="cq-prog-label">' + t('Idle — no job running') + '</span>' +
                             '<span class="cq-prog-pct" id="cq-prog-pct">0%</span>' +
                         '</div>' +
                         '<div class="cq-track"><div class="cq-fill idle" id="cq-fill"></div></div>' +
@@ -2250,16 +2250,16 @@ return String(u).replace(/\/+$/, '');
 
                     '<div class="cq-card cq-preview-card">' +
                         '<div class="cq-card-title">' +
-                            '<span>🖼️ Live Preview <span id="cq-preview-health" style="font-size:0.65rem;font-weight:600;margin-left:6px;opacity:0.8;"></span></span>' +
+                            '<span>' + t('🖼️ Live Preview') + ' <span id="cq-preview-health" style="font-size:0.65rem;font-weight:600;margin-left:6px;opacity:0.8;"></span></span>' +
                             '<span class="cq-side">' +
-                                '<button class="cq-ptoggle cq-pinterrupt" id="cq-pinterrupt" style="position:static;" onclick="cqInterrupt()" disabled title="Interrupt the currently running job">⏹ Interrupt Job</button>' +
-                                '<button class="cq-ptoggle" id="cq-ptoggle" style="position:static;display:none;" onclick="cqTogglePreview()">🚫 Stop Stream</button>' +
+                                '<button class="cq-ptoggle cq-pinterrupt" id="cq-pinterrupt" style="position:static;" onclick="cqInterrupt()" disabled title="' + t('Interrupt the currently running job') + '">' + t('⏹ Interrupt Job') + '</button>' +
+                                '<button class="cq-ptoggle" id="cq-ptoggle" style="position:static;display:none;" onclick="cqTogglePreview()">' + t('🚫 Stop Stream') + '</button>' +
                             '</span>' +
                         '</div>' +
                         '<div class="cq-preview-box" id="cq-pbox">' +
-                            '<div class="cq-ph" id="cq-ph"><span class="ic">🛰️</span><span>Waiting for a preview…</span></div>' +
-                            '<img id="cq-pimg" style="display:none" alt="Job preview">' +
-                            '<div class="cq-live" id="cq-plive" style="display:none">● LIVE</div>' +
+                            '<div class="cq-ph" id="cq-ph"><span class="ic">🛰️</span><span>' + t('Waiting for a preview…') + '</span></div>' +
+                            '<img id="cq-pimg" style="display:none" alt="' + t('Job preview') + '">' +
+                            '<div class="cq-live" id="cq-plive" style="display:none">' + t('● LIVE') + '</div>' +
                             '<div class="cq-pnote" id="cq-pnote"></div>' +
                         '</div>' +
                     '</div>' +
@@ -2269,47 +2269,47 @@ return String(u).replace(/\/+$/, '');
                 '<div class="cq-col">' +
 
                     '<div class="cq-card">' +
-                        '<div class="cq-card-title"><span>📊 System</span></div>' +
+                        '<div class="cq-card-title"><span>' + t('📊 System') + '</span></div>' +
                         '<div class="cq-sys">' +
 '<div class="cq-gauges">' +
-'<div class="cq-gauge-wrap" title="Driver-level VRAM occupancy (memory), NOT compute utilization">' +
+'<div class="cq-gauge-wrap" title="' + t('Driver-level VRAM occupancy (memory), NOT compute utilization') + '">' +
 '<svg viewBox="0 0 120 120">' +
 '<circle class="cq-g-track" cx="60" cy="60" r="50"></circle>' +
 '<circle class="cq-g-val" id="cq-gval" cx="60" cy="60" r="50"></circle>' +
 '</svg>' +
-'<div class="cq-g-center"><b id="cq-vram">--</b><small>VRAM</small></div>' +
+'<div class="cq-g-center"><b id="cq-vram">--</b><small>' + t('VRAM') + '</small></div>' +
 '</div>' +
-'<div class="cq-gauge-wrap" title="GPU compute utilization (engine load) for the active ComfyUI server.">' +
+'<div class="cq-gauge-wrap" title="' + t('GPU compute utilization (engine load) for the active ComfyUI server.') + '">' +
 '<svg viewBox="0 0 120 120">' +
 '<circle class="cq-g-track" cx="60" cy="60" r="50"></circle>' +
 '<circle class="cq-g-val" id="cq-gval-gpu" cx="60" cy="60" r="50"></circle>' +
 '</svg>' +
-'<div class="cq-g-center"><b id="cq-gpu-pct">--</b><small>GPU LOAD</small></div>' +
+'<div class="cq-g-center"><b id="cq-gpu-pct">--</b><small>' + t('GPU LOAD') + '</small></div>' +
 '</div>' +
-'<div class="cq-gauge-wrap" id="cq-ram-wrap" title="System RAM utilization for the active ComfyUI server." style="display:none;">' +
+'<div class="cq-gauge-wrap" id="cq-ram-wrap" title="' + t('System RAM utilization for the active ComfyUI server.') + '" style="display:none;">' +
 '<svg viewBox="0 0 120 120">' +
 '<circle class="cq-g-track" cx="60" cy="60" r="50"></circle>' +
 '<circle class="cq-g-val" id="cq-gval-ram" cx="60" cy="60" r="50"></circle>' +
 '</svg>' +
-'<div class="cq-g-center"><small id="cq-ram-label" style="font-size:0.55rem;">RAM</small><b id="cq-ram-pct">--</b><small id="cq-ram-usage" style="font-size:0.55rem; letter-spacing:0; white-space:nowrap;">--</small></div>' +
+'<div class="cq-g-center"><small id="cq-ram-label" style="font-size:0.55rem;">' + t('RAM') + '</small><b id="cq-ram-pct">--</b><small id="cq-ram-usage" style="font-size:0.55rem; letter-spacing:0; white-space:nowrap;">--</small></div>' +
 '</div>' +
 '</div>' +
                             '<div class="cq-sys-stats">' +
-                                '<div class="cq-stat"><span>QUEUE PENDING</span><b id="cq-s-pend">0</b></div>' +
-                                '<div class="cq-stat"><span>RUNNING</span><b id="cq-s-run">0</b></div>' +
-                                '<div class="cq-stat"><span>VRAM USED</span><b id="cq-s-vram">--</b></div>' +
-                                '<div class="cq-stat"><span>TORCH RESERVED</span><b id="cq-s-torch">--</b></div>' +
-                                '<div class="cq-stat" id="cq-stat-dev-wrap" title="Compute Device"><span>DEVICE</span><b id="cq-s-dev" style="font-size:0.75rem; text-align:right; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:65%;">--</b></div>' +
+                                '<div class="cq-stat"><span>' + t('QUEUE PENDING') + '</span><b id="cq-s-pend">0</b></div>' +
+                                '<div class="cq-stat"><span>' + t('RUNNING') + '</span><b id="cq-s-run">0</b></div>' +
+                                '<div class="cq-stat"><span>' + t('VRAM USED') + '</span><b id="cq-s-vram">--</b></div>' +
+                                '<div class="cq-stat"><span>' + t('TORCH RESERVED') + '</span><b id="cq-s-torch">--</b></div>' +
+                                '<div class="cq-stat" id="cq-stat-dev-wrap" title="' + t('Compute Device') + '"><span>' + t('DEVICE') + '</span><b id="cq-s-dev" style="font-size:0.75rem; text-align:right; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:65%;">--</b></div>' +
                             '</div>' +
                         '</div>' +
                     '</div>' +
 
                     '<div class="cq-card cq-events-card">' +
                         '<div class="cq-card-title">' +
-                            '<span>📡 Live Event Stream</span>' +
-                            '<button class="cq-clearbtn" onclick="cqClearEvents()">Clear</button>' +
+                            '<span>' + t('📡 Live Event Stream') + '</span>' +
+                            '<button class="cq-clearbtn" onclick="cqClearEvents()">' + t('Clear') + '</button>' +
                         '</div>' +
-                        '<div class="cq-events" id="cq-events"><div class="cq-ev-empty">Waiting for events…</div></div>' +
+                        '<div class="cq-events" id="cq-events"><div class="cq-ev-empty">' + t('Waiting for events…') + '</div></div>' +
                     '</div>' +
 
                 '</div>' +
@@ -2318,25 +2318,25 @@ return String(u).replace(/\/+$/, '');
 
             '<div class="cq-card cq-queue-card">' +
                 '<div class="cq-card-title">' +
-                    '<span>📋 Execution Queue</span>' +
+                    '<span>' + t('📋 Execution Queue') + '</span>' +
                     '<span class="cq-side">' +
-                        '<button class="cq-btn danger" id="cq-b-delsel" onclick="cqDeleteSelected()" disabled>🗑 Delete Selected (0)</button>' +
-                        '<button class="cq-btn danger" id="cq-b-int" onclick="cqInterrupt()" disabled>⏹ Interrupt Job</button>' +
-                        '<button class="cq-btn danger" id="cq-b-clear" onclick="cqClearQueue()" disabled>🧹 Clear All</button>' +
+                        '<button class="cq-btn danger" id="cq-b-delsel" onclick="cqDeleteSelected()" disabled>' + t('🗑 Delete Selected ({n})', {n: 0}) + '</button>' +
+                        '<button class="cq-btn danger" id="cq-b-int" onclick="cqInterrupt()" disabled>' + t('⏹ Interrupt Job') + '</button>' +
+                        '<button class="cq-btn danger" id="cq-b-clear" onclick="cqClearQueue()" disabled>' + t('🧹 Clear All') + '</button>' +
                     '</span>' +
                 '</div>' +
-                '<div class="cq-queue" id="cq-queue"><div class="cq-empty">Loading queue…</div></div>' +
+                '<div class="cq-queue" id="cq-queue"><div class="cq-empty">' + t('Loading queue…') + '</div></div>' +
             '</div>' +
 
             '<div class="cq-card cq-history-card">' +
                 '<div class="cq-card-title">' +
-                    '<span>🗂️ Recent Jobs</span>' +
+                    '<span>' + t('🗂️ Recent Jobs') + '</span>' +
                     '<span class="cq-side">' +
                         '<span id="cq-history-avg-side" style="color:#d8b4fe;font-weight:800;font-size:0.72rem;margin-right:8px;display:none;font-variant-numeric:tabular-nums;"></span>' +
-                        '<button class="cq-clearbtn" onclick="fetchHistory()">Refresh</button>' +
+                        '<button class="cq-clearbtn" onclick="fetchHistory()">' + t('Refresh') + '</button>' +
                     '</span>' +
                 '</div>' +
-                '<div class="cq-history-row" id="cq-history"><div class="cq-history-empty">Loading history…</div></div>' +
+                '<div class="cq-history-row" id="cq-history"><div class="cq-history-empty">' + t('Loading history…') + '</div></div>' +
             '</div>';
 
         renderStats();
@@ -2426,7 +2426,7 @@ CQ._probeWs = null;
 CQ.ws = ws;
 CQ._goldenHost = host;
 CQ._goldenPort = port;
-addEvent('status', 'Daemon hooked stream via ' + host + portStr, 'CONNECT');
+addEvent('status', t('Daemon hooked stream via {host}{port}', {host: host, port: portStr}), t('CONNECT'));
 ws.onmessage = handleIncomingWsMessage;
 ws.onclose = function() { CQ.ws = null; };
 ws.onerror = function() {};
@@ -2450,18 +2450,18 @@ connectNext();
 }
 
     function onWSMsg(msg) {
-        var t = msg.type;
+        var type = msg.type;
         var d = msg.data || {};
 
-        if (t === 'status') {
+        if (type === 'status') {
             if (d.status && d.status.exec_info && typeof d.status.exec_info.queue_remaining === 'number') {
                 var rem = d.status.exec_info.queue_remaining;
-                addEvent('status', 'Queue update: ' + rem + ' item(s) in queue', 'QUEUE');
+                addEvent('status', t('Queue update: {n} item(s) in queue', {n: rem}), t('QUEUE'));
             }
             return;
         }
 
-        if (t === 'logs') {
+        if (type === 'logs') {
             var arr = Array.isArray(d) ? d : (Array.isArray(msg.logs) ? msg.logs : null);
             if (arr) {
                 for (var i = 0; i < arr.length; i++) {
@@ -2473,7 +2473,7 @@ connectNext();
             return;
         }
 
-        if (t === 'execution_start') {
+        if (type === 'execution_start') {
             CQ.progress = 0;
             CQ.progressMax = 0;
             CQ.currentPrompt = d.prompt_id;
@@ -2482,13 +2482,13 @@ connectNext();
             CQ.previewFrameCount = 0;
             CQ.jobEndedForPrompt = false;
 
-            addEvent('start', 'Execution started · prompt ' + short(d.prompt_id), 'START');
+            addEvent('start', t('Execution started · prompt {id}', {id: short(d.prompt_id)}), t('START'));
             updateProgress();
-        } else if (t === 'executing') {
+        } else if (type === 'executing') {
             if (d.prompt_id) CQ.currentPrompt = d.prompt_id;
 
             if (d.node === null || d.node === undefined) {
-                addEvent('done', 'Workflow execution complete', 'COMPLETE');
+                addEvent('done', t('Workflow execution complete'), t('COMPLETE'));
                 cqOnJobEnd();
             } else {
                 CQ.currentNode = d.node;
@@ -2498,36 +2498,36 @@ connectNext();
                 } else {
                     CQ.currentNodeTitle = d.node;
                 }
-                addEvent('exec', 'Executing node [' + esc(CQ.currentNodeTitle) + ']', 'NODE');
+                addEvent('exec', t('Executing node [{node}]', {node: esc(CQ.currentNodeTitle)}), t('NODE'));
                 updateProgress();
             }
-        } else if (t === 'progress') {
+        } else if (type === 'progress') {
             if (d.prompt_id) CQ.currentPrompt = d.prompt_id;
             if (d.node) CQ.currentNode = d.node;
             CQ.progress = d.value || 0;
             CQ.progressMax = d.max || 0;
 
             if (d.value === 1 || d.value === d.max || d.value % 5 === 0) {
-                addEvent('progress', 'Node [' + esc(CQ.currentNodeTitle || d.node || '') + '] step ' + d.value + '/' + d.max, 'STEP');
+                addEvent('progress', t('Node [{node}] step {value}/{max}', {node: esc(CQ.currentNodeTitle || d.node || ''), value: d.value, max: d.max}), t('STEP'));
             }
             updateProgress();
-        } else if (t === 'progress_state') {
+        } else if (type === 'progress_state') {
             if (d.prompt_id) CQ.currentPrompt = d.prompt_id;
             updateProgress();
-        } else if (t === 'executed') {
-            addEvent('done', 'Output produced by node [' + esc(d.node || '') + ']', 'OUTPUT');
+        } else if (type === 'executed') {
+            addEvent('done', t('Output produced by node [{node}]', {node: esc(d.node || '')}), t('OUTPUT'));
             extractPreviewFromOutput(d.output);
-        } else if (t === 'execution_cached') {
+        } else if (type === 'execution_cached') {
             var cachedCount = (d.nodes ? d.nodes.length : 0);
-            addEvent('cached', 'Loaded from cache: ' + cachedCount + ' node(s)', 'CACHE');
-        } else if (t === 'execution_success') {
-            addEvent('done', '✅ Job execution succeeded', 'SUCCESS');
+            addEvent('cached', t('Loaded from cache: {n} node(s)', {n: cachedCount}), t('CACHE'));
+        } else if (type === 'execution_success') {
+            addEvent('done', t('✅ Job execution succeeded'), t('SUCCESS'));
             cqOnJobEnd();
-        } else if (t === 'execution_error') {
-            addEvent('error', '❌ Error: ' + esc(d.exception_message || 'Execution error'), 'ERROR');
+        } else if (type === 'execution_error') {
+            addEvent('error', t('❌ Error: {message}', {message: esc(d.exception_message || t('Execution error'))}), t('ERROR'));
             cqOnJobEnd();
-        } else if (t === 'execution_interrupted') {
-            addEvent('interrupt', '⏹ Job execution interrupted', 'STOP');
+        } else if (type === 'execution_interrupted') {
+            addEvent('interrupt', t('⏹ Job execution interrupted'), t('STOP'));
             cqOnJobEnd();
         }
     }
@@ -2594,7 +2594,7 @@ connectNext();
         if (tog) tog.style.display = 'none';
         if (ph) {
             ph.style.display = 'flex';
-            ph.innerHTML = '<span class="ic">🛰️</span><span>Waiting for a preview…</span>';
+            ph.innerHTML = '<span class="ic">🛰️</span><span>' + t('Waiting for a preview…') + '</span>';
         }
         cqBroadcastClear();
 }
@@ -2654,7 +2654,7 @@ connectNext();
             if (silence > 8000 && CQ.previewRecoveryAttempts < 6) {
                 CQ.previewRecoveryAttempts++;
                 CQ.previewHealth = 'recovering';
-                addEvent('info', 'Preview stream stalled (' + Math.round(silence / 1000) + 's). HTTP recovery #' + CQ.previewRecoveryAttempts, 'WATCHDOG');
+                addEvent('info', t('Preview stream stalled ({sec}s). HTTP recovery #{n}', {sec: Math.round(silence / 1000), n: CQ.previewRecoveryAttempts}), t('WATCHDOG'));
                 cqDiscoverPreviewViaHTTP();
             } else if (CQ.previewRecoveryAttempts >= 6) {
                 CQ.previewHealth = 'degraded';
@@ -2890,7 +2890,7 @@ connectNext();
         if (tog) tog.style.display = 'inline-block';
         if (live && CQ.previewOn) {
             live.style.display = 'block';
-            live.textContent = isCompleted ? '● READY' : '● LIVE';
+            live.textContent = isCompleted ? t('● READY') : t('● LIVE');
             live.style.background = isCompleted ? 'rgba(56,189,248,0.92)' : 'rgba(52,211,153,0.92)';
         }
     }
@@ -2972,7 +2972,7 @@ connectNext();
             }
 
             startPreviewPoll();
-            addEvent('info', 'Preview stream resumed', 'INFO');
+            addEvent('info', t('Preview stream resumed'), t('INFO'));
         } else {
             stopPreviewPoll();
 
@@ -2980,10 +2980,10 @@ connectNext();
             if (live) live.style.display = 'none';
             if (ph) {
                 ph.style.display = 'flex';
-                ph.querySelector('span:last-child').innerHTML = 'Preview stream paused.';
+                ph.querySelector('span:last-child').innerHTML = t('Preview stream paused.');
             }
 
-            addEvent('info', 'Preview stream stopped by user', 'INFO');
+            addEvent('info', t('Preview stream stopped by user'), t('INFO'));
         }
     };
 
@@ -2992,7 +2992,7 @@ connectNext();
         if (!tog) return;
 
         tog.style.display = CQ.previewSeen ? 'inline-block' : 'none';
-        tog.innerHTML = CQ.previewOn ? '🚫 Stop Stream' : '▶️ Resume Stream';
+        tog.innerHTML = CQ.previewOn ? t('🚫 Stop Stream') : t('▶️ Resume Stream');
     }
 
     /* ============================================================
@@ -3030,7 +3030,7 @@ connectNext();
     window.cqClearEvents = function () {
         CQ.events = [];
         var b = $('cq-events');
-        if (b) b.innerHTML = '<div class="cq-ev-empty">Waiting for events…</div>';
+        if (b) b.innerHTML = '<div class="cq-ev-empty">' + t('Waiting for events…') + '</div>';
     };
 
     function processLogText(text) {
@@ -3066,11 +3066,11 @@ connectNext();
     }
 
     function lineLevel(l) {
-        if (/ERROR|CRITICAL|Traceback|Exception/i.test(l)) return { cls: 'c-error', label: 'ERROR' };
-        if (/WARNING|WARN/i.test(l)) return { cls: 'c-warn', label: 'WARN' };
-        if (/DEBUG/i.test(l)) return { cls: 'c-debug', label: 'DEBUG' };
-        if (/^\s*\[INFO\]/i.test(l)) return { cls: 'c-info', label: 'INFO' };
-        return { cls: 'c-info', label: 'LOG' };
+        if (/ERROR|CRITICAL|Traceback|Exception/i.test(l)) return { cls: 'c-error', label: t('ERROR') };
+        if (/WARNING|WARN/i.test(l)) return { cls: 'c-warn', label: t('WARN') };
+        if (/DEBUG/i.test(l)) return { cls: 'c-debug', label: t('DEBUG') };
+        if (/^\s*\[INFO\]/i.test(l)) return { cls: 'c-info', label: t('INFO') };
+        return { cls: 'c-info', label: t('LOG') };
     }
 
     /* ============================================================
@@ -3120,44 +3120,44 @@ connectNext();
             if (pct) pct.textContent = v + '%';
 
             if (lbl) {
-                lbl.textContent = 'Step ' + currentStep + ' / ' + totalSteps + ' (' + v + '%)';
+                lbl.textContent = t('Step {step} / {total} ({pct}%)', {step: currentStep, total: totalSteps, pct: v});
             }
 
-            var nodeDisplay = CQ.currentNodeTitle || CQ.currentNode || 'Sampling';
+            var nodeDisplay = CQ.currentNodeTitle || CQ.currentNode || t('Sampling');
             if (node) {
-                node.textContent = '▶ Active: [' + nodeDisplay + ']' + (CQ.currentSamplerName ? (' · ' + CQ.currentSamplerName) : '');
+                node.textContent = t('▶ Active: [{node}]', {node: nodeDisplay}) + (CQ.currentSamplerName ? (' · ' + CQ.currentSamplerName) : '');
             }
             if (jid) {
-                jid.textContent = CQ.currentPrompt ? ('prompt ' + short(CQ.currentPrompt)) : '';
+                jid.textContent = CQ.currentPrompt ? t('prompt {id}', {id: short(CQ.currentPrompt)}) : '';
             }
 
             // Update preview health indicator badge
             var healthEl = $('cq-preview-health');
             if (healthEl) {
-                if (CQ.previewHealth === 'ok') healthEl.innerHTML = '<span style="color:#34d399;">● Stream OK</span>';
-                else if (CQ.previewHealth === 'recovering') healthEl.innerHTML = '<span style="color:#fbbf24;">◌ Recovering…</span>';
-                else if (CQ.previewHealth === 'degraded') healthEl.innerHTML = '<span style="color:#f87171;">⚠ Degraded</span>';
-                else if (CQ.previewHealth === 'waiting') healthEl.innerHTML = '<span style="color:#94a3b8;">○ Waiting…</span>';
+                if (CQ.previewHealth === 'ok') healthEl.innerHTML = '<span style="color:#34d399;">' + t('● Stream OK') + '</span>';
+                else if (CQ.previewHealth === 'recovering') healthEl.innerHTML = '<span style="color:#fbbf24;">' + t('◌ Recovering…') + '</span>';
+                else if (CQ.previewHealth === 'degraded') healthEl.innerHTML = '<span style="color:#f87171;">' + t('⚠ Degraded') + '</span>';
+                else if (CQ.previewHealth === 'waiting') healthEl.innerHTML = '<span style="color:#94a3b8;">' + t('○ Waiting…') + '</span>';
                 else healthEl.innerHTML = '';
             }
             // Update in-progress preview placeholder if no live frame has rendered yet
             if (ph && !CQ.previewSeen) {
                 ph.innerHTML =
                     '<span class="ic" style="font-size:2.2rem;animation:cqPulse 1.2s infinite;">⚡</span>' +
-                    '<span style="font-weight:700;color:#7dd3fc;">Generating in progress…</span>' +
-                    '<span style="font-size:0.75rem;color:#94a3b8;">Step ' + currentStep + ' / ' + totalSteps + ' (' + v + '%)</span>';
+                    '<span style="font-weight:700;color:#7dd3fc;">' + t('Generating in progress…') + '</span>' +
+                    '<span style="font-size:0.75rem;color:#94a3b8;">' + t('Step {step} / {total} ({pct}%)', {step: currentStep, total: totalSteps, pct: v}) + '</span>';
             }
         } else {
             fill.style.width = '0%';
             fill.className = 'cq-fill idle';
 
             if (pct) pct.textContent = '0%';
-            if (lbl) lbl.textContent = 'Idle — no job running';
+            if (lbl) lbl.textContent = t('Idle — no job running');
             if (node) node.textContent = '';
             if (jid) jid.textContent = '';
 
             if (ph && !CQ.previewSeen) {
-                ph.innerHTML = '<span class="ic">🛰️</span><span>Waiting for a preview…</span>';
+                ph.innerHTML = '<span class="ic">🛰️</span><span>' + t('Waiting for a preview…') + '</span>';
             }
         }
     }
@@ -3215,7 +3215,7 @@ connectNext();
 
                 if (CQ.prevTotalInQueue === null || CQ.prevTotalInQueue !== totalInQueue) {
                     if (CQ.prevTotalInQueue !== null) {
-                        addEvent('status', 'Queue update: ' + totalInQueue + ' job(s) in queue (' + curPending + ' pending, ' + curRunning + ' running)', 'QUEUE');
+                        addEvent('status', t('Queue update: {total} job(s) in queue ({pending} pending, {running} running)', {total: totalInQueue, pending: curPending, running: curRunning}), t('QUEUE'));
                     }
                     CQ.prevTotalInQueue = totalInQueue;
                 }
@@ -3247,7 +3247,7 @@ connectNext();
                         // WATCHDOG: If after 6s of computation there is no preview, destroy and steal the stream
                         if (Date.now() - CQ.jobStartedTs > 6000 && !CQ._watchdogFired) {
                             CQ._watchdogFired = true;
-                            addEvent('info', 'Daemon intercepting video stream...', 'WATCHDOG');
+                            addEvent('info', t('Daemon intercepting video stream...'), t('WATCHDOG'));
                             connectWS(targetWsId);
                         }
                     }
@@ -3255,10 +3255,10 @@ connectNext();
 
                     if (CQ.prevRunningPromptId !== pid) {
                         if (CQ.prevRunningPromptId !== null) {
-                            addEvent('done', 'Job completed · Output ready', 'DONE');
+                            addEvent('done', t('Job completed · Output ready'), t('DONE'));
                         }
                         CQ.prevRunningPromptId = pid;
-                        addEvent('start', 'Execution started · Job #' + jobPos + ' (prompt ' + short(pid) + ')', 'START');
+                        addEvent('start', t('Execution started · Job #{pos} (prompt {id})', {pos: jobPos, id: short(pid)}), t('START'));
 
                         stopPreviewPoll();
                         CQ.previewBase = null;
@@ -3272,7 +3272,7 @@ connectNext();
                         var _pvid = $('cq-pvid');
                         if (_pvid) { _pvid.removeAttribute('src'); _pvid.style.display = 'none'; }
                         var _ph = $('cq-ph');
-                        if (_ph) { _ph.style.display = 'flex'; _ph.innerHTML = '<span class="ic">\ud83d\uddfa\ufe0f</span><span>Waiting for a preview\u2026</span>'; }
+                        if (_ph) { _ph.style.display = 'flex'; _ph.innerHTML = '<span class="ic">\ud83d\uddfa\ufe0f</span><span>' + t('Waiting for a preview…') + '</span>'; }
                         var _plive = $('cq-plive');
                         if (_plive) _plive.style.display = 'none';
                         var _ptog = $('cq-ptoggle');
@@ -3310,7 +3310,7 @@ connectNext();
                     updateProgress();
                 } else {
                     if (CQ.prevRunningPromptId !== null) {
-                        addEvent('done', 'All jobs in queue completed · Outputs saved', 'DONE');
+                        addEvent('done', t('All jobs in queue completed · Outputs saved'), t('DONE'));
                         var finishedPid = CQ.prevRunningPromptId;
                         CQ.prevRunningPromptId = null;
 
@@ -3370,12 +3370,12 @@ connectNext();
             html += '<div class="cq-item run">' +
                         '<span class="st"></span>' +
                         '<div class="inf">' +
-                            '<div class="id">🟢 Running · #' + esc(it[0]) + '</div>' +
-                            '<div class="meta">prompt ' + esc(short(rid)) + '</div>' +
+                            '<div class="id">' + t('🟢 Running · #{n}', {n: esc(it[0])}) + '</div>' +
+                            '<div class="meta">' + t('prompt {id}', {id: esc(short(rid))}) + '</div>' +
                         '</div>' +
                         '<div class="acts">' +
-                            '<button class="cq-ibtn info" onclick="cqShowJobInfo(\'' + esc(rid) + '\')">ℹ️ Info</button>' +
-                            '<button class="cq-ibtn danger" onclick="cqInterrupt()">⏹ Stop</button>' +
+                            '<button class="cq-ibtn info" onclick="cqShowJobInfo(\'' + esc(rid) + '\')">' + t('ℹ️ Info') + '</button>' +
+                            '<button class="cq-ibtn danger" onclick="cqInterrupt()">' + t('⏹ Stop') + '</button>' +
                         '</div>' +
                     '</div>';
         }
@@ -3392,25 +3392,25 @@ connectNext();
             var chk = CQ.selected[pid] ? ' checked' : '';
 
             html += '<div class="cq-item pend">' +
-                        '<label class="cq-check" title="Select for batch delete">' +
+                        '<label class="cq-check" title="' + t('Select for batch delete') + '">' +
                             '<input type="checkbox"' + chk + ' onchange="cqToggleSelect(\'' + esc(pid) + '\', this.checked)">' +
                             '<span></span>' +
                         '</label>' +
                         '<span class="st"></span>' +
                         '<div class="inf">' +
-                            '<div class="id">🔵 Pending #' + (i + 1) + ' · pos ' + esc(it[0]) + '</div>' +
-                            '<div class="meta">prompt ' + esc(short(pid)) + ' · ' + nodes + ' nodes</div>' +
+                            '<div class="id">' + t('🔵 Pending #{i} · pos {pos}', {i: i + 1, pos: esc(it[0])}) + '</div>' +
+                            '<div class="meta">' + t('prompt {id} · {n} nodes', {id: esc(short(pid)), n: nodes}) + '</div>' +
                         '</div>' +
                         '<div class="acts">' +
-                            '<button class="cq-ibtn info" onclick="cqShowJobInfo(\'' + esc(pid) + '\')">ℹ️ Info</button>' +
-                            '<button class="cq-ibtn" onclick="cqMoveTop(\'' + esc(pid) + '\')">⬆ Top</button>' +
+                            '<button class="cq-ibtn info" onclick="cqShowJobInfo(\'' + esc(pid) + '\')">' + t('ℹ️ Info') + '</button>' +
+                            '<button class="cq-ibtn" onclick="cqMoveTop(\'' + esc(pid) + '\')">' + t('⬆ Top') + '</button>' +
                             '<button class="cq-ibtn danger" onclick="cqDelete(\'' + esc(pid) + '\')">🗑</button>' +
                         '</div>' +
                     '</div>';
         }
 
         if (!html) {
-            html = '<div class="cq-empty">Queue is empty — no running or pending jobs.</div>';
+            html = '<div class="cq-empty">' + t('Queue is empty — no running or pending jobs.') + '</div>';
         }
 
         box.innerHTML = html;
@@ -3431,7 +3431,7 @@ connectNext();
         var b = $('cq-b-delsel');
         if (b) {
             b.disabled = (n === 0);
-            b.innerHTML = '🗑 Delete Selected (' + n + ')';
+            b.innerHTML = t('🗑 Delete Selected ({n})', {n: n});
         }
     }
 
@@ -3446,10 +3446,10 @@ connectNext();
         if (!ids.length) return;
 
         cqConfirm(
-            '🗑 Delete selected jobs?',
-            'Remove <b>' + ids.length + '</b> selected job(s) from the pending queue?<br>' +
-            '<span class="warn">Running jobs are not affected.</span>',
-            'Delete Selected',
+            t('🗑 Delete selected jobs?'),
+            t('Remove {n} selected job(s) from the pending queue?', {n: '<b>' + ids.length + '</b>'}) + '<br>' +
+            '<span class="warn">' + t('Running jobs are not affected.') + '</span>',
+            t('Delete Selected'),
             true
         ).then(function (ok) {
             if (!ok) return;
@@ -3460,12 +3460,12 @@ connectNext();
                 body: JSON.stringify({ delete: ids })
             })
             .then(function () {
-                addEvent('info', '🗑 Deleted ' + ids.length + ' selected job(s)', 'DELETE');
+                addEvent('info', t('🗑 Deleted {n} selected job(s)', {n: ids.length}), t('DELETE'));
                 CQ.selected = {};
                 fetchQueue(false);
             })
             .catch(function (e) {
-                addEvent('error', 'Batch delete failed: ' + esc(e.message), 'ERROR');
+                addEvent('error', t('Batch delete failed: {message}', {message: esc(e.message)}), t('ERROR'));
             });
         });
     };
@@ -3473,19 +3473,19 @@ connectNext();
     window.cqInterrupt = function () {
         cqFetch('/interrupt', { method: 'POST' })
             .then(function () {
-                addEvent('interrupt', '⏹ Interrupt requested for running job', 'ACTION');
+                addEvent('interrupt', t('⏹ Interrupt requested for running job'), t('ACTION'));
                 fetchQueue(false);
             })
             .catch(function (e) {
-                addEvent('error', 'Interrupt failed: ' + esc(e.message), 'ERROR');
+                addEvent('error', t('Interrupt failed: {message}', {message: esc(e.message)}), t('ERROR'));
             });
     };
 
     window.cqDelete = function (pid) {
         cqConfirm(
-            '🗑 Delete queued job?',
-            'Remove pending job <b>' + esc(short(pid)) + '</b> from the queue?',
-            'Delete',
+            t('🗑 Delete queued job?'),
+            t('Remove pending job {id} from the queue?', {id: '<b>' + esc(short(pid)) + '</b>'}),
+            t('Delete'),
             true
         ).then(function (ok) {
             if (!ok) return;
@@ -3496,21 +3496,21 @@ connectNext();
                 body: JSON.stringify({ delete: [pid] })
             })
             .then(function () {
-                addEvent('info', '🗑 Deleted job ' + esc(short(pid)), 'DELETE');
+                addEvent('info', t('🗑 Deleted job {id}', {id: esc(short(pid))}), t('DELETE'));
                 fetchQueue(false);
             })
             .catch(function (e) {
-                addEvent('error', 'Delete failed: ' + esc(e.message), 'ERROR');
+                addEvent('error', t('Delete failed: {message}', {message: esc(e.message)}), t('ERROR'));
             });
         });
     };
 
     window.cqClearQueue = function () {
         cqConfirm(
-            '🧹 Clear ENTIRE queue?',
-            'This will remove <b>ALL ' + CQ.qPend.length + ' pending job(s)</b> from the ComfyUI queue.<br>' +
-            '<span class="warn">Running jobs are not affected.</span> This cannot be undone.',
-            'Clear All',
+            t('🧹 Clear ENTIRE queue?'),
+            t('This will remove {count} from the ComfyUI queue.', {count: '<b>' + t('ALL {n} pending job(s)', {n: CQ.qPend.length}) + '</b>'}) + '<br>' +
+            '<span class="warn">' + t('Running jobs are not affected.') + '</span> ' + t('This cannot be undone.'),
+            t('Clear All'),
             true
         ).then(function (ok) {
             if (!ok) return;
@@ -3521,12 +3521,12 @@ connectNext();
                 body: JSON.stringify({ clear: true })
             })
             .then(function () {
-                addEvent('info', '🧹 Entire pending queue cleared', 'CLEAR');
+                addEvent('info', t('🧹 Entire pending queue cleared'), t('CLEAR'));
                 CQ.selected = {};
                 fetchQueue(false);
             })
             .catch(function (e) {
-                addEvent('error', 'Clear failed: ' + esc(e.message), 'ERROR');
+                addEvent('error', t('Clear failed: {message}', {message: esc(e.message)}), t('ERROR'));
             });
         });
     };
@@ -3542,19 +3542,14 @@ connectNext();
         }
 
         if (!item) {
-            addEvent('error', 'Item no longer in queue.', 'ERROR');
+            addEvent('error', t('Item no longer in queue.'), t('ERROR'));
             return;
         }
 
         cqConfirm(
-            '⬆ Move to top — read carefully',
-            'ComfyUI has <b>no native reorder API</b>. SmartGallery will <b>delete</b> this job and <b>re-submit it at the front</b>.<br><br>' +
-            '<span class="warn">⚠️ Consequences:</span><br>' +
-            '• The <b>prompt ID will change</b> — any external tracking of the old ID is lost.<br>' +
-            '• If the re-submission fails, the job is <b>permanently removed</b> and must be re-queued manually.<br>' +
-            '• Generation parameters are preserved; execution state resets.<br><br>' +
-            'Proceed?',
-            'Move to Top',
+            t('⬆ Move to top — read carefully'),
+            t('ComfyUI has {b}no native reorder API{x}. SmartGallery will {b}delete{x} this job and {b}re-submit it at the front{x}.{br}{br}{warn}⚠️ Consequences:{xs}{br}• The {b}prompt ID will change{x} — any external tracking of the old ID is lost.{br}• If the re-submission fails, the job is {b}permanently removed{x} and must be re-queued manually.{br}• Generation parameters are preserved; execution state resets.{br}{br}Proceed?', {b: '<b>', x: '</b>', xs: '</span>', br: '<br>', warn: '<span class="warn">'}),
+            t('Move to Top'),
             true
         ).then(function (ok) {
             if (!ok) return;
@@ -3580,14 +3575,14 @@ connectNext();
             })
             .then(function (d) {
                 if (d.error) {
-                    addEvent('error', 'Re-submit failed: ' + esc(d.error.message || d.error), 'ERROR');
+                    addEvent('error', t('Re-submit failed: {message}', {message: esc(d.error.message || d.error)}), t('ERROR'));
                 } else {
-                    addEvent('info', '⬆ Moved job to top · new id ' + short(d.prompt_id), 'ACTION');
+                    addEvent('info', t('⬆ Moved job to top · new id {id}', {id: short(d.prompt_id)}), t('ACTION'));
                 }
                 fetchQueue(false);
             })
             .catch(function (e) {
-                addEvent('error', 'Move failed: ' + esc(e.message) + ' — job may have been removed!', 'ERROR');
+                addEvent('error', t('Move failed: {message} — job may have been removed!', {message: esc(e.message)}), t('ERROR'));
                 fetchQueue(false);
             });
         });
@@ -3618,7 +3613,7 @@ connectNext();
         }
 
         if (!item) {
-            addEvent('error', 'Job not found in queue.', 'ERROR');
+            addEvent('error', t('Job not found in queue.'), t('ERROR'));
             return;
         }
 
@@ -3632,43 +3627,42 @@ connectNext();
         var html = '';
 
         html += '<div style="margin-bottom:6px;">' +
-                    '<span class="t ' + (state === 'running' ? 'start' : 'exec') + '" style="font-weight:800;">' + state.toUpperCase() + '</span> ' +
-                    '<span style="color:#8fa2bf;font-family:monospace;font-size:.75rem;">prompt ' + esc(pid) + '</span>' +
+                    '<span class="t ' + (state === 'running' ? 'start' : 'exec') + '" style="font-weight:800;">' + (state === 'running' ? t('RUNNING') : t('PENDING')) + '</span> ' +
+                    '<span style="color:#8fa2bf;font-family:monospace;font-size:.75rem;">' + t('prompt {id}', {id: esc(pid)}) + '</span>' +
                 '</div>';
 
         html += '<div class="cq-i-actions">';
 
         if (state === 'running') {
-            html += '<button class="cq-btn danger" onclick="cqInterrupt()">⏹ Interrupt Job</button>';
+            html += '<button class="cq-btn danger" onclick="cqInterrupt()">' + t('⏹ Interrupt Job') + '</button>';
         } else {
-            html += '<button class="cq-btn danger" onclick="cqMoveTop(\'' + esc(pid) + '\')">⬆ Move to Top</button>' +
-                    '<button class="cq-btn danger" onclick="cqDelete(\'' + esc(pid) + '\')">🗑 Delete Job</button>';
+            html += '<button class="cq-btn danger" onclick="cqMoveTop(\'' + esc(pid) + '\')">' + t('⬆ Move to Top') + '</button>' +
+                    '<button class="cq-btn danger" onclick="cqDelete(\'' + esc(pid) + '\')">' + t('🗑 Delete Job') + '</button>';
         }
 
         html += '</div>';
 
-        html += '<div class="cq-i-sec">📦 Models & Checkpoints</div>';
+        html += '<div class="cq-i-sec">' + t('📦 Models & Checkpoints') + '</div>';
         if (info.models.length) {
             for (var m = 0; m < info.models.length; m++) {
                 html += '<div class="cq-i-row">🧠 ' + esc(info.models[m]) + '</div>';
             }
         } else {
-            html += '<div class="cq-i-empty">None detected</div>';
+            html += '<div class="cq-i-empty">' + t('None detected') + '</div>';
         }
 
-        html += '<div class="cq-i-sec">🎨 LoRAs</div>';
+        html += '<div class="cq-i-sec">' + t('🎨 LoRAs') + '</div>';
         if (info.loras.length) {
             for (var l = 0; l < info.loras.length; l++) {
                 html += '<div class="cq-i-row">🧩 ' + esc(info.loras[l].name) +
-                        ' <span style="color:#fbbf24;">strength ' +
-                        esc(String(info.loras[l].sm !== undefined ? info.loras[l].sm : 1)) +
+                        ' <span style="color:#fbbf24;">' + t('strength {n}', {n: esc(String(info.loras[l].sm !== undefined ? info.loras[l].sm : 1))}) +
                         '</span></div>';
             }
         } else {
-            html += '<div class="cq-i-empty">None detected</div>';
+            html += '<div class="cq-i-empty">' + t('None detected') + '</div>';
         }
 
-        html += '<div class="cq-i-sec">🔌 Node Pipeline (' + order.length + ') — click a node for JSON</div>';
+        html += '<div class="cq-i-sec">' + t('🔌 Node Pipeline ({n}) — click a node for JSON', {n: order.length}) + '</div>';
         html += '<div style="display:flex; flex-wrap:wrap; gap:6px;">';
 
         for (var o = 0; o < order.length; o++) {
@@ -3685,19 +3679,19 @@ connectNext();
         CQ.infoTexts = info.texts;
 
         if (info.texts.length) {
-            html += '<div class="cq-i-sec">📝 Prompt Texts (graph-traced)</div>';
+            html += '<div class="cq-i-sec">' + t('📝 Prompt Texts (graph-traced)') + '</div>';
 
-            for (var t = 0; t < info.texts.length; t++) {
+            for (var ti = 0; ti < info.texts.length; ti++) {
                 html += '<div style="margin-bottom:8px;">' +
                             '<div style="margin-bottom:4px;">' +
-                                '<span style="color:#8fa2bf;font-size:.72rem;font-weight:700;">' + esc(info.texts[t].label) + '</span>' +
+                                '<span style="color:#8fa2bf;font-size:.72rem;font-weight:700;">' + esc(info.texts[ti].label) + '</span>' +
                             '</div>' +
-                            '<div class="cq-i-text">' + esc(info.texts[t].text) + '</div>' +
+                            '<div class="cq-i-text">' + esc(info.texts[ti].text) + '</div>' +
                         '</div>';
             }
         }
 
-        $('cq-i-title').innerHTML = 'ℹ️ Job Details';
+        $('cq-i-title').innerHTML = t('ℹ️ Job Details');
         $('cq-i-body').innerHTML = html;
         $('cq-info').classList.add('visible');
     };
@@ -3813,10 +3807,10 @@ connectNext();
             if (/CLIPTextEncode/i.test(ct) && typeof inputs.text === 'string' && inputs.text.trim()) {
                 var pol = polarity(ids[i]);
                 var label = pol === 'pos'
-                    ? 'Positive Prompt'
+                    ? t('Positive Prompt')
                     : pol === 'neg'
-                        ? 'Negative Prompt'
-                        : (/neg/i.test(title) ? 'Negative Prompt' : 'Positive Prompt');
+                        ? t('Negative Prompt')
+                        : (/neg/i.test(title) ? t('Negative Prompt') : t('Positive Prompt'));
 
                 info.texts.push({
                     label: label,
@@ -3841,10 +3835,10 @@ connectNext();
 
         overlay.innerHTML =
             '<div class="cq-global-json-box" role="dialog" aria-modal="true">' +
-                '<h3 id="cq-global-json-title">🧩 Node JSON</h3>' +
+                '<h3 id="cq-global-json-title">' + t('🧩 Node JSON') + '</h3>' +
                 '<pre id="cq-global-json-body"></pre>' +
                 '<div class="cq-global-json-actions">' +
-                    '<button type="button" id="cq-global-json-close">Close</button>' +
+                    '<button type="button" id="cq-global-json-close">' + t('Close') + '</button>' +
                 '</div>' +
             '</div>';
 
@@ -3988,13 +3982,13 @@ connectNext();
 
         if (!node) {
             if (typeof addEvent === 'function') {
-                addEvent('error', 'Node not found in current job graph.', 'ERROR');
+                addEvent('error', t('Node not found in current job graph.'), t('ERROR'));
             }
             return;
         }
 
         cqOpenGlobalNodeJson(
-            '🧩 Node ' + esc(nodeId) + ' — ' + esc(node.class_type || node.type || ''),
+            t('🧩 Node {id} — {type}', {id: esc(nodeId), type: esc(node.class_type || node.type || '')}),
             node
         );
     };
@@ -4002,7 +3996,7 @@ connectNext();
     window.cqShowNodeJsonForFile = function (fileId, nodeId) {
         if (!fileId || String(fileId) === 'undefined' || String(fileId) === 'null') {
             if (window.showNotification) {
-                showNotification('No reference asset is available for this node.', 'warning');
+                showNotification(t('No reference asset is available for this node.'), 'warning');
             }
             return;
         }
@@ -4017,19 +4011,19 @@ connectNext();
 
                 if (!node) {
                     if (window.showNotification) {
-                        showNotification('Node not found in workflow.', 'warning');
+                        showNotification(t('Node not found in workflow.'), 'warning');
                     }
                     return;
                 }
 
                 cqOpenGlobalNodeJson(
-                    '🧩 Node ' + esc(nodeId) + ' — ' + esc(node.class_type || node.type || ''),
+                    t('🧩 Node {id} — {type}', {id: esc(nodeId), type: esc(node.class_type || node.type || '')}),
                     node
                 );
             })
             .catch(function (error) {
                 if (window.showNotification) {
-                    showNotification('Cannot load workflow: ' + error.message, 'error');
+                    showNotification(t('Cannot load workflow: {message}', {message: error.message}), 'error');
                 }
             });
     };
@@ -4052,7 +4046,7 @@ connectNext();
 
         if (!fileId) {
             if (window.showNotification) {
-                showNotification('No reference asset is available for this cluster.', 'warning');
+                showNotification(t('No reference asset is available for this cluster.'), 'warning');
             }
             return;
         }
@@ -4110,7 +4104,7 @@ connectNext();
                 g.style.stroke = '#64748b';
             }
             if (v) v.textContent = '—';
-            if (sv) sv.textContent = 'CPU MODE';
+            if (sv) sv.textContent = t('CPU MODE');
             if (st) st.textContent = '—';
         } else {
             var used = Math.max(0, total - free);
@@ -4130,7 +4124,7 @@ connectNext();
             var fullDevName = dev.name || 'GPU';
             dv.textContent = fullDevName;
             dv.title = fullDevName;
-            if (devWrap) devWrap.title = 'Compute Device: ' + fullDevName;
+            if (devWrap) devWrap.title = t('Compute Device: {name}', {name: fullDevName});
         }
     }
 
@@ -4179,9 +4173,9 @@ vRam.textContent = rPct + '%';
 if (ramUsage) ramUsage.textContent = (totalGb > 0) ? (usedShort + '/' + totalShort + 'G') : (rPct + '%');
 if (ramWrap) {
 ramWrap.style.display = '';
-ramWrap.title = 'System RAM: ' + (totalGb > 0 ? (usedGb.toFixed(1) + ' GB / ' + totalGb.toFixed(1) + ' GB') : (rPct + '% used'));
+ramWrap.title = totalGb > 0 ? t('System RAM: {used} GB / {total} GB', {used: usedGb.toFixed(1), total: totalGb.toFixed(1)}) : t('System RAM: {pct}% used', {pct: rPct});
 }
-if (gRam.parentElement) gRam.parentElement.title = 'System RAM: ' + (totalGb > 0 ? (usedGb.toFixed(1) + ' GB / ' + totalGb.toFixed(1) + ' GB') : (rPct + '% used'));
+if (gRam.parentElement) gRam.parentElement.title = totalGb > 0 ? t('System RAM: {used} GB / {total} GB', {used: usedGb.toFixed(1), total: totalGb.toFixed(1)}) : t('System RAM: {pct}% used', {pct: rPct});
 } else if (gRam && vRam) {
 gRam.style.strokeDashoffset = 314;
 gRam.style.stroke = '#64748b';
@@ -4189,7 +4183,7 @@ gRam.style.filter = 'none';
 vRam.textContent = '--';
 if (ramUsage) ramUsage.textContent = '--';
 if (ramWrap) ramWrap.style.display = 'none';
-if (gRam.parentElement) gRam.parentElement.title = 'System RAM: Unavailable';
+if (gRam.parentElement) gRam.parentElement.title = t('System RAM: Unavailable');
 }
 
         if (!g || !v) return;
@@ -4461,7 +4455,7 @@ if (gRam.parentElement) gRam.parentElement.title = 'System RAM: Unavailable';
         var avgSideEl = $('cq-history-avg-side');
 
         if (!entries.length) {
-            box.innerHTML = '<div class="cq-history-empty">No completed jobs yet.</div>';
+            box.innerHTML = '<div class="cq-history-empty">' + t('No completed jobs yet.') + '</div>';
             delete box.dataset.lastHistoryKey;
             if (avgSideEl) avgSideEl.style.display = 'none';
             return;
@@ -4487,8 +4481,8 @@ if (gRam.parentElement) gRam.parentElement.title = 'System RAM: Unavailable';
             var avgSec = totalDur / durCount;
             var avgFormatted = cqFormatDurationSec(avgSec);
             if (avgSideEl) {
-                avgSideEl.textContent = '⏱️ Avg: ' + avgFormatted;
-                avgSideEl.title = 'Average generation time across ' + durCount + ' completed job(s)';
+                avgSideEl.textContent = t('⏱️ Avg: {duration}', {duration: avgFormatted});
+                avgSideEl.title = t('Average generation time across {n} completed job(s)', {n: durCount});
                 avgSideEl.style.display = 'inline';
             }
         } else {
@@ -4519,12 +4513,12 @@ if (gRam.parentElement) gRam.parentElement.title = 'System RAM: Unavailable';
             if (thumb) {
                 if (isVideo) {
                     mediaHtml = '<video src="' + esc(thumb) + '#t=0.001" preload="auto" muted playsinline loop onloadedmetadata="cqInitVideoThumb(this)" onmouseover="try{this.play();}catch(e){}" onmouseout="try{this.pause();this.currentTime=0.001;}catch(e){}" style="width:100%;height:100%;object-fit:cover;pointer-events:none;display:block;background:#0a0f18;"></video>' +
-                                '<span class="badge" style="bottom:4px;left:4px;top:auto;right:auto;font-size:0.55rem;background:rgba(0,0,0,0.75);color:#38bdf8;padding:1px 4px;border-radius:3px;">▶ VIDEO</span>';
+                                '<span class="badge" style="bottom:4px;left:4px;top:auto;right:auto;font-size:0.55rem;background:rgba(0,0,0,0.75);color:#38bdf8;padding:1px 4px;border-radius:3px;">▶ ' + t('VIDEO') + '</span>';
                 } else if (isAudio) {
                     mediaHtml = '<div class="ph-ic" style="font-size:1.9rem;color:#a78bfa;background:radial-gradient(circle, rgba(167,139,250,0.2) 0%, rgba(10,15,24,0.95) 75%);width:100%;height:100%;display:flex;align-items:center;justify-content:center;">🎵</div>' +
-                                '<span class="badge" style="bottom:4px;left:4px;top:auto;right:auto;font-size:0.55rem;background:rgba(0,0,0,0.75);color:#c084fc;padding:1px 4px;border-radius:3px;">🎵 AUDIO</span>';
+                                '<span class="badge" style="bottom:4px;left:4px;top:auto;right:auto;font-size:0.55rem;background:rgba(0,0,0,0.75);color:#c084fc;padding:1px 4px;border-radius:3px;">🎵 ' + t('AUDIO') + '</span>';
                 } else {
-                    mediaHtml = '<img src="' + esc(thumb) + '" loading="lazy" alt="Job output" onerror="this.style.display=\'none\';">';
+                    mediaHtml = '<img src="' + esc(thumb) + '" loading="lazy" alt="' + t('Job output') + '" onerror="this.style.display=\'none\';">';
                 }
             }
 
@@ -4536,7 +4530,7 @@ if (gRam.parentElement) gRam.parentElement.title = 'System RAM: Unavailable';
                 ? '<span class="badge" style="top:4px;left:4px;right:auto;font-size:0.55rem;background:rgba(34,211,238,0.88);color:#021019;font-weight:800;padding:1px 5px;border-radius:4px;letter-spacing:0.2px;">' + (entry.mediaIdx + 1) + '/' + entry.mediaTotal + '</span>'
                 : '';
 
-            html += '<div class="cq-hthumb" onclick="cqOpenResult(\'' + esc(pid) + '\', ' + entry.mediaIdx + ')" title="prompt ' + esc(pid) + (entry.mediaTotal > 1 ? (' · batch ' + (entry.mediaIdx + 1) + '/' + entry.mediaTotal) : '') + (jobDurStr ? ' (' + esc(jobDurStr) + ')' : '') + '">' +
+            html += '<div class="cq-hthumb" onclick="cqOpenResult(\'' + esc(pid) + '\', ' + entry.mediaIdx + ')" title="' + t('prompt {id}', {id: esc(pid)}) + (entry.mediaTotal > 1 ? t(' · batch {i}/{total}', {i: entry.mediaIdx + 1, total: entry.mediaTotal}) : '') + (jobDurStr ? ' (' + esc(jobDurStr) + ')' : '') + '">' +
                         mediaHtml +
                         batchBadge +
                         '<span class="badge ' + (ok ? 't done' : 't error') + '" style="' + (entry.mediaTotal > 1 ? 'top:4px;right:4px;' : '') + '">' + (ok ? '✅' : '❌') + '</span>' +
@@ -4554,7 +4548,7 @@ if (gRam.parentElement) gRam.parentElement.title = 'System RAM: Unavailable';
         if (!w || !h || isNaN(w) || isNaN(h)) return '';
         var mp = (w * h) / 1000000;
         var mpFormatted = (mp >= 10) ? mp.toFixed(1) : mp.toFixed(2);
-        return w + ' × ' + h + ' (' + mpFormatted + ' MP)';
+        return t('{w} × {h} ({mp} MP)', {w: w, h: h, mp: mpFormatted});
     }
 
     window.cqOnMediaLoaded = function (el) {
@@ -4567,15 +4561,15 @@ if (gRam.parentElement) gRam.parentElement.title = 'System RAM: Unavailable';
             if (parent) {
                 var pill = parent.querySelector('.cq-dim-pill');
                 if (pill) {
-                    pill.textContent = '📐 ' + dimText;
-                    pill.title = 'Resolution: ' + w + 'x' + h + ' pixels (' + dimText + ')';
+                    pill.textContent = t('📐 {dim}', {dim: dimText});
+                    pill.title = t('Resolution: {w}x{h} pixels ({dim})', {w: w, h: h, dim: dimText});
                     pill.style.display = 'inline-flex';
                 }
             }
             var fsDim = $('cq-rv-fs-dim');
             if (fsDim && CQ.rvFullscreenOpen) {
-                fsDim.textContent = '📐 ' + dimText;
-                fsDim.title = 'Resolution: ' + w + 'x' + h + ' pixels (' + dimText + ')';
+                fsDim.textContent = t('📐 {dim}', {dim: dimText});
+                fsDim.title = t('Resolution: {w}x{h} pixels ({dim})', {w: w, h: h, dim: dimText});
                 fsDim.style.display = 'inline-flex';
             }
         }
@@ -4760,7 +4754,7 @@ if (gRam.parentElement) gRam.parentElement.title = 'System RAM: Unavailable';
             if (isVideo) {
                 wrap.innerHTML = '<video class="cq-rv-fs-media" src="' + esc(url) + '" controls autoplay playsinline onloadedmetadata="cqOnMediaLoaded(this)"></video>';
             } else {
-                wrap.innerHTML = '<img class="cq-rv-fs-media" src="' + esc(url) + '" alt="Full preview" onload="cqOnMediaLoaded(this)">';
+                wrap.innerHTML = '<img class="cq-rv-fs-media" src="' + esc(url) + '" alt="' + t('Full preview') + '" onload="cqOnMediaLoaded(this)">';
             }
         }
 
@@ -4800,16 +4794,16 @@ if (gRam.parentElement) gRam.parentElement.title = 'System RAM: Unavailable';
         var statusEl = $('cq-rv-status');
         if (statusEl) {
             statusEl.className = 't ' + (ok ? 'done' : 'error');
-            statusEl.textContent = ok ? 'SUCCESS' : 'ERROR';
+            statusEl.textContent = ok ? t('SUCCESS') : t('ERROR');
         }
 
         var durPill = $('cq-rv-duration-pill');
         if (durPill) {
             if (jobDurStr) {
-                durPill.textContent = '⏱️ ' + jobDurStr;
+                durPill.textContent = t('⏱️ {duration}', {duration: jobDurStr});
                 durPill.style.display = 'inline-flex';
             } else {
-                durPill.textContent = '⏱️ Calculating…';
+                durPill.textContent = t('⏱️ Calculating…');
                 durPill.style.display = 'inline-flex';
             }
         }
@@ -4827,12 +4821,12 @@ if (gRam.parentElement) gRam.parentElement.title = 'System RAM: Unavailable';
 
         var html = '<div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">' +
                        '<div style="color:#8fa2bf; font-family:ui-monospace,Consolas,monospace; font-size:0.8rem;">' +
-                           'Prompt ID: <span style="color:#e2e8f0;">' + esc(pid) + '</span>' +
+                           t('Prompt ID: {id}', {id: '<span style="color:#e2e8f0;">' + esc(pid) + '</span>'}) +
                        '</div>';
 
         if (mediaList.length > 1) {
             html += '<span class="cq-avg-pill" style="font-size:0.72rem; background:rgba(34,211,238,0.15); color:#38bdf8; border-color:rgba(56,189,248,0.45);">' +
-                        '📦 Batch item ' + (mediaIdx + 1) + ' of ' + mediaList.length +
+                        t('📦 Batch item {i} of {total}', {i: mediaIdx + 1, total: mediaList.length}) +
                     '</span>';
         }
 
@@ -4842,10 +4836,10 @@ if (gRam.parentElement) gRam.parentElement.title = 'System RAM: Unavailable';
             CQ.currentResultMediaUrl = null;
             CQ.currentResultFilename = null;
             CQ.currentResultIsVideo = false;
-            html += '<div class="cq-i-empty">No output files recorded for this job.</div>';
+            html += '<div class="cq-i-empty">' + t('No output files recorded for this job.') + '</div>';
             if (CQ.rvFullscreenOpen) {
                 var fsWrap = $('cq-rv-fs-media-wrap');
-                if (fsWrap) fsWrap.innerHTML = '<div class="cq-ph"><span class="ic">🗒️</span><span>No preview media for this job.</span></div>';
+                if (fsWrap) fsWrap.innerHTML = '<div class="cq-ph"><span class="ic">🗒️</span><span>' + t('No preview media for this job.') + '</span></div>';
             }
         } else {
             var targetMedia = (mediaIdx < mediaList.length) ? mediaList[mediaIdx] : mediaList[0];
@@ -4866,12 +4860,12 @@ if (gRam.parentElement) gRam.parentElement.title = 'System RAM: Unavailable';
 
             if (isVideo) {
                 mediaDisplayHtml = '<div class="cq-rv-media-container">' +
-                                       '<button type="button" class="cq-rv-side-arrow left" id="cq-rv-side-prev" onclick="cqNavigateResult(-1)" title="Previous Media (Left Arrow)">&lt;</button>' +
+                                       '<button type="button" class="cq-rv-side-arrow left" id="cq-rv-side-prev" onclick="cqNavigateResult(-1)" title="' + t('Previous Media (Left Arrow)') + '">&lt;</button>' +
                                        '<video class="cq-result-media" src="' + esc(url) + '" controls onloadedmetadata="cqOnMediaLoaded(this)"></video>' +
-                                       '<button type="button" class="cq-rv-side-arrow right" id="cq-rv-side-next" onclick="cqNavigateResult(1)" title="Next Media (Right Arrow)">&gt;</button>' +
+                                       '<button type="button" class="cq-rv-side-arrow right" id="cq-rv-side-next" onclick="cqNavigateResult(1)" title="' + t('Next Media (Right Arrow)') + '">&gt;</button>' +
                                    '</div>';
-                fsBtnHtml = '<button type="button" class="cq-i-chip" onclick="cqOpenResultFullscreen(\'' + esc(url) + '\', true, \'' + esc(mediaFilename) + '\')">🔍 Fullscreen</button>';
-                dimPillHtml = '<span class="cq-dim-pill" style="display:none;">📐 Calculating…</span>';
+                fsBtnHtml = '<button type="button" class="cq-i-chip" onclick="cqOpenResultFullscreen(\'' + esc(url) + '\', true, \'' + esc(mediaFilename) + '\')">' + t('🔍 Fullscreen') + '</button>';
+                dimPillHtml = '<span class="cq-dim-pill" style="display:none;">' + t('📐 Calculating…') + '</span>';
             } else if (isAudio) {
                 mediaDisplayHtml = '<div style="background:#0a0e15; border:1px solid #1e2a41; border-radius:12px; padding:18px 16px; margin:0 auto 12px; display:flex; flex-direction:column; align-items:center; gap:12px; max-width:540px;">' +
                                        '<div style="display:flex; align-items:center; gap:10px; color:#c084fc; font-weight:700; font-size:0.9rem;">' +
@@ -4882,19 +4876,19 @@ if (gRam.parentElement) gRam.parentElement.title = 'System RAM: Unavailable';
                                    '</div>';
             } else {
                 mediaDisplayHtml = '<div class="cq-rv-media-container">' +
-                                       '<button type="button" class="cq-rv-side-arrow left" id="cq-rv-side-prev" onclick="cqNavigateResult(-1)" title="Previous Media (Left Arrow)">&lt;</button>' +
-                                       '<img class="cq-result-media" src="' + esc(url) + '" alt="Job output" onload="cqOnMediaLoaded(this)" style="cursor:zoom-in;" onclick="cqOpenResultFullscreen(\'' + esc(url) + '\', false, \'' + esc(mediaFilename) + '\')">' +
-                                       '<button type="button" class="cq-rv-side-arrow right" id="cq-rv-side-next" onclick="cqNavigateResult(1)" title="Next Media (Right Arrow)">&gt;</button>' +
+                                       '<button type="button" class="cq-rv-side-arrow left" id="cq-rv-side-prev" onclick="cqNavigateResult(-1)" title="' + t('Previous Media (Left Arrow)') + '">&lt;</button>' +
+                                       '<img class="cq-result-media" src="' + esc(url) + '" alt="' + t('Job output') + '" onload="cqOnMediaLoaded(this)" style="cursor:zoom-in;" onclick="cqOpenResultFullscreen(\'' + esc(url) + '\', false, \'' + esc(mediaFilename) + '\')">' +
+                                       '<button type="button" class="cq-rv-side-arrow right" id="cq-rv-side-next" onclick="cqNavigateResult(1)" title="' + t('Next Media (Right Arrow)') + '">&gt;</button>' +
                                    '</div>';
-                fsBtnHtml = '<button type="button" class="cq-i-chip" onclick="cqOpenResultFullscreen(\'' + esc(url) + '\', false, \'' + esc(mediaFilename) + '\')">🔍 Fullscreen</button>';
-                dimPillHtml = '<span class="cq-dim-pill" style="display:none;">📐 Calculating…</span>';
+                fsBtnHtml = '<button type="button" class="cq-i-chip" onclick="cqOpenResultFullscreen(\'' + esc(url) + '\', false, \'' + esc(mediaFilename) + '\')">' + t('🔍 Fullscreen') + '</button>';
+                dimPillHtml = '<span class="cq-dim-pill" style="display:none;">' + t('📐 Calculating…') + '</span>';
             }
 
             html += '<div class="cq-rv-media-section" style="margin-bottom:14px;">' +
                         mediaDisplayHtml +
                         '<div style="display:flex; justify-content:center; align-items:center; gap:8px; flex-wrap:wrap; margin-top:8px;">' +
                             dimPillHtml +
-                            '<button type="button" class="cq-i-chip" data-url="' + esc(url) + '" data-filename="' + esc(mediaFilename) + '" onclick="cqDownloadMedia(this, this.dataset.url, this.dataset.filename)" title="Download (Shortcut: S)">⬇ Download ' + esc(mediaFilename) + ' <span style="opacity:0.6;font-size:0.65rem;">(S)</span></button>' +
+                            '<button type="button" class="cq-i-chip" data-url="' + esc(url) + '" data-filename="' + esc(mediaFilename) + '" onclick="cqDownloadMedia(this, this.dataset.url, this.dataset.filename)" title="' + t('Download (Shortcut: S)') + '">' + t('⬇ Download {filename}', {filename: esc(mediaFilename)}) + ' <span style="opacity:0.6;font-size:0.65rem;">(S)</span></button>' +
                             fsBtnHtml +
                         '</div>' +
                     '</div>';
@@ -4905,9 +4899,9 @@ if (gRam.parentElement) gRam.parentElement.title = 'System RAM: Unavailable';
             }
         }
 
-        html += '<div class="cq-i-sec">⏱️ Execution Time</div>';
+        html += '<div class="cq-i-sec">' + t('⏱️ Execution Time') + '</div>';
         html += '<div class="cq-i-row" id="cq-rv-duration-row">' +
-                    (jobDurStr ? ('Total duration: <b style="color:#d8b4fe;">' + esc(jobDurStr) + '</b>') : '<span style="color:#8fa2bf;font-style:italic;">Calculating duration…</span>') +
+                    (jobDurStr ? t('Total duration: {duration}', {duration: '<b style="color:#d8b4fe;">' + esc(jobDurStr) + '</b>'}) : '<span style="color:#8fa2bf;font-style:italic;">' + t('Calculating duration…') + '</span>') +
                 '</div>';
 
         var graph = (item.prompt && item.prompt.length > 2)
@@ -4919,28 +4913,27 @@ if (gRam.parentElement) gRam.parentElement.title = 'System RAM: Unavailable';
             var info = cqParseJobInfo(graph);
             var order = cqTopoSort(graph);
 
-            html += '<div class="cq-i-sec">📦 Models & Checkpoints</div>';
+            html += '<div class="cq-i-sec">' + t('📦 Models & Checkpoints') + '</div>';
             if (info.models.length) {
                 for (var m = 0; m < info.models.length; m++) {
                     html += '<div class="cq-i-row">🧠 ' + esc(info.models[m]) + '</div>';
                 }
             } else {
-                html += '<div class="cq-i-empty">None detected</div>';
+                html += '<div class="cq-i-empty">' + t('None detected') + '</div>';
             }
 
-            html += '<div class="cq-i-sec">🎨 LoRAs</div>';
+            html += '<div class="cq-i-sec">' + t('🎨 LoRAs') + '</div>';
             if (info.loras.length) {
                 for (var l = 0; l < info.loras.length; l++) {
                     html += '<div class="cq-i-row">🧩 ' + esc(info.loras[l].name) +
-                            ' <span style="color:#fbbf24;">strength ' +
-                            esc(String(info.loras[l].sm !== undefined ? info.loras[l].sm : 1)) +
+                            ' <span style="color:#fbbf24;">' + t('strength {n}', {n: esc(String(info.loras[l].sm !== undefined ? info.loras[l].sm : 1))}) +
                             '</span></div>';
                 }
             } else {
-                html += '<div class="cq-i-empty">None detected</div>';
+                html += '<div class="cq-i-empty">' + t('None detected') + '</div>';
             }
 
-            html += '<div class="cq-i-sec">🔌 Node Pipeline (' + order.length + ') — click a node for JSON</div>';
+            html += '<div class="cq-i-sec">' + t('🔌 Node Pipeline ({n}) — click a node for JSON', {n: order.length}) + '</div>';
             html += '<div style="display:flex; flex-wrap:wrap; gap:6px;">';
 
             for (var o = 0; o < order.length; o++) {
@@ -4955,19 +4948,19 @@ if (gRam.parentElement) gRam.parentElement.title = 'System RAM: Unavailable';
             html += '</div>';
 
             if (info.texts && info.texts.length) {
-                html += '<div class="cq-i-sec">📝 Prompt Texts (graph-traced)</div>';
-                for (var t = 0; t < info.texts.length; t++) {
+                html += '<div class="cq-i-sec">' + t('📝 Prompt Texts (graph-traced)') + '</div>';
+                for (var ti = 0; ti < info.texts.length; ti++) {
                     html += '<div style="margin-bottom:8px;">' +
                                 '<div style="margin-bottom:4px;">' +
-                                    '<span style="color:#8fa2bf;font-size:.72rem;font-weight:700;">' + esc(info.texts[t].label) + '</span>' +
+                                    '<span style="color:#8fa2bf;font-size:.72rem;font-weight:700;">' + esc(info.texts[ti].label) + '</span>' +
                                 '</div>' +
-                                '<div class="cq-i-text">' + esc(info.texts[t].text) + '</div>' +
+                                '<div class="cq-i-text">' + esc(info.texts[ti].text) + '</div>' +
                             '</div>';
                 }
             }
         }
 
-        $('cq-rv-title').innerHTML = '🖼️ Job Result';
+        $('cq-rv-title').innerHTML = t('🖼️ Job Result');
         var rvBody = $('cq-rv-body');
         if (rvBody) {
             rvBody.innerHTML = html;
@@ -4989,12 +4982,12 @@ if (gRam.parentElement) gRam.parentElement.title = 'System RAM: Unavailable';
                     if (fetchedDur !== null) {
                         var fStr = cqFormatDurationSec(fetchedDur);
                         if (durPill) {
-                            durPill.textContent = '⏱️ ' + fStr;
+                            durPill.textContent = t('⏱️ {duration}', {duration: fStr});
                             durPill.style.display = 'inline-flex';
                         }
                         var durRow = $('cq-rv-duration-row');
                         if (durRow) {
-                            durRow.innerHTML = 'Total duration: <b style="color:#d8b4fe;">' + esc(fStr) + '</b>';
+                            durRow.innerHTML = t('Total duration: {duration}', {duration: '<b style="color:#d8b4fe;">' + esc(fStr) + '</b>'});
                         }
                     }
                 }

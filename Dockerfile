@@ -1,5 +1,8 @@
 FROM python:3.14-slim
 
+# Use Tsinghua mirror for faster apt downloads in CN networks
+RUN sed -i 's|http://deb.debian.org|https://mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list.d/debian.sources 2>/dev/null || true
+
 # Install system packages
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -81,22 +84,27 @@ RUN --mount=type=cache,target=/uv_cache,uid=1025,gid=1025,mode=0755 \
     export UV_LINK_MODE=copy \
     && cd /app \
     && uv venv venv \
-    && VIRTUAL_ENV=/app/venv uv pip install -r requirements.txt --trusted-host pypi.org --trusted-host files.pythonhosted.org \
+    && VIRTUAL_ENV=/app/venv uv pip install -r requirements.txt --index-url https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.org --trusted-host files.pythonhosted.org \
     && test -d /app/venv \
     && test -f /app/venv/bin/activate \
     && test -x /app/venv/bin/python3 \
-    && VIRTUAL_ENV=/app/venv uv pip install uv \
+    && VIRTUAL_ENV=/app/venv uv pip install uv --index-url https://pypi.tuna.tsinghua.edu.cn/simple \
     && test -x /app/venv/bin/uv \
     && unset UV_CACHE_DIR
 
 ARG CHOOSEN_SMARTGALLERY_FILE
 ARG CHOOSEN_TEMPLATE_DIR
 COPY ${CHOOSEN_SMARTGALLERY_FILE} /app/smartgallery.py
+COPY i18n.py /app/i18n.py
+COPY translations/ /app/translations/
 COPY ${CHOOSEN_TEMPLATE_DIR}/ /app/templates/
 
 USER root
 
 COPY --chmod=555 docker_init.bash /smartgallery_init.bash
+
+# Fix Windows CRLF line endings so the shebang works
+RUN sed -i 's/\r$//' /smartgallery_init.bash
 
 EXPOSE 8189 8190
 

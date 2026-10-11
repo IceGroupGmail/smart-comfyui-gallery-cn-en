@@ -4,7 +4,7 @@
     <div class="tag-panel">
         <div class="tag-header">
             <h3 id="tag-modal-title" style="margin:0; font-size:1.1rem; display:flex; align-items:center; gap:8px;">
-                🏷️ Manager <span id="tag-target-count" style="font-weight:normal; opacity:0.6; font-size:0.8rem;"></span>
+                🏷️ {{ _('Manager') }} <span id="tag-target-count" style="font-weight:normal; opacity:0.6; font-size:0.8rem;"></span>
             </h3>
             <button class="close-btn" onclick="closeTaggingModal()">×</button>
         </div>
@@ -12,16 +12,16 @@
         <div class="tag-body">
             <div id="section-status" class="tag-section-status" style="display:none;">
                 <div style="font-size:0.75rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:8px; font-weight:bold;">
-                    Select a status color to apply to the file(s)
+                    {{ _('Select a status color to apply to the file(s)') }}
                 </div>
                 <div id="tm-status-grid" class="status-grid"></div>
             </div>
 
             <div id="section-collection" style="display:flex; flex-direction:column; flex:1; overflow:hidden; display:none;">
                 <div class="tag-toolbar">
-                    <input type="text" id="tm-search" class="search-input-compact" placeholder="🔍 Find collection..." style="flex:1;">
-                    <button class="sidebar-tool-btn sort-btn-mini" id="tm-sort-btn" title="Sort A-Z / Date" style="width: auto; padding: 0 8px !important;">A-Z ↑</button>
-                    <button class="sidebar-tool-btn" onclick="createNewCollection(true)" title="Create New Root Collection">+</button>
+                    <input type="text" id="tm-search" class="search-input-compact" placeholder="{{ _('🔍 Find collection...') }}" style="flex:1;">
+                    <button class="sidebar-tool-btn sort-btn-mini" id="tm-sort-btn" title="{{ _('Sort A-Z / Date') }}" style="width: auto; padding: 0 8px !important;">{{ _('A-Z ↑') }}</button>
+                    <button class="sidebar-tool-btn" onclick="createNewCollection(true)" title="{{ _('Create New Root Collection') }}">+</button>
                 </div>
                 <div id="tm-list-container" class="tag-list-scroll folder-tree-container">
                     <ul class="col-tree folder-tree" id="tm-col-tree" style="list-style:none; padding:0; margin:0;"></ul>
@@ -30,8 +30,8 @@
         </div>
 
         <div class="tag-footer">
-            <div id="tm-changes-info" style="font-size:0.85rem; color:var(--text-muted);">No pending changes.</div>
-            <button id="tm-apply-btn" class="glass-btn active-blue" onclick="applyTagManagerChanges()" disabled>💾 Apply Changes</button>
+            <div id="tm-changes-info" style="font-size:0.85rem; color:var(--text-muted);">{{ _('No pending changes.') }}</div>
+            <button id="tm-apply-btn" class="glass-btn active-blue" onclick="applyTagManagerChanges()" disabled>{{ _('💾 Apply Changes') }}</button>
         </div>
     </div>
 </div>
@@ -107,7 +107,7 @@ function expandNonEmptyCollectionPaths() {
 window.uploadCollectionNote = async function(inputElement, collId) {
     if (!inputElement.files || inputElement.files.length === 0) return;
     
-    if(typeof showNotification === 'function') showNotification(`Uploading ${inputElement.files.length} note(s)...`, "info");
+    if(typeof showNotification === 'function') showNotification(t('Uploading {count} note(s)...', {count: inputElement.files.length}), "info");
     
     let successCount = 0;
     for (let i = 0; i < inputElement.files.length; i++) {
@@ -115,7 +115,7 @@ window.uploadCollectionNote = async function(inputElement, collId) {
         const ext = file.name.split('.').pop().toLowerCase();
         
         if (ext !== 'txt' && ext !== 'md') {
-            if(typeof showNotification === 'function') showNotification(`Skipped ${file.name}: Only .txt and .md allowed.`, "warning");
+            if(typeof showNotification === 'function') showNotification(t('Skipped {name}: Only .txt and .md allowed.', {name: file.name}), "warning");
             continue;
         }
         
@@ -138,7 +138,7 @@ window.uploadCollectionNote = async function(inputElement, collId) {
     inputElement.value = '';
     if (successCount > 0) {
         sessionStorage.setItem('gallery_notification', JSON.stringify({
-            message: `${successCount} Note(s) added successfully!`,
+            message: t('{count} Note(s) added successfully!', {count: successCount}),
             type: 'success'
         }));
         window.location.reload();
@@ -170,16 +170,16 @@ function loadCollections() {
         if (sortBtn && !sortBtn.dataset.listening) {
             sortBtn.dataset.listening = "true";
 
-            if (colSortState.key === 'name' && colSortState.dir === 'asc') sortBtn.innerText = 'A-Z ↑';
-            else if (colSortState.key === 'name' && colSortState.dir === 'desc') sortBtn.innerText = 'Z-A ↓';
-            else if (colSortState.key === 'date' && colSortState.dir === 'desc') sortBtn.innerText = '📅 New ↓';
-            else if (colSortState.key === 'date' && colSortState.dir === 'asc') sortBtn.innerText = '📅 Old ↑';
+            if (colSortState.key === 'name' && colSortState.dir === 'asc') sortBtn.innerText = t('A-Z ↑');
+            else if (colSortState.key === 'name' && colSortState.dir === 'desc') sortBtn.innerText = t('Z-A ↓');
+            else if (colSortState.key === 'date' && colSortState.dir === 'desc') sortBtn.innerText = t('📅 New ↓');
+            else if (colSortState.key === 'date' && colSortState.dir === 'asc') sortBtn.innerText = t('📅 Old ↑');
 
             sortBtn.addEventListener('click', () => {
-                if (colSortState.key === 'name' && colSortState.dir === 'asc') { colSortState = { key: 'name', dir: 'desc' }; sortBtn.innerText = 'Z-A ↓'; }
-                else if (colSortState.key === 'name' && colSortState.dir === 'desc') { colSortState = { key: 'date', dir: 'desc' }; sortBtn.innerText = '📅 New ↓'; }
-                else if (colSortState.key === 'date' && colSortState.dir === 'desc') { colSortState = { key: 'date', dir: 'asc' }; sortBtn.innerText = '📅 Old ↑'; }
-                else { colSortState = { key: 'name', dir: 'asc' }; sortBtn.innerText = 'A-Z ↑'; }
+                if (colSortState.key === 'name' && colSortState.dir === 'asc') { colSortState = { key: 'name', dir: 'desc' }; sortBtn.innerText = t('Z-A ↓'); }
+                else if (colSortState.key === 'name' && colSortState.dir === 'desc') { colSortState = { key: 'date', dir: 'desc' }; sortBtn.innerText = t('📅 New ↓'); }
+                else if (colSortState.key === 'date' && colSortState.dir === 'desc') { colSortState = { key: 'date', dir: 'asc' }; sortBtn.innerText = t('📅 Old ↑'); }
+                else { colSortState = { key: 'name', dir: 'asc' }; sortBtn.innerText = t('A-Z ↑'); }
                 localStorage.setItem('galleryColSortState', JSON.stringify(colSortState));
                 renderSidebarCollections();
             });
@@ -188,7 +188,7 @@ function loadCollections() {
         if (nonEmptyBtn) {
             nonEmptyBtn.classList.toggle('filter-active', colNonEmptyOnly);
             nonEmptyBtn.setAttribute('aria-pressed', String(colNonEmptyOnly));
-            nonEmptyBtn.title = colNonEmptyOnly ? 'Show all collections' : 'Show only non-empty collections';
+            nonEmptyBtn.title = colNonEmptyOnly ? t('Show all collections') : t('Show only non-empty collections');
             nonEmptyBtn.setAttribute('aria-label', nonEmptyBtn.title);
             if (!nonEmptyBtn.dataset.listening) {
                 nonEmptyBtn.dataset.listening = "true";
@@ -198,7 +198,7 @@ function loadCollections() {
                     if (colNonEmptyOnly) expandNonEmptyCollectionPaths();
                     nonEmptyBtn.classList.toggle('filter-active', colNonEmptyOnly);
                     nonEmptyBtn.setAttribute('aria-pressed', String(colNonEmptyOnly));
-                    nonEmptyBtn.title = colNonEmptyOnly ? 'Show all collections' : 'Show only non-empty collections';
+                    nonEmptyBtn.title = colNonEmptyOnly ? t('Show all collections') : t('Show only non-empty collections');
                     nonEmptyBtn.setAttribute('aria-label', nonEmptyBtn.title);
                     renderSidebarCollections();
                 });
@@ -238,7 +238,7 @@ async function syncSidebarState() {
             renderSidebarCollections();
             
             if (!foldersData[currentFolderKey] && !currentFolderKey.startsWith('collection_')) {
-                showNotification("The current folder was moved or deleted by another user.", "warning");
+                showNotification(t("The current folder was moved or deleted by another user."), "warning");
                 setTimeout(() => window.location.href = "/galleryout/view/_root_", 3000);
             }
         }
@@ -292,16 +292,16 @@ function renderSidebarTreeHTML(parentId = '_root_', isSearching = false, visible
         let publicIcon = '';
         if (typeof ENABLE_DAM_MODE !== 'undefined' && ENABLE_DAM_MODE) {
             if (c.is_public) {
-                publicIcon = '<span class="public-eye" title="Exhibition Ready (Public)">👁️</span>';
+                publicIcon = `<span class="public-eye" title="${t('Exhibition Ready (Public)')}">👁️</span>`;
             } else if (c.shared_users) {
-                let sharedNames = c.shared_user_names ? c.shared_user_names : 'selected users';
-                publicIcon = `<span class="public-eye" style="color:var(--primary-color); cursor:help;" title="Shared with: ${escapeHTML(sharedNames)}">👥</span>`;
+                let sharedNames = c.shared_user_names ? c.shared_user_names : t('selected users');
+                publicIcon = `<span class="public-eye" style="color:var(--primary-color); cursor:help;" title="${t('Shared with: {names}', {names: escapeHTML(sharedNames)})}">👥</span>`;
             }
         }
-        
+
         let isActive = (typeof currentFolderInfo !== 'undefined' && c.id == currentFolderInfo.collection_id) ? 'active' : '';
         let jsSafeName = c.name.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-        let toggleBtnText = c.is_public ? '🚫 Remove from Exhibition Ready Public' : '👁️ Set as Exhibition Ready Public';
+        let toggleBtnText = c.is_public ? t('🚫 Remove from Exhibition Ready Public') : t('👁️ Set as Exhibition Ready Public');
 
         // NOTE: the "Upload Note" trigger button and its hidden file input no longer use
         // inline onclick/onchange attributes. Inline handlers required escaped quotes here
@@ -318,23 +318,23 @@ function renderSidebarTreeHTML(parentId = '_root_', isSearching = false, visible
                 <a href="/galleryout/collection/${c.id}" class="folder-link navigation-link" style="display:flex; align-items:center; flex-grow:1;">
                     <span class="col-icon">📚</span>
                     <span class="col-name" title="${c.name}" style="${c.note_count > 0 ? 'color:var(--favorite-color) !important; font-weight:bold;' : ''}">${escapeHTML(c.name)}</span>
-                    ${Number(c.file_count) > 0 ? `<span class="collection-count" title="${c.file_count} directly tagged files">${c.file_count}</span>` : ''}
-                    ${hasChildren && !isExpanded && Number(c.descendant_file_count) > 0 ? `<span class="collection-count collection-count-descendant" title="${c.descendant_file_count} unique files in sub-collections">+${c.descendant_file_count}</span>` : ''}
+                    ${Number(c.file_count) > 0 ? `<span class="collection-count" title="${t('{n} directly tagged files', {n: c.file_count})}">${c.file_count}</span>` : ''}
+                    ${hasChildren && !isExpanded && Number(c.descendant_file_count) > 0 ? `<span class="collection-count collection-count-descendant" title="${t('{n} unique files in sub-collections', {n: c.descendant_file_count})}">+${c.descendant_file_count}</span>` : ''}
                     ${publicIcon}
                 </a>
                 <div class="folder-menu-container">
                     <button class="folder-menu-btn" onclick="event.preventDefault(); event.stopPropagation(); toggleFolderMenu(this)">⋮</button>
                     <div class="folder-dropdown">
-                        <button onclick="createNewCollection(false, ${c.id})">➕ Add Sub-Collection</button>
-                        <button onclick="renameCollection(event, ${c.id}, '${jsSafeName}')">✏️ Rename</button>
-                        ${c.type !== 'system_flag' ? `<button type="button" class="upload-note-trigger-btn" data-col-id="${c.id}">📤 Upload Note</button>` : ''}
+                        <button onclick="createNewCollection(false, ${c.id})">${t('➕ Add Sub-Collection')}</button>
+                        <button onclick="renameCollection(event, ${c.id}, '${jsSafeName}')">${t('✏️ Rename')}</button>
+                        ${c.type !== 'system_flag' ? `<button type="button" class="upload-note-trigger-btn" data-col-id="${c.id}">${t('📤 Upload Note')}</button>` : ''}
                         ${typeof ENABLE_DAM_MODE !== 'undefined' && ENABLE_DAM_MODE ? `
                             <button onclick="toggleCollectionPublic(event, ${c.id})">${toggleBtnText}</button>
-                            <button onclick="event.preventDefault(); event.stopPropagation(); openShareModal(event, ${c.id}, '${jsSafeName}'); return false;" style="color:var(--primary-color);">👥 Share / Permissions</button>
+                            <button onclick="event.preventDefault(); event.stopPropagation(); openShareModal(event, ${c.id}, '${jsSafeName}'); return false;" style="color:var(--primary-color);">${t('👥 Share / Permissions')}</button>
                         ` : ''}
-                        <button onclick="deleteCollection(event, ${c.id}, '${jsSafeName}')" style="color:#ff6b6b;">🗑️ Delete</button>
+                        <button onclick="deleteCollection(event, ${c.id}, '${jsSafeName}')" style="color:#ff6b6b;">${t('🗑️ Delete')}</button>
                         <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:4px 0;">
-                        <button onclick="event.stopPropagation(); closeAllFolderMenus(event);" style="color:var(--text-muted); justify-content:center; font-weight:bold;">✕ Cancel</button>
+                        <button onclick="event.stopPropagation(); closeAllFolderMenus(event);" style="color:var(--text-muted); justify-content:center; font-weight:bold;">${t('✕ Cancel')}</button>
                     </div>
                 </div>
             </div>
@@ -372,8 +372,8 @@ function renderSidebarCollections() {
         let allHeaderHtml = `
             <div style="padding-left:0;">
                 <a href="/galleryout/collection/all" class="col-item folder-item navigation-link ${isAllActive ? 'active' : ''}" style="margin-bottom: 8px; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px;">
-                    <span class="col-icon">🌈</span><span class="col-name" style="font-weight: bold;">All Collections</span>
-                    ${Number(collectionsData.all_count) > 0 ? `<span class="collection-count" title="${collectionsData.all_count} unique files">${collectionsData.all_count}</span>` : ''}
+                    <span class="col-icon">🌈</span><span class="col-name" style="font-weight: bold;">${t('All Collections')}</span>
+                    ${Number(collectionsData.all_count) > 0 ? `<span class="collection-count" title="${t('{n} unique files', {n: collectionsData.all_count})}">${collectionsData.all_count}</span>` : ''}
                 </a>
             </div>
             <ul class="folder-tree col-tree" id="main-col-tree" style="list-style:none; padding:0; margin:0;">
@@ -452,7 +452,7 @@ function askCollectionVisibility(parentId) {
             const parentColl = collectionsData.albums.find(a => a.id == parentId);
             if (parentColl) {
                 inheritBtn.style.display = 'flex';
-                inheritBtn.innerHTML = `🧬 Inherit from "${escapeHTML(parentColl.name)}"`;
+                inheritBtn.innerHTML = t('🧬 Inherit from "{name}"', {name: escapeHTML(parentColl.name)});
             } else {
                 inheritBtn.style.display = 'none';
             }
@@ -485,8 +485,8 @@ function askCollectionVisibility(parentId) {
 }
 
 async function createNewCollection(autoAssign = false, parentId = null) {
-    const promptMsg = parentId ? "Enter sub-collection name:" : "Enter collection name:";
-    const name = await smartPrompt("New Collection", promptMsg, "");
+    const promptMsg = parentId ? t("Enter sub-collection name:") : t("Enter collection name:");
+    const name = await smartPrompt(t("New Collection"), promptMsg, "");
     if (!name || !name.trim()) return;
     
     let isPublic = false;
@@ -521,7 +521,7 @@ async function createNewCollection(autoAssign = false, parentId = null) {
         body: JSON.stringify({ name: name.trim(), is_public: isPublic, shared_users: sharedUsers, parent_id: parentId })
     }).then(r => r.json()).then(d => {
         if (d.status === 'success') {
-            showNotification(`Collection "${name}" created!`, 'success');
+            showNotification(t('Collection "{name}" created!', {name: name}), 'success');
             if (autoAssign && d.id) tmState.pendingCollections[d.id] = 'add';
             if (parentId) colExpandedState.add(parentId);
             
@@ -530,7 +530,7 @@ async function createNewCollection(autoAssign = false, parentId = null) {
                     openShareModal(null, d.id, name.trim());
                 }
             });
-        } else { showNotification(d.message || 'Error', 'error'); }
+        } else { showNotification(d.message || t('Error'), 'error'); }
     }).catch(console.error);
 }
 
@@ -546,12 +546,12 @@ async function toggleCollectionPublic(e, id) {
         overlay.innerHTML = `
             <div style="background:var(--surface-color); width:400px; max-width:90vw; border-radius:16px; border:1px solid var(--favorite-color); border-top:4px solid var(--favorite-color); padding:30px; box-shadow:0 20px 60px #000; text-align:center; transform:scale(0.9); animation:popIn 0.2s forwards ease-out;">
                 <div style="font-size:2.5rem; margin-bottom:15px;">⚠️</div>
-                <h3 style="margin:0 0 15px 0; color:white; font-size:1.2rem;">Shared Access Priority</h3>
+                <h3 style="margin:0 0 15px 0; color:white; font-size:1.2rem;">${t('Shared Access Priority')}</h3>
                 <p style="color:#bbb; line-height:1.5; margin-bottom:25px; font-size:0.95rem;">
-                    This collection is currently shared with specific users.<br><br>
-                    Please go to <strong>"👥 Share / Permissions"</strong> and remove the assigned users before changing the exhibition visibility, as explicit shares override global visibility settings.
+                    ${t('This collection is currently shared with specific users.')}<br><br>
+                    ${t('Please go to <strong>"👥 Share / Permissions"</strong> and remove the assigned users before changing the exhibition visibility, as explicit shares override global visibility settings.')}
                 </p>
-                <button id="close-shared-warning" class="glass-btn" style="background:var(--surface-hover); color:white; width:100%; padding:10px; border-radius:8px; cursor:pointer;">Understood</button>
+                <button id="close-shared-warning" class="glass-btn" style="background:var(--surface-hover); color:white; width:100%; padding:10px; border-radius:8px; cursor:pointer;">${t('Understood')}</button>
             </div>
         `;
         document.body.appendChild(overlay);
@@ -569,18 +569,18 @@ async function toggleCollectionPublic(e, id) {
 
     fetch('/galleryout/api/collections/toggle_public', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ id: id }) })
     .then(r => r.json()).then(d => {
-        if(d.status === 'success') { showNotification(d.new_state ? "Exhibition ready 👁️" : "Private 🔒", 'success'); loadCollections(); }
+        if(d.status === 'success') { showNotification(d.new_state ? t("Exhibition ready 👁️") : t("Private 🔒"), 'success'); loadCollections(); }
     }).catch(console.error);
 }
 
 async function renameCollection(e, id, oldName) {
     e.preventDefault(); e.stopPropagation();
     const menu = e.target.closest('.folder-dropdown'); if (menu) menu.classList.remove('show');
-    const newName = await smartPrompt("✏️ Rename", "Enter new name:", oldName);
+    const newName = await smartPrompt(t('✏️ Rename'), t("Enter new name:"), oldName);
     if (newName && newName.trim() && newName.trim() !== oldName) {
         fetch('/galleryout/api/collections/rename', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ id: id, name: newName.trim() }) })
         .then(r => r.json()).then(d => {
-            if(d.status === 'success') { showNotification('Renamed', 'success'); loadCollections(); }
+            if(d.status === 'success') { showNotification(t('Renamed'), 'success'); loadCollections(); }
         });
     }
 }
@@ -588,11 +588,11 @@ async function renameCollection(e, id, oldName) {
 async function deleteCollection(e, id, name) {
     e.preventDefault(); e.stopPropagation();
     const menu = e.target.closest('.folder-dropdown'); if (menu) menu.classList.remove('show');
-    const yes = await smartConfirm("Delete Collection?", `Delete "${name}" and all its sub-collections?\nFiles inside will NOT be deleted.`, true);
+    const yes = await smartConfirm(t("Delete Collection?"), t('Delete "{name}" and all its sub-collections?\nFiles inside will NOT be deleted.', {name: name}), true);
     if(yes) {
         fetch('/galleryout/api/collections/delete', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ id: id }) })
         .then(r => r.json()).then(d => {
-            if(d.status === 'success') { showNotification('Deleted', 'success'); loadCollections(); }
+            if(d.status === 'success') { showNotification(t('Deleted'), 'success'); loadCollections(); }
             else showNotification(d.message, 'error');
         });
     }
@@ -603,11 +603,11 @@ let tmState = { mode: 'collection', search: '', sort: 'name', sortDir: 'asc', pe
 
 function openTaggingModal(mode = 'collection') {
     if (typeof selectedFiles !== 'undefined' && selectedFiles.size === 0 && typeof currentLightboxFile !== 'undefined' && !currentLightboxFile) {
-        showNotification("No files selected.", "warning"); return;
+        showNotification(t("No files selected."), "warning"); return;
     }
     document.body.classList.add('modal-open');
     tmState.mode = mode;
-    document.getElementById('tag-modal-title').innerHTML = mode === 'status' ? '🏷️ Set Status' : '📚 Manage Collections';
+    document.getElementById('tag-modal-title').innerHTML = mode === 'status' ? t('🏷️ Set Status') : t('📚 Manage Collections');
     document.getElementById('section-status').style.display = mode === 'status' ? 'block' : 'none';
     document.getElementById('section-collection').style.display = mode === 'status' ? 'none' : 'flex';
     document.getElementById('tm-apply-btn').disabled = true;
@@ -615,7 +615,7 @@ function openTaggingModal(mode = 'collection') {
     
     let count = (typeof currentLightboxFile !== 'undefined' && currentLightboxFile) ? 1 : selectedFiles.size;
     const targetCountEl = document.getElementById('tag-target-count');
-    if(targetCountEl) targetCountEl.textContent = `(${count} File${count > 1 ? 's' : ''})`;
+    if(targetCountEl) targetCountEl.textContent = count > 1 ? t('({count} Files)', {count: count}) : t('({count} File)', {count: count});
 
     if (mode === 'collection') {
         tmState.originalCollections = new Set();
@@ -647,7 +647,7 @@ function openTaggingModal(mode = 'collection') {
     if (mode === 'collection') renderTagManagerList();
     const infoEl = document.getElementById('tm-changes-info');
     const applyBtn = document.getElementById('tm-apply-btn');
-    if (infoEl) { infoEl.textContent = "No pending changes."; infoEl.style.color = "var(--text-muted)"; }
+    if (infoEl) { infoEl.textContent = t('No pending changes.'); infoEl.style.color = "var(--text-muted)"; }
     if (applyBtn) { applyBtn.disabled = true; applyBtn.classList.remove('active-blue'); }
 
     document.getElementById('tagging-overlay').classList.add('visible');
@@ -707,12 +707,12 @@ function renderTagManagerTreeHTML(parentId = '_root_', isSearching = false) {
                     <span class="tag-col-name" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width: 150px; display:inline-block; vertical-align:middle; ${isOriginal && !pendingAction ? 'color: var(--success-color); font-weight: bold;' : ''}">
                         ${c.is_public ? '👁️ ' : ''}${c.name}
                     </span>
-                    ${Number(c.file_count) > 0 ? `<span class="collection-count" title="${c.file_count} directly tagged files">${c.file_count}</span>` : ''}
-                    ${hasChildren && !isExpanded && Number(c.descendant_file_count) > 0 ? `<span class="collection-count collection-count-descendant" title="${c.descendant_file_count} unique files in sub-collections">+${c.descendant_file_count}</span>` : ''}
+                    ${Number(c.file_count) > 0 ? `<span class="collection-count" title="${t('{n} directly tagged files', {n: c.file_count})}">${c.file_count}</span>` : ''}
+                    ${hasChildren && !isExpanded && Number(c.descendant_file_count) > 0 ? `<span class="collection-count collection-count-descendant" title="${t('{n} unique files in sub-collections', {n: c.descendant_file_count})}">+${c.descendant_file_count}</span>` : ''}
                 </div>
                 <div style="display:flex; gap:5px; z-index:10; align-items:center;">
-                    <button type="button" class="tag-action-btn" onclick="event.stopPropagation(); createNewCollection(true, ${c.id})" title="Create Sub-Collection under '${jsSafeName}'" style="padding:4px 6px; font-size:0.75rem; background:rgba(255,255,255,0.06); color:#eee; border:1px solid rgba(255,255,255,0.15); border-radius:6px; cursor:pointer;">📁+</button>
-                    <button type="button" class="tag-action-btn btn-tag-add" ${addActive} onclick="setTagAction(${c.id}, 'add')" style="padding:4px 8px; font-size:0.8rem;">➕ Add</button>
+                    <button type="button" class="tag-action-btn" onclick="event.stopPropagation(); createNewCollection(true, ${c.id})" title="${t("Create Sub-Collection under '{name}'", {name: jsSafeName})}" style="padding:4px 6px; font-size:0.75rem; background:rgba(255,255,255,0.06); color:#eee; border:1px solid rgba(255,255,255,0.15); border-radius:6px; cursor:pointer;">📁+</button>
+                    <button type="button" class="tag-action-btn btn-tag-add" ${addActive} onclick="setTagAction(${c.id}, 'add')" style="padding:4px 8px; font-size:0.8rem;">${t('➕ Add')}</button>
                     <button type="button" class="tag-action-btn btn-tag-remove" ${remActive} onclick="setTagAction(${c.id}, 'remove')" style="padding:4px 8px; font-size:0.8rem;">🗑️</button>
                 </div>
             </div>
@@ -727,7 +727,7 @@ function renderTagManagerList() {
     if (!container) return;
     const treeHtml = renderTagManagerTreeHTML('_root_', tmState.search !== '');
     if (!treeHtml) {
-        container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--text-muted);">No collections found.</div>`;
+        container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--text-muted);">${t('No collections found.')}</div>`;
     } else {
         container.innerHTML = treeHtml;
     }
@@ -748,10 +748,10 @@ function initTagManagerListeners() {
     const sortBtn = document.getElementById('tm-sort-btn');
     if(sortBtn && !sortBtn.dataset.bound) {
         sortBtn.addEventListener('click', () => {
-            if (tmState.sort === 'name' && tmState.sortDir === 'asc') { tmState.sortDir = 'desc'; sortBtn.textContent = 'Z-A ↓'; }
-            else if (tmState.sort === 'name' && tmState.sortDir === 'desc') { tmState.sort = 'date'; tmState.sortDir = 'desc'; sortBtn.textContent = '📅 New ↓'; }
-            else if (tmState.sort === 'date' && tmState.sortDir === 'desc') { tmState.sortDir = 'asc'; sortBtn.textContent = '📅 Old ↑'; }
-            else { tmState.sort = 'name'; tmState.sortDir = 'asc'; sortBtn.textContent = 'A-Z ↑'; }
+            if (tmState.sort === 'name' && tmState.sortDir === 'asc') { tmState.sortDir = 'desc'; sortBtn.textContent = t('Z-A ↓'); }
+            else if (tmState.sort === 'name' && tmState.sortDir === 'desc') { tmState.sort = 'date'; tmState.sortDir = 'desc'; sortBtn.textContent = t('📅 New ↓'); }
+            else if (tmState.sort === 'date' && tmState.sortDir === 'desc') { tmState.sortDir = 'asc'; sortBtn.textContent = t('📅 Old ↑'); }
+            else { tmState.sort = 'name'; tmState.sortDir = 'asc'; sortBtn.textContent = t('A-Z ↑'); }
             renderTagManagerList();
         });
         sortBtn.dataset.bound = "true";
@@ -762,7 +762,7 @@ function renderTagManagerStatus() {
     const container = document.getElementById('tm-status-grid');
     if (!container) return;
     const isClearSelected = (tmState.pendingStatus === 'clear');
-    let html = `<div class="status-chip ${isClearSelected ? 'selected' : ''}" onclick="stageStatusChange('clear')" style="border-style:dashed;"><span style="font-size:1.2rem;">🚫</span><span style="font-size:0.8rem; font-weight:bold;">No Status</span></div>`;
+    let html = `<div class="status-chip ${isClearSelected ? 'selected' : ''}" onclick="stageStatusChange('clear')" style="border-style:dashed;"><span style="font-size:1.2rem;">🚫</span><span style="font-size:0.8rem; font-weight:bold;">${t('No Status')}</span></div>`;
     if (collectionsData.flags) {
         html += collectionsData.flags.map(c => {
             const isSelected = (tmState.pendingStatus === c.id);
@@ -793,17 +793,17 @@ function updateChangesInfo() {
     const infoEl = document.getElementById('tm-changes-info');
     const btn = document.getElementById('tm-apply-btn');
     if (changesCount === 0) {
-        if(infoEl) { infoEl.textContent = "No pending changes."; infoEl.style.color = "var(--text-muted)"; }
+        if(infoEl) { infoEl.textContent = t('No pending changes.'); infoEl.style.color = "var(--text-muted)"; }
         if(btn) { btn.disabled = true; btn.classList.remove('active-blue'); }
     } else {
-        if(infoEl) { infoEl.textContent = `${changesCount} change${changesCount !== 1 ? 's' : ''} pending...`; infoEl.style.color = "var(--primary-color)"; }
+        if(infoEl) { infoEl.textContent = changesCount !== 1 ? t('{count} changes pending...', {count: changesCount}) : t('{count} change pending...', {count: changesCount}); infoEl.style.color = "var(--primary-color)"; }
         if(btn) { btn.disabled = false; btn.classList.add('active-blue'); }
     }
 }
 
 async function applyTagManagerChanges() {
     const btn = document.getElementById('tm-apply-btn');
-    btn.disabled = true; btn.textContent = "⏳ Processing...";
+    btn.disabled = true; btn.textContent = t("⏳ Processing...");
     const targets = (typeof currentLightboxFile !== 'undefined' && currentLightboxFile) ? [currentLightboxFile.id] : [...selectedFiles];
     const promises = [];
     let statusResults = null; let statusCollId = null;
@@ -827,7 +827,7 @@ async function applyTagManagerChanges() {
     try {
         await Promise.all(promises);
         if (statusResults && typeof updateColorStrips === 'function') updateColorStrips(statusResults, statusCollId);
-        showNotification("Changes applied successfully!", "success");
+        showNotification(t("Changes applied successfully!"), "success");
         if (typeof currentFiFileId !== 'undefined' && currentFiFileId && document.getElementById('file-info-overlay').classList.contains('visible')) {
             if(typeof loadFiCollections === 'function') loadFiCollections(currentFiFileId);
         }
@@ -839,20 +839,20 @@ async function applyTagManagerChanges() {
         if (collectionChanged || (statusChanged && typeof GLOBAL_VIEW_COLL_TYPE !== 'undefined' && GLOBAL_VIEW_COLL_TYPE === 'system_flag')) {
             setTimeout(() => window.location.reload(), 500);
         } else {
-            btn.disabled = false; btn.textContent = "💾 Apply Changes";
+            btn.disabled = false; btn.textContent = t("💾 Apply Changes");
             closeTaggingModal();
             loadCollections();
             if (typeof currentLightboxFile !== 'undefined' && !currentLightboxFile && typeof deselectAll === 'function') deselectAll();
         }
     } catch (e) {
-        console.error(e); showNotification("Error applying changes.", "error");
-        btn.disabled = false; btn.textContent = "💾 Apply Changes";
+        console.error(e); showNotification(t("Error applying changes."), "error");
+        btn.disabled = false; btn.textContent = t("💾 Apply Changes");
     }
 }
 
 async function untagCurrentCollection() {
-    if (!currentFolderInfo.is_collection) { showNotification("Untag is only for Collections.", "info"); return; }
-    if (currentFolderInfo.collection_id === 'all') { showNotification("Cannot untag from 'All Collections'.", "info"); return; }
+    if (!currentFolderInfo.is_collection) { showNotification(t("Untag is only for Collections."), "info"); return; }
+    if (currentFolderInfo.collection_id === 'all') { showNotification(t("Cannot untag from 'All Collections'."), "info"); return; }
 
     const targets = selectedFiles.size > 0 ? [...selectedFiles] : (focusedItemIndex !== -1 ? [galleryItems[focusedItemIndex].dataset.fileId] : []);
     if (targets.length === 0) return;
@@ -864,7 +864,7 @@ async function untagCurrentCollection() {
         });
         const data = await res.json();
         if (data.status === 'success') {
-            showNotification(`Removed ${targets.length} item(s).`, "success");
+            showNotification(t('Removed {count} item(s).', {count: targets.length}), "success");
             loadCollections();
             targets.forEach(fid => {
                 const item = document.querySelector(`.gallery-item[data-file-id="${fid}"]`);
@@ -883,7 +883,7 @@ async function untagCurrentCollection() {
                 }
             });
         }
-    } catch (e) { showNotification("Error removing from collection", "error"); }
+    } catch (e) { showNotification(t("Error removing from collection"), "error"); }
 }
 
 async function showFileCollections(fileId) {
@@ -892,8 +892,8 @@ async function showFileCollections(fileId) {
         const response = await fetch(`/galleryout/api/file_collections/${fileId}`);
         const data = await response.json();
         if (data.status === 'success') {
-            if (data.collections.length === 0) { showNotification("📌 Not assigned to any collection.", "info"); return; }
-            let message = "🏷️ Assigned to:\n";
+            if (data.collections.length === 0) { showNotification(t("📌 Not assigned to any collection."), "info"); return; }
+            let message = t("🏷️ Assigned to:\n");
             data.collections.forEach(c => { const icon = (c.type === 'system_flag') ? "📍" : "📁"; message += `${icon} ${c.name}\n`; });
             showNotification(message, "info multiline-msg", 5000);
         }
@@ -911,7 +911,7 @@ function applyTag(collId, action, explicitTargets = null) {
     .then(r => r.json())
     .then(d => {
         if(d.status === 'success') {
-            showNotification('Status updated', 'success');
+            showNotification(t('Status updated'), 'success');
             if(typeof updateColorStrips === 'function') updateColorStrips(d.results, collId);
             if (typeof currentFiFileId !== 'undefined' && currentFiFileId && document.getElementById('file-info-overlay').classList.contains('visible') && targets.includes(currentFiFileId)) {
                 if(typeof loadFiCollections === 'function') loadFiCollections(currentFiFileId);
@@ -948,14 +948,14 @@ function updateColorStrips(results, collId) {
 <!-- VISIBILITY MODAL -->
 <div id="col-vis-overlay" style="z-index: 10005 !important;">
     <div class="col-vis-panel">
-        <h3>🌐 Exhibition Visibility</h3>
-        <p>Choose the access level for this collection in the Exhibition Portal:</p>
-        <button id="btn-vis-public" class="col-vis-btn public">👁️ Exhibition Ready (Public)</button>
-        <button id="btn-vis-private" class="col-vis-btn private">🔒 Private</button>
-        <button id="btn-vis-shared" class="col-vis-btn shared">👥 Shared with selected users</button>
+        <h3>{{ _('🌐 Exhibition Visibility') }}</h3>
+        <p>{{ _('Choose the access level for this collection in the Exhibition Portal:') }}</p>
+        <button id="btn-vis-public" class="col-vis-btn public">{{ _('👁️ Exhibition Ready (Public)') }}</button>
+        <button id="btn-vis-private" class="col-vis-btn private">{{ _('🔒 Private') }}</button>
+        <button id="btn-vis-shared" class="col-vis-btn shared">{{ _('👥 Shared with selected users') }}</button>
         <div style="height:1px; background:rgba(255,255,255,0.1); margin: 5px 0;"></div>
-        <button id="btn-vis-inherit" class="col-vis-btn inherit">🧬 Inherit from parent</button>
-        <button id="btn-vis-cancel" class="col-vis-cancel">Cancel</button>
+        <button id="btn-vis-inherit" class="col-vis-btn inherit">{{ _('🧬 Inherit from parent') }}</button>
+        <button id="btn-vis-cancel" class="col-vis-cancel">{{ _('Cancel') }}</button>
     </div>
 </div>
 
