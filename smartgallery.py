@@ -340,6 +340,19 @@ ZIP_CACHE_FOLDER_NAME = '.zip_downloads'
 AI_MODELS_FOLDER_NAME = '.AImodels'
 ENABLE_DAM_MODE = True
 
+# --- NAS / OS METADATA FOLDERS TO IGNORE ---
+# Synology DSM creates an '@eaDir' folder inside every shared directory
+# (system thumbnails + media index). It must never be browsed, indexed,
+# counted or thumbnailed by the gallery.
+IGNORED_SYSTEM_FOLDER_NAMES = {'@eadir'}
+
+
+def is_ignored_system_folder(folder_name):
+    """Case-insensitive check for NAS/OS generated metadata folders (e.g. Synology '@eaDir')."""
+    if not folder_name:
+        return False
+    return folder_name.strip().lower() in IGNORED_SYSTEM_FOLDER_NAMES
+
 # --- APP INFO ---
 APP_VERSION = "2.24.4"
 APP_VERSION_DATE = "October 18, 2026"
@@ -2597,7 +2610,7 @@ def get_dynamic_folder_config(force_refresh=False):
 
         all_folders = {}
         for dirpath, dirnames, _ in os.walk(BASE_OUTPUT_PATH, followlinks=True):
-            dirnames[:] = [d for d in dirnames if (not d.startswith('.') or d == '.collection_notes') and d not in [THUMBNAIL_CACHE_FOLDER_NAME, SQLITE_CACHE_FOLDER_NAME, ZIP_CACHE_FOLDER_NAME, AI_MODELS_FOLDER_NAME]]
+            dirnames[:] = [d for d in dirnames if (not d.startswith('.') or d == '.collection_notes') and not is_ignored_system_folder(d) and d not in [THUMBNAIL_CACHE_FOLDER_NAME, SQLITE_CACHE_FOLDER_NAME, ZIP_CACHE_FOLDER_NAME, AI_MODELS_FOLDER_NAME]]
             for dirname in dirnames:
                 full_path = os.path.normpath(os.path.join(dirpath, dirname)).replace('\\', '/')
                 relative_path = os.path.relpath(full_path, BASE_OUTPUT_PATH).replace('\\', '/')
@@ -2722,7 +2735,7 @@ def background_watcher_task():
                         if os.path.isdir(folder_path):
                             if is_recursive:
                                 for root, dirs, files in os.walk(folder_path, topdown=True, followlinks=True):
-                                    dirs[:] = [d for d in dirs if (not d.startswith('.') or d == '.collection_notes') and d not in EXCLUDED]
+                                    dirs[:] = [d for d in dirs if (not d.startswith('.') or d == '.collection_notes') and not is_ignored_system_folder(d) and d not in EXCLUDED]
                                     for f in files:
                                         if os.path.splitext(f)[1].lower() in valid_exts:
                                             files_to_check.append(os.path.join(root, f))
@@ -3184,7 +3197,7 @@ def scan_folder_and_extract_options(folder_path, recursive=False):
             # Recursive scan using os.walk
             for root, dirs, files in os.walk(folder_path, followlinks=True):
                 # Filter out hidden/protected folders in-place
-                dirs[:] = [d for d in dirs if not d.startswith('.') and d not in [THUMBNAIL_CACHE_FOLDER_NAME, SQLITE_CACHE_FOLDER_NAME, ZIP_CACHE_FOLDER_NAME, AI_MODELS_FOLDER_NAME]]
+                dirs[:] = [d for d in dirs if not d.startswith('.') and not is_ignored_system_folder(d) and d not in [THUMBNAIL_CACHE_FOLDER_NAME, SQLITE_CACHE_FOLDER_NAME, ZIP_CACHE_FOLDER_NAME, AI_MODELS_FOLDER_NAME]]
                 for filename in files:
                     ext = os.path.splitext(filename)[1].lower()
                     if ext and ext not in ['.json', '.sqlite']:
@@ -4219,7 +4232,7 @@ def ai_indexing_add_folder():
         try:
             if recursive:
                 for r, d, f in os.walk(raw_path, topdown=True, followlinks=True):
-                    d[:] = [x for x in d if (not x.startswith('.') or x == '.collection_notes') and x not in exc]
+                    d[:] = [x for x in d if (not x.startswith('.') or x == '.collection_notes') and not is_ignored_system_folder(x) and x not in exc]
                     for x in f:
                         if os.path.splitext(x)[1].lower() in valid: files_found.append(os.path.join(r, x))
             else:
@@ -5639,7 +5652,7 @@ def browse_filesystem():
         with os.scandir(current_path) as it:
             for entry in it:
                 try:
-                    if entry.is_dir() and not entry.name.startswith('.'):
+                    if entry.is_dir() and not entry.name.startswith('.') and not is_ignored_system_folder(entry.name):
                         items.append({
                             'name': entry.name,
                             'path': entry.path,
