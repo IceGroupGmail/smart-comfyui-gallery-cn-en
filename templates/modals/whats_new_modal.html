@@ -167,6 +167,12 @@
     let latestVersionId = '1.0';
     let isChangelogParsed = false;
 
+    // 本地汉化补丁：把变更日志的原始文案查一遍字典，未命中则原样返回（英文兜底）
+    // 这样上游更新 CHANGELOG 后，只需在 translations/zh.json 里补新增那几行
+    function wnT(s) {
+        try { return (typeof t === 'function') ? t(s) : s; } catch (e) { return s; }
+    }
+
     // The Parser: Reads the Markdown script block and generates beautiful HTML
     function parseChangelogToSlides() {
         const rawDataEl = document.getElementById('changelog-data');
@@ -227,27 +233,33 @@
                 const secMatch = line.match(/^###\s*(.*)/);
                 if (secMatch) {
                     if (inList) { slideContent += '</ul>'; inList = false; }
-                    slideContent += `<h5>${secMatch[1]}</h5>`;
+                    slideContent += `<h5>${wnT(secMatch[1])}</h5>`;
                     return;
                 }
 
                 // Global Markdown Parsing for bold, code blocks, and links on any line
-                let formattedLine = line;
-                
+                // 本地汉化补丁：先剥掉列表前缀，把正文查字典，再套 Markdown 格式化
+                let bulletPrefix = '';
+                let bodyText = line;
+                if (/^\*\s+/.test(bodyText)) {
+                    bodyText = bodyText.replace(/^\*\s+/, '');
+                    bulletPrefix = '* ';
+                }
+                let formattedLine = wnT(bodyText);
+
                 // 1. Parse Bold (**text**)
                 formattedLine = formattedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                
+
                 // 2. Parse Inline Code (`code`)
                 formattedLine = formattedLine.replace(/`(.*?)`/g, '<code>$1</code>');
-                
+
                 // 3. Parse Links ([text](url))
                 formattedLine = formattedLine.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="wn-link">$1</a>');
 
-                // Match Bullet Points (now matches after bold/links tags are applied or skipped)
-                const listMatch = formattedLine.match(/^\*\s+(.*)/);
-                if (listMatch) {
+                // Match Bullet Points
+                if (bulletPrefix) {
                     if (!inList) { slideContent += '<ul class="wn-list">'; inList = true; }
-                    slideContent += `<li>${listMatch[1]}</li>`;
+                    slideContent += `<li>${formattedLine}</li>`;
                     return;
                 }
 
