@@ -1,0 +1,48 @@
+# ============================================================
+# 增量汉化镜像（本地文件，不属于上游）
+#
+# 思路：以上一版已经构建好的镜像为基底，只替换会变的那几样东西：
+#   smartgallery.py / i18n.py / translations/ / templates/ / docker_init.bash
+# apt 系统包、python venv、ffmpeg 全部继承基底，不再重装。
+#
+# 用法（构建上下文必须是仓库根目录）：
+#   docker build -f zh-tools/Dockerfile.incr --build-arg BASE_IMAGE=smartgallery:2.24.4-i18n ^
+#                -t smartgallery:2.24.5-i18n .
+#
+# 若上游改动了 requirements.txt，本文件会自动重装依赖（仅那一次会慢）。
+# 若上游改动了 Dockerfile 的 apt 部分，必须回退到完整构建（见 build-push-harbor.ps1 -Full）。
+# ============================================================
+
+ARG BASE_IMAGE=smartgallery:2.24.4-i18n
+FROM ${BASE_IMAGE}
+
+USER root
+
+# 依赖是否需要重装：直接和基底镜像里那份 requirements.txt 比对，内容一致就跳过
+COPY requirements.txt /tmp/requirements.new
+RUN set -eu; \
+    if cmp -s /tmp/requirements.new /app/requirements.txt; then \
+        echo "[增量] requirements.txt 未变化 -> 跳过依赖安装"; \
+    else \
+        echo "[增量] requirements.txt 有变化 -> 重新安装依赖"; \
+        cp /tmp/requirements.new /app/requirements.txt; \
+        export PATH="/home/smartgallerytoo/.local/bin:$PATH"; \
+        cd /app && VIRTUAL_ENV=/app/venv uv pip install -r /app/requirements.txt \
+            --index-url https://pypi.tuna.tsinghua.edu.cn/simple; \
+    fi
+
+# 只覆盖会改动的应用文件
+COPY smartgallery.py /app/smartgallery.py
+COPY i18n.py /app/i18n.py
+COPY translations/ /app/translations/
+COPY templates/ /app/templates/
+
+COPY --chmod=555 docker_init.bash /smartgallery_init.bash
+RUN sed -i 's/\r$//' /smartgallery_init.bash && chmod 555 /smartgallery_init.bash
+
+# 保持原镜像的属主关系
+RUN chown -R smartgallerytoo:smartgallerytoo /app
+
+USER smartgallerytoo
+
+EXPOSE 8189 8190

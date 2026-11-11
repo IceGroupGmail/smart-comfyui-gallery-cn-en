@@ -1,2 +1,4 @@
 reports/
 __pycache__/
+# 本机构建指纹（记录上次完整构建用的 Dockerfile/requirements 哈希）
+.docker-build-state.json
