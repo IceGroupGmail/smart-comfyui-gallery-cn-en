@@ -1,0 +1,11 @@
+# 故意不汉化的字符串，一行一个（# 开头是注释）
+# 产品名、命令行参数、示例语法都放这里，扫描器就不会每次更新都来吵你
+
+⚡ OmniQuery
+OmniQuery
+SmartGallery
+ComfyUI
+
+# 跨行/插值型：品牌 + 动态标题，保持原样
+SmartGallery: {{ current_folder_info.display_name }}
+(of {{ total_folder_files }})

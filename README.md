@@ -2,6 +2,8 @@
   
   <h1>SmartGallery DAM</h1>
   <p><strong>The Open Source Digital Asset Manager & Gallery Built for ComfyUI & AI Production Libraries</strong></p>
+
+  <p><strong>English</strong> | <a href="README_CN.md">中文</a></p>
  
   <p>
     <a href="LICENSE"><img src="https://img.shields.io/github/license/biagiomaf/smart-comfyui-gallery?color=yellow&style=flat-square" alt="License"></a>
