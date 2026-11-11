@@ -55,5 +55,13 @@ with io.open("/app/templates/modals/whats_new_modal.html", encoding="utf-8") as 
 check("弹框解析器含 wnT 补丁", "function wnT" in wn)
 check("changelog.html 存在", os.path.exists("/app/templates/modals/changelog.html"))
 
+# --- 补丁: 忽略群晖 @eaDir 元数据目录 ---
+with io.open("/app/smartgallery.py", encoding="utf-8") as f:
+    sg = f.read()
+check("smartgallery.py 含 @eaDir 忽略常量", "IGNORED_SYSTEM_FOLDER_NAMES = {'@eadir'}" in sg)
+check("@eaDir 过滤器已接入目录树扫描", "not is_ignored_system_folder(d) and d not in [THUMBNAIL_CACHE_FOLDER_NAME" in sg)
+check("@eaDir 过滤器已接入路径浏览器", "not is_ignored_system_folder(entry.name)" in sg)
+check("@eaDir 过滤器已接入递归统计/索引", sg.count("is_ignored_system_folder") >= 6, "共 %d 处" % sg.count("is_ignored_system_folder"))
+
 print("\n结论:", "全部通过" if not problems else ("有 %d 项未通过 -> %s" % (len(problems), problems)))
 sys.exit(0 if not problems else 1)
