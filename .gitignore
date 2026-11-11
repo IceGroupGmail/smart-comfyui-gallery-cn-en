@@ -50,6 +50,9 @@ Thumbs.db
 *.temp
 buildkitd.toml
 
+# 部署文件（含管理员密码，仅本地保存）
+deploy/
+
 # Test artifacts
 compose-test.yaml
 SmartGallery
