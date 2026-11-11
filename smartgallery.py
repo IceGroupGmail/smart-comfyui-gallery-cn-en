@@ -1,4 +1,4 @@
-# Version: 2.24.2 - October 03, 2026
+# Version: 2.24.4 - October 18, 2026
 # SmartGallery DAM for ComfyUI
 # Author: Biagio Maffettone © 2025-2026 — Free to use/modify with credit. Provided "as is". See license on GitHub.
 #
@@ -9,6 +9,7 @@
 
 import os
 import hashlib
+import tempfile
 import cv2
 import json
 import shutil
@@ -188,6 +189,7 @@ SERVER_PORT = int(os.environ.get('SERVER_PORT', 8189))
 # Width (in pixels) of the generated thumbnails.
 THUMBNAIL_WIDTH = int(os.environ.get('THUMBNAIL_WIDTH', 300))
 
+
 # Assumed frame rate for animated WebP files.  
 # Many tools, including ComfyUI, generate WebP animations at ~16 FPS.  
 # Adjust this value if your WebPs use a different frame rate,  
@@ -339,8 +341,8 @@ AI_MODELS_FOLDER_NAME = '.AImodels'
 ENABLE_DAM_MODE = True
 
 # --- APP INFO ---
-APP_VERSION = "2.24.2"
-APP_VERSION_DATE = "October 03, 2026"
+APP_VERSION = "2.24.4"
+APP_VERSION_DATE = "October 18, 2026"
 GITHUB_REPO_URL = "https://github.com/biagiomaf/smart-comfyui-gallery"
 GITHUB_RAW_URL = "https://raw.githubusercontent.com/biagiomaf/smart-comfyui-gallery/main/smartgallery.py"
 
@@ -389,8 +391,26 @@ def key_to_path(key):
     except Exception: return None
 
 # --- DERIVED SETTINGS ---
-DB_SCHEMA_VERSION = 31 
+DB_SCHEMA_VERSION = 32
+
+### Image thumbnail cache
+# Image thumbnails use SHA256 content hashes in `.thumbnails_cache`, with two
+# levels of directory sharding (`ab/cd/<sha256>.webp`). Thumbnail settings and a
+# format version appear in the parent directory so changing settings regenerates
+# thumbnails. No JSON sidecars or additional environment variable are needed.
+# Metadata remains in SQLite; moved or duplicate images reuse it by SHA256.
+# Animated WebP thumbnails preserve frames, timing, looping, and transparency.
+# Existing path-based thumbnails are reused when populating the new cache.
+# Videos, waveforms, and storyboards continue using their existing MD5 caches.
+# 
+# SQLite schema version 32 adds nullable, indexed `content_sha256`. Existing images
+# acquire hashes during scans or thumbnail requests. Scans detect timestamp and
+# size changes and populate missing image hashes. Path-based image IDs remain unchanged.
+# Unused thumbnails are not automatically evicted. Previously created JSON
+# sidecars in an external cache directory are no longer read or written and may
+# be removed manually.
 THUMBNAIL_CACHE_DIR = os.path.join(BASE_SMARTGALLERY_PATH, THUMBNAIL_CACHE_FOLDER_NAME)
+
 SQLITE_CACHE_DIR = os.path.join(BASE_SMARTGALLERY_PATH, SQLITE_CACHE_FOLDER_NAME)
 # Directory for metadata-stripped files (for client delivery)
 CLEAN_CACHE_FOLDER_NAME = '.clean_cache'
@@ -1994,6 +2014,167 @@ def extract_workflow_prompt_string(workflow_json_string):
     # Join everything with a separator for the Database field (deterministic order)
     return " , ".join(sorted(list(found_texts)))
     
+# Content-addressed image thumbnails; metadata remains in SQLite.
+IMAGE_THUMBNAIL_CACHE_VERSION = 1
+IMAGE_CACHE_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.bmp', '.tiff', '.tif', '.webp', '.gif'}
+
+
+def image_cache_file_sha256(path):
+    digest = hashlib.sha256()
+    with open(path, 'rb') as source:
+        for chunk in iter(lambda: source.read(1024 * 1024), b''):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def image_thumbnail_path(digest):
+    if len(digest) != 64 or any(c not in '0123456789abcdef' for c in digest):
+        raise ValueError('Invalid SHA256')
+    # Settings in the directory name invalidate thumbnails without JSON sidecars.
+    variant = f"images-v{IMAGE_THUMBNAIL_CACHE_VERSION}-w{THUMBNAIL_WIDTH}-fps{WEBP_ANIMATED_FPS}"
+    return os.path.join(THUMBNAIL_CACHE_DIR, variant, digest[:2], digest[2:4], digest + '.webp')
+
+
+def valid_image_thumbnail(path):
+    try:
+        with Image.open(path) as image:
+            image.verify()
+        return True
+    except (OSError, ValueError, SyntaxError):
+        return False
+
+
+def cleanup_legacy_image_thumbnails(filepath, digest, mtime):
+    """Remove only this image's old thumbnails after validating its replacement."""
+    try:
+        if not valid_image_thumbnail(image_thumbnail_path(digest)):
+            return
+        legacy_hash = hashlib.md5((filepath + str(mtime)).encode()).hexdigest()
+        for extension in ('.jpeg', '.jpg', '.gif', '.webp', '.png'):
+            legacy_path = os.path.join(THUMBNAIL_CACHE_DIR, legacy_hash + extension)
+            if os.path.abspath(legacy_path) == os.path.abspath(filepath):
+                continue
+            try:
+                os.unlink(legacy_path)
+            except FileNotFoundError:
+                pass
+            except OSError as exc:
+                print(f"WARNING: Could not remove legacy thumbnail {legacy_path}: {exc}")
+    except (OSError, ValueError) as exc:
+        print(f"WARNING: Legacy thumbnail cleanup skipped: {exc}")
+
+
+def prune_orphan_legacy_thumbnails(conn):
+    """Sweep flat image/video thumbnails using MD5(path + mtime), never IDs."""
+    try:
+        valid_keys = {hashlib.md5((row['path'] + str(row['mtime'])).encode()).hexdigest()
+                      for row in conn.execute('SELECT path, mtime FROM files')}
+        removed = 0
+        with os.scandir(THUMBNAIL_CACHE_DIR) as entries:
+            for entry in entries:
+                match = re.fullmatch(r'([0-9a-f]{32})\.(jpeg|jpg|png|gif|webp)', entry.name)
+                if match and entry.is_file(follow_symlinks=False) and match[1] not in valid_keys:
+                    try:
+                        os.unlink(entry.path)
+                        removed += 1
+                    except FileNotFoundError:
+                        pass
+                    except OSError as exc:
+                        print(f"WARNING: Could not remove orphan thumbnail {entry.path}: {exc}")
+        print(f"INFO: Removed {removed} orphan legacy thumbnails.")
+    except (OSError, sqlite3.Error) as exc:
+        print(f"WARNING: Legacy thumbnail sweep skipped: {exc}")
+
+
+def cleanup_deleted_file_thumbnails(conn, file_info):
+    """Call after committing record deletion; shared SHA256 entries stay referenced."""
+    try:
+        key = hashlib.md5((file_info['path'] + str(file_info['mtime'])).encode()).hexdigest()
+        for extension in ('.jpeg', '.jpg', '.png', '.gif', '.webp'):
+            path = os.path.join(THUMBNAIL_CACHE_DIR, key + extension)
+            try:
+                os.unlink(path)
+            except FileNotFoundError:
+                pass
+            except OSError as exc:
+                print(f"WARNING: Could not remove deleted file thumbnail {path}: {exc}")
+        digest = file_info['content_sha256']
+        if not digest or conn.execute('SELECT 1 FROM files WHERE content_sha256 = ? LIMIT 1', (digest,)).fetchone():
+            return
+        if not re.fullmatch(r'[0-9a-f]{64}', digest):
+            return
+        # Remove all settings variants of the unreferenced image thumbnail.
+        with os.scandir(THUMBNAIL_CACHE_DIR) as entries:
+            for entry in entries:
+                if entry.name.startswith('images-v') and entry.is_dir(follow_symlinks=False):
+                    path = os.path.join(entry.path, digest[:2], digest[2:4], digest + '.webp')
+                    try:
+                        os.unlink(path)
+                    except FileNotFoundError:
+                        pass
+                    except OSError as exc:
+                        print(f"WARNING: Could not remove deleted image thumbnail {path}: {exc}")
+    except (OSError, sqlite3.Error) as exc:
+        print(f"WARNING: Deleted file thumbnail cleanup skipped: {exc}")
+
+
+def ensure_image_thumbnail(filepath, digest, mtime, expected_stat=None):
+    """Reuse content thumbnails, or migrate a legacy path-based thumbnail."""
+    initial_stat = os.stat(filepath)
+    if expected_stat and (initial_stat.st_size, initial_stat.st_mtime_ns) != (expected_stat.st_size, expected_stat.st_mtime_ns):
+        raise OSError('Image changed before thumbnail generation')
+    target = image_thumbnail_path(digest)
+    if valid_image_thumbnail(target):
+        cleanup_legacy_image_thumbnails(filepath, digest, mtime)
+        return target
+    legacy_hash = hashlib.md5((filepath + str(mtime)).encode()).hexdigest()
+    legacy = glob.glob(os.path.join(THUMBNAIL_CACHE_DIR, legacy_hash + '.*'))
+    source = next((path for path in legacy if valid_image_thumbnail(path)), filepath)
+    directory = os.path.dirname(target)
+    os.makedirs(directory, exist_ok=True)
+    with tempfile.NamedTemporaryFile(dir=directory, suffix='.webp', delete=False) as temp:
+        temporary = temp.name
+    try:
+        with Image.open(source) as image:
+            frames, durations = [], []
+            for frame in ImageSequence.Iterator(image):
+                durations.append(frame.info.get('duration', round(1000 / WEBP_ANIMATED_FPS)))
+                resized = frame.convert('RGBA')
+                resized.thumbnail((THUMBNAIL_WIDTH, THUMBNAIL_WIDTH * 2), Image.Resampling.LANCZOS)
+                frames.append(resized)
+            frames[0].save(temporary, format='WEBP', quality=85,
+                           save_all=len(frames) > 1, append_images=frames[1:],
+                           duration=durations, loop=image.info.get('loop', 0))
+        final_stat = os.stat(filepath)
+        if (initial_stat.st_size, initial_stat.st_mtime_ns) != (final_stat.st_size, final_stat.st_mtime_ns):
+            raise OSError('Image changed while generating thumbnail')
+        os.replace(temporary, target)
+        cleanup_legacy_image_thumbnails(filepath, digest, mtime)
+        return target
+    finally:
+        if os.path.exists(temporary):
+            os.unlink(temporary)
+
+
+def find_image_metadata_by_sha256(digest, filepath):
+    # A rescan of the same path still refreshes metadata. Moves and duplicates
+    # can reuse the indexed content, even when the old path no longer exists.
+    conn = get_db_connection()
+    try:
+        row = conn.execute("""SELECT type, duration, dimensions, has_workflow,
+            workflow_files, workflow_prompt, workflow_hash, prompt_hash
+            FROM files WHERE content_sha256 = ? AND path != ?
+            AND type IN ('image', 'animated_image') LIMIT 1""", (digest, filepath)).fetchone()
+        return dict(row) if row else None
+    finally:
+        conn.close()
+
+
+def file_needs_processing(stat, row):
+    return (stat.st_mtime != row['mtime'] or stat.st_size != row['size'] or
+            (row['type'] in ('image', 'animated_image') and not row['content_sha256']))
+
+
 def process_single_file(filepath):
     """
     Worker function to perform all heavy processing for a single file.
@@ -2006,14 +2187,23 @@ def process_single_file(filepath):
         except OSError:
             return None
 
-        mtime = os.path.getmtime(filepath)
-        metadata = analyze_file_metadata(filepath)
+        initial_stat = os.stat(filepath)
+        mtime = initial_stat.st_mtime
+        content_sha256 = None
+        cached_metadata = None
+        if os.path.splitext(filepath)[1].lower() in IMAGE_CACHE_EXTENSIONS:
+            try:
+                content_sha256 = image_cache_file_sha256(filepath)
+                cached_metadata = find_image_metadata_by_sha256(content_sha256, filepath)
+            except (OSError, ValueError, sqlite3.Error) as exc:
+                print(f"WARNING: Image cache lookup failed: {exc}")
+        metadata = cached_metadata or analyze_file_metadata(filepath)
         if metadata.get('type') == 'unknown':
             return None
 
         file_hash_for_thumbnail = hashlib.md5((filepath + str(mtime)).encode()).hexdigest()
         
-        if not glob.glob(os.path.join(THUMBNAIL_CACHE_DIR, f"{file_hash_for_thumbnail}.*")):
+        if not content_sha256 and not glob.glob(os.path.join(THUMBNAIL_CACHE_DIR, f"{file_hash_for_thumbnail}.*")):
             thumb = create_thumbnail(filepath, file_hash_for_thumbnail, metadata['type'], silent=True)
             if not thumb or not os.path.exists(thumb):
                 time.sleep(0.2)
@@ -2030,7 +2220,12 @@ def process_single_file(filepath):
         wf_hash = ""
         pr_hash = ""
         
-        if metadata['has_workflow']:
+        if cached_metadata:
+            workflow_files_content = cached_metadata['workflow_files']
+            workflow_prompt_content = cached_metadata['workflow_prompt']
+            wf_hash = cached_metadata['workflow_hash']
+            pr_hash = cached_metadata['prompt_hash']
+        elif metadata['has_workflow']:
             wf_json = extract_workflow(filepath, target_type='api')
             if not wf_json:
                 wf_json = extract_workflow(filepath, target_type='ui')
@@ -2040,13 +2235,25 @@ def process_single_file(filepath):
                 workflow_prompt_content = extract_workflow_prompt_string(wf_json)
                 wf_hash, pr_hash = compute_workflow_hashes(filepath, wf_json=wf_json)
         
+        final_stat = os.stat(filepath)
+        if (initial_stat.st_size, initial_stat.st_mtime_ns) != (final_stat.st_size, final_stat.st_mtime_ns):
+            return None  # Retry files that changed during hashing/extraction on the next scan.
+        if content_sha256:
+            try:
+                ensure_image_thumbnail(filepath, content_sha256, mtime, initial_stat)
+            except Exception as exc:
+                print(f"WARNING: Image thumbnail cache write failed: {exc}")
+                create_thumbnail(filepath, file_hash_for_thumbnail, metadata['type'], silent=True)
+        final_stat = os.stat(filepath)
+        if (initial_stat.st_size, initial_stat.st_mtime_ns) != (final_stat.st_size, final_stat.st_mtime_ns):
+            return None
         return (
             file_id, filepath, mtime, os.path.basename(filepath),
             metadata['type'], metadata['duration'], metadata['dimensions'], 
             metadata['has_workflow'], file_size, time.time(), 
             workflow_files_content, 
             workflow_prompt_content,
-            wf_hash, pr_hash
+            wf_hash, pr_hash, content_sha256
         )
     except Exception:
         return None
@@ -2279,7 +2486,8 @@ def init_db(conn=None):
             'ai_embedding': 'BLOB',
             'ai_error': 'TEXT',
             'workflow_hash': "TEXT DEFAULT ''",
-            'prompt_hash': "TEXT DEFAULT ''"
+            'prompt_hash': "TEXT DEFAULT ''",
+            'content_sha256': 'TEXT'
         }
 
         # Handle comments target migration
@@ -2321,6 +2529,8 @@ def init_db(conn=None):
                     conn.execute(f"ALTER TABLE files ADD COLUMN {col_name} {col_type}")
                 except Exception as e:
                     print(f"WARNING: Could not add column {col_name}: {e}")
+
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_files_content_sha256 ON files(content_sha256)")
 
         # 6. SCHEMA VERSION (Managed in check_and_update_workflow_hashes)
         pass
@@ -2595,7 +2805,7 @@ def full_sync_database(conn):
     start_time = time.time()
 
     all_folders = get_dynamic_folder_config(force_refresh=True)
-    db_files = {row['path']: row['mtime'] for row in conn.execute('SELECT path, mtime FROM files').fetchall()}
+    db_files = {row['path']: dict(row) for row in conn.execute('SELECT path, mtime, size, type, content_sha256 FROM files').fetchall()}
     
     disk_files = {}
     print("INFO: Scanning directories on disk...")
@@ -2617,7 +2827,7 @@ def full_sync_database(conn):
                 # Check extension against whitelist
                 _, ext = os.path.splitext(name)
                 if os.path.isfile(filepath) and ext.lower() in valid_extensions:
-                    disk_files[filepath] = os.path.getmtime(filepath)
+                    disk_files[filepath] = os.stat(filepath)
                     
         except OSError as e:
             print(f"WARNING: Could not access folder {folder_path}: {e}")
@@ -2628,7 +2838,7 @@ def full_sync_database(conn):
     to_delete = db_paths - disk_paths
     to_add = disk_paths - db_paths
     to_check = disk_paths & db_paths
-    to_update = {path for path in to_check if int(disk_files.get(path, 0)) > int(db_files.get(path, 0))}
+    to_update = {path for path in to_check if file_needs_processing(disk_files[path], db_files[path])}
     
     files_to_process = list(to_add.union(to_update))
     # debug if files_to_process: print(f"{Colors.YELLOW}DEBUG - File to process: {files_to_process}{Colors.RESET}")
@@ -2666,8 +2876,8 @@ def full_sync_database(conn):
             for i in range(0, len(results), BATCH_SIZE):
                 batch = results[i:i + BATCH_SIZE]
                 conn.executemany("""
-                    INSERT INTO files (id, path, mtime, name, type, duration, dimensions, has_workflow, size, last_scanned, workflow_files, workflow_prompt, workflow_hash, prompt_hash) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    INSERT INTO files (id, path, mtime, name, type, duration, dimensions, has_workflow, size, last_scanned, workflow_files, workflow_prompt, workflow_hash, prompt_hash, content_sha256)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     ON CONFLICT(id) DO UPDATE SET
                         path = excluded.path,
                         name = excluded.name,
@@ -2681,25 +2891,26 @@ def full_sync_database(conn):
                         workflow_prompt = excluded.workflow_prompt,
                         workflow_hash = excluded.workflow_hash,
                         prompt_hash = excluded.prompt_hash,
+                        content_sha256 = excluded.content_sha256,
                         
                         -- CONDITIONAL LOGIC:
                         is_favorite = CASE 
-                            WHEN ABS(files.mtime - excluded.mtime) > 0.1 THEN 0  
+                            WHEN ((files.content_sha256 IS NOT NULL AND excluded.content_sha256 IS NOT NULL AND files.content_sha256 != excluded.content_sha256) OR ((files.content_sha256 IS NULL OR excluded.content_sha256 IS NULL) AND (files.mtime != excluded.mtime OR files.size != excluded.size))) THEN 0
                             ELSE files.is_favorite                     
                         END,
                         
                         ai_caption = CASE 
-                            WHEN ABS(files.mtime - excluded.mtime) > 0.1 THEN NULL 
+                            WHEN ((files.content_sha256 IS NOT NULL AND excluded.content_sha256 IS NOT NULL AND files.content_sha256 != excluded.content_sha256) OR ((files.content_sha256 IS NULL OR excluded.content_sha256 IS NULL) AND (files.mtime != excluded.mtime OR files.size != excluded.size))) THEN NULL
                             ELSE files.ai_caption                        
                         END,
                         
                         ai_embedding = CASE 
-                            WHEN ABS(files.mtime - excluded.mtime) > 0.1 THEN NULL 
+                            WHEN ((files.content_sha256 IS NOT NULL AND excluded.content_sha256 IS NOT NULL AND files.content_sha256 != excluded.content_sha256) OR ((files.content_sha256 IS NULL OR excluded.content_sha256 IS NULL) AND (files.mtime != excluded.mtime OR files.size != excluded.size))) THEN NULL
                             ELSE files.ai_embedding 
                         END,
 
                         ai_last_scanned = CASE 
-                            WHEN ABS(files.mtime - excluded.mtime) > 0.1 THEN 0 
+                            WHEN ((files.content_sha256 IS NOT NULL AND excluded.content_sha256 IS NOT NULL AND files.content_sha256 != excluded.content_sha256) OR ((files.content_sha256 IS NULL OR excluded.content_sha256 IS NULL) AND (files.mtime != excluded.mtime OR files.size != excluded.size))) THEN 0
                             ELSE files.ai_last_scanned 
                         END,
 
@@ -2775,6 +2986,68 @@ def full_sync_database(conn):
 
     print(f"INFO: Full scan completed in {time.time() - start_time:.2f} seconds.")
     
+# Waitress runs one process with multiple request threads. Keep ownership on the
+# server so disconnecting/reloading a browser cannot launch duplicate folder work.
+_sync_jobs = {}
+_sync_jobs_condition = threading.Condition()
+
+
+def stream_folder_sync(folder_path):
+    key = os.path.normcase(os.path.realpath(folder_path))
+    with _sync_jobs_condition:
+        job = _sync_jobs.get(key)
+        if job is None:
+            if len(_sync_jobs) >= 2:
+                job = None
+            else:
+                job = {'data': {'message': 'Checking folder for changes...', 'current': 0, 'total': 1},
+                       'revision': 0, 'done': False, 'progress_at': time.monotonic()}
+                _sync_jobs[key] = job
+
+                def run():
+                    try:
+                        for event in sync_folder_on_demand(folder_path):
+                            data = json.loads(event.removeprefix('data: '))
+                            with _sync_jobs_condition:
+                                job['data'] = data
+                                job['revision'] += 1
+                                if data.get('status') != 'waiting':
+                                    job['progress_at'] = time.monotonic()
+                                _sync_jobs_condition.notify_all()
+                    except Exception as exc:
+                        with _sync_jobs_condition:
+                            job['data'] = {'error': True, 'message': f'Sync failed: {exc}'}
+                    finally:
+                        with _sync_jobs_condition:
+                            job['done'] = True
+                            job['revision'] += 1
+                            _sync_jobs.pop(key, None)
+                            _sync_jobs_condition.notify_all()
+
+                try:
+                    threading.Thread(target=run, daemon=True, name='gallery-folder-sync').start()
+                except Exception:
+                    _sync_jobs.pop(key, None)
+                    raise
+
+    if job is None:
+        yield f"data: {json.dumps({'error': True, 'message': 'Two folders are already syncing. Try again after one finishes.'})}\n\n"
+        return
+
+    revision = -1
+    while True:
+        with _sync_jobs_condition:
+            _sync_jobs_condition.wait_for(
+                lambda: job['revision'] != revision or job['done'], timeout=5)
+            revision = job['revision']
+            data = dict(job['data'])
+            data['stalled_seconds'] = int(time.monotonic() - job['progress_at'])
+            done = job['done']
+        yield f"data: {json.dumps(data)}\n\n"
+        if done:
+            return
+
+
 def sync_folder_on_demand(folder_path):
     yield f"data: {json.dumps({'message': 'Checking folder for changes...', 'current': 0, 'total': 1})}\n\n"
     
@@ -2782,25 +3055,42 @@ def sync_folder_on_demand(folder_path):
         disk_files = {}
         valid_extensions = {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.mp4', '.mkv', '.webm', '.mov', '.avi', '.mp3', '.wav', '.ogg', '.flac', '.txt', '.md'}
         if os.path.isdir(folder_path):
-            for name in os.listdir(folder_path):
-                filepath = os.path.join(folder_path, name)
-                if os.path.isfile(filepath) and os.path.splitext(name)[1].lower() in valid_extensions:
+            last_scan_progress = time.monotonic()
+            with os.scandir(folder_path) as entries:
+                for entry in entries:
+                    if time.monotonic() - last_scan_progress >= 5:
+                        yield f"data: {json.dumps({'message': 'Checking folder for changes...', 'current': 0, 'total': 1})}\n\n"
+                        last_scan_progress = time.monotonic()
+                    if os.path.splitext(entry.name)[1].lower() not in valid_extensions:
+                        continue
                     try:
-                        if os.path.getsize(filepath) > 0:
-                            disk_files[filepath] = os.path.getmtime(filepath)
+                        if entry.is_file():
+                            stat = entry.stat()
+                            if stat.st_size > 0:
+                                disk_files[entry.path] = stat
                     except OSError:
                         pass
         
         with get_db_connection() as conn:
-            db_files_query = conn.execute("SELECT path, mtime FROM files WHERE path LIKE ?", (folder_path + os.sep + '%',)).fetchall()
-            db_files = {row['path']: row['mtime'] for row in db_files_query if os.path.normpath(os.path.dirname(row['path'])) == os.path.normpath(folder_path)}
+            db_files_query = conn.execute("SELECT path, mtime, size, type, content_sha256 FROM files WHERE path LIKE ?", (folder_path + os.sep + '%',)).fetchall()
+            db_files = {row['path']: dict(row) for row in db_files_query if os.path.normpath(os.path.dirname(row['path'])) == os.path.normpath(folder_path)}
         
         disk_filepaths = set(disk_files.keys())
         db_filepaths = set(db_files.keys())
         files_to_add = disk_filepaths - db_filepaths
         files_to_delete = db_filepaths - disk_filepaths
-        files_to_update = {path for path in (disk_filepaths & db_filepaths) if int(disk_files[path]) > int(db_files[path])}
+        files_to_update = {path for path in (disk_filepaths & db_filepaths) if file_needs_processing(disk_files[path], db_files[path])}
         
+        # Folder loading also cleans migrated entries outside the visible page.
+        last_cleanup_progress = time.monotonic()
+        for path in (disk_filepaths & db_filepaths) - files_to_update:
+            row = db_files[path]
+            if row['type'] in ('image', 'animated_image') and row['content_sha256']:
+                cleanup_legacy_image_thumbnails(path, row['content_sha256'], row['mtime'])
+            if time.monotonic() - last_cleanup_progress >= 5:
+                yield f"data: {json.dumps({'message': 'Checking cached thumbnails...', 'current': 0, 'total': 1})}\n\n"
+                last_cleanup_progress = time.monotonic()
+
         if not files_to_add and not files_to_update and not files_to_delete:
             yield f"data: {json.dumps({'message': 'Folder is up-to-date.', 'status': 'no_changes', 'current': 1, 'total': 1})}\n\n"
             return
@@ -2818,24 +3108,30 @@ def sync_folder_on_demand(folder_path):
             
             with concurrent.futures.ThreadPoolExecutor(max_workers=max_sync_workers) as executor:
                 futures = {executor.submit(process_single_file, path): path for path in files_to_process}
-                for future in concurrent.futures.as_completed(futures):
-                    path = futures[future]
-                    processed_count += 1
-                    try:
-                        res = future.result(timeout=25)
-                        if res:
-                            data_to_upsert.append(res)
-                    except Exception as err:
-                        print(f"WARNING: Processing error on {os.path.basename(path)}: {err}")
-                    
-                    # Real-time progressive feedback to the client
-                    yield f"data: {json.dumps({'message': f'Processing {processed_count}/{total_files}: {os.path.basename(path)}', 'current': processed_count, 'total': total_files})}\n\n"
+                pending = set(futures)
+                while pending:
+                    done, pending = concurrent.futures.wait(
+                        pending, timeout=5, return_when=concurrent.futures.FIRST_COMPLETED)
+                    if not done:
+                        yield f"data: {json.dumps({'status': 'waiting', 'message': f'Processing files... ({processed_count}/{total_files} complete)', 'current': processed_count, 'total': total_files})}\n\n"
+                    for future in done:
+                        path = futures[future]
+                        processed_count += 1
+                        try:
+                            res = future.result()
+                            if res:
+                                data_to_upsert.append(res)
+                        except Exception as err:
+                            print(f"WARNING: Processing error on {os.path.basename(path)}: {err}")
+
+                        # Real-time progressive feedback to the client
+                        yield f"data: {json.dumps({'message': f'Processing {processed_count}/{total_files}: {os.path.basename(path)}', 'current': processed_count, 'total': total_files})}\n\n"
 
         with get_db_connection() as conn:
             if data_to_upsert:
                 conn.executemany("""
-                    INSERT INTO files (id, path, mtime, name, type, duration, dimensions, has_workflow, size, last_scanned, workflow_files, workflow_prompt, workflow_hash, prompt_hash) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    INSERT INTO files (id, path, mtime, name, type, duration, dimensions, has_workflow, size, last_scanned, workflow_files, workflow_prompt, workflow_hash, prompt_hash, content_sha256)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     ON CONFLICT(id) DO UPDATE SET
                         path = excluded.path,
                         name = excluded.name,
@@ -2849,10 +3145,11 @@ def sync_folder_on_demand(folder_path):
                         workflow_prompt = excluded.workflow_prompt,
                         workflow_hash = excluded.workflow_hash,
                         prompt_hash = excluded.prompt_hash,
-                        is_favorite = CASE WHEN ABS(files.mtime - excluded.mtime) > 0.1 THEN 0 ELSE files.is_favorite END,
-                        ai_caption = CASE WHEN ABS(files.mtime - excluded.mtime) > 0.1 THEN NULL ELSE files.ai_caption END,
-                        ai_embedding = CASE WHEN ABS(files.mtime - excluded.mtime) > 0.1 THEN NULL ELSE files.ai_embedding END,
-                        ai_last_scanned = CASE WHEN ABS(files.mtime - excluded.mtime) > 0.1 THEN 0 ELSE files.ai_last_scanned END,
+                        content_sha256 = excluded.content_sha256,
+                        is_favorite = CASE WHEN ((files.content_sha256 IS NOT NULL AND excluded.content_sha256 IS NOT NULL AND files.content_sha256 != excluded.content_sha256) OR ((files.content_sha256 IS NULL OR excluded.content_sha256 IS NULL) AND (files.mtime != excluded.mtime OR files.size != excluded.size))) THEN 0 ELSE files.is_favorite END,
+                        ai_caption = CASE WHEN ((files.content_sha256 IS NOT NULL AND excluded.content_sha256 IS NOT NULL AND files.content_sha256 != excluded.content_sha256) OR ((files.content_sha256 IS NULL OR excluded.content_sha256 IS NULL) AND (files.mtime != excluded.mtime OR files.size != excluded.size))) THEN NULL ELSE files.ai_caption END,
+                        ai_embedding = CASE WHEN ((files.content_sha256 IS NOT NULL AND excluded.content_sha256 IS NOT NULL AND files.content_sha256 != excluded.content_sha256) OR ((files.content_sha256 IS NULL OR excluded.content_sha256 IS NULL) AND (files.mtime != excluded.mtime OR files.size != excluded.size))) THEN NULL ELSE files.ai_embedding END,
+                        ai_last_scanned = CASE WHEN ((files.content_sha256 IS NOT NULL AND excluded.content_sha256 IS NOT NULL AND files.content_sha256 != excluded.content_sha256) OR ((files.content_sha256 IS NULL OR excluded.content_sha256 IS NULL) AND (files.mtime != excluded.mtime OR files.size != excluded.size))) THEN 0 ELSE files.ai_last_scanned END,
                         mtime = excluded.mtime
                 """, data_to_upsert) 
                 
@@ -3128,6 +3425,7 @@ def initialize_gallery():
             # Force full sync on every startup to clean external deletions
             print(f"{Colors.BLUE}INFO: Performing startup consistency check...{Colors.RESET}")
             full_sync_database(conn)
+            prune_orphan_legacy_thumbnails(conn)
             check_and_update_workflow_hashes(conn)
             backfill_audio_durations(conn)
             ensure_admin_user(conn)
@@ -3587,7 +3885,8 @@ def sync_status(folder_key):
     if folder_key not in folders:
         abort(404)
     folder_path = folders[folder_key]['path']
-    return Response(sync_folder_on_demand(folder_path), mimetype='text/event-stream')
+    return Response(stream_folder_sync(folder_path), mimetype='text/event-stream',
+                    headers={'Cache-Control': 'no-cache', 'X-Accel-Buffering': 'no'})
 
 @app.route('/galleryout/api/search_options')
 def api_search_options():
@@ -5005,8 +5304,8 @@ def background_rescan_worker(job_id, files_to_process):
 
             if results:
                 conn.executemany("""
-                    INSERT INTO files (id, path, mtime, name, type, duration, dimensions, has_workflow, size, last_scanned, workflow_files, workflow_prompt, workflow_hash, prompt_hash) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    INSERT INTO files (id, path, mtime, name, type, duration, dimensions, has_workflow, size, last_scanned, workflow_files, workflow_prompt, workflow_hash, prompt_hash, content_sha256)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     ON CONFLICT(id) DO UPDATE SET
                         path = excluded.path,
                         name = excluded.name,
@@ -5020,10 +5319,11 @@ def background_rescan_worker(job_id, files_to_process):
                         workflow_prompt = excluded.workflow_prompt,
                         workflow_hash = excluded.workflow_hash,
                         prompt_hash = excluded.prompt_hash,
-                        is_favorite = CASE WHEN ABS(files.mtime - excluded.mtime) > 0.1 THEN 0 ELSE files.is_favorite END,
-                        ai_caption = CASE WHEN ABS(files.mtime - excluded.mtime) > 0.1 THEN NULL ELSE files.ai_caption END,
-                        ai_embedding = CASE WHEN ABS(files.mtime - excluded.mtime) > 0.1 THEN NULL ELSE files.ai_embedding END,
-                        ai_last_scanned = CASE WHEN ABS(files.mtime - excluded.mtime) > 0.1 THEN 0 ELSE files.ai_last_scanned END,
+                        content_sha256 = excluded.content_sha256,
+                        is_favorite = CASE WHEN ((files.content_sha256 IS NOT NULL AND excluded.content_sha256 IS NOT NULL AND files.content_sha256 != excluded.content_sha256) OR ((files.content_sha256 IS NULL OR excluded.content_sha256 IS NULL) AND (files.mtime != excluded.mtime OR files.size != excluded.size))) THEN 0 ELSE files.is_favorite END,
+                        ai_caption = CASE WHEN ((files.content_sha256 IS NOT NULL AND excluded.content_sha256 IS NOT NULL AND files.content_sha256 != excluded.content_sha256) OR ((files.content_sha256 IS NULL OR excluded.content_sha256 IS NULL) AND (files.mtime != excluded.mtime OR files.size != excluded.size))) THEN NULL ELSE files.ai_caption END,
+                        ai_embedding = CASE WHEN ((files.content_sha256 IS NOT NULL AND excluded.content_sha256 IS NOT NULL AND files.content_sha256 != excluded.content_sha256) OR ((files.content_sha256 IS NULL OR excluded.content_sha256 IS NULL) AND (files.mtime != excluded.mtime OR files.size != excluded.size))) THEN NULL ELSE files.ai_embedding END,
+                        ai_last_scanned = CASE WHEN ((files.content_sha256 IS NOT NULL AND excluded.content_sha256 IS NOT NULL AND files.content_sha256 != excluded.content_sha256) OR ((files.content_sha256 IS NULL OR excluded.content_sha256 IS NULL) AND (files.mtime != excluded.mtime OR files.size != excluded.size))) THEN 0 ELSE files.ai_last_scanned END,
                         mtime = excluded.mtime
                 """, results) 
                 conn.commit()
@@ -5505,7 +5805,7 @@ def rename_folder(folder_key):
                 check_curr = current_path.lower() if is_windows else current_path
                 
                 # Check containment
-                if check_curr.startswith(check_old):
+                if check_curr.startswith(check_old.rstrip('/\\') + os.sep) or check_curr.startswith(check_old.rstrip('/\\') + '/'):
                     
                     # 1. EXTRACT FILENAME
                     # We rely on os.path.basename. It works on "C:/A/B\file.txt" correctly on Windows.
@@ -5514,7 +5814,8 @@ def rename_folder(folder_key):
                     # 2. CONSTRUCT NEW PATH EXACTLY LIKE THE SCANNER DOES
                     # Scanner logic: os.path.join(folder_path_from_config, filename)
                     # This produces "C:/.../NewName\filename.ext" on Windows.
-                    new_file_path = os.path.join(new_folder_path, filename)
+                    relative_path = os.path.relpath(current_path, old_folder_path)
+                    new_file_path = os.path.join(new_folder_path, relative_path)
                     
                     # 3. GENERATE ID
                     new_id = hashlib.md5(new_file_path.encode()).hexdigest()
@@ -5542,7 +5843,7 @@ def rename_folder(folder_key):
                 
                 if w_check == check_old:
                     conn.execute("UPDATE ai_watched_folders SET path = ? WHERE path = ?", (new_folder_path, w_path))
-                elif w_check.startswith(check_old):
+                elif w_check.startswith(check_old.rstrip('/\\') + os.sep) or w_check.startswith(check_old.rstrip('/\\') + '/'):
                     # Subfolder logic: simple string replace to preserve structure
                     # We use standard string replacement which works because we enforced '/' structure above
                     if is_windows:
@@ -5679,7 +5980,7 @@ def move_batch():
                     SELECT 
                         path, name, size, has_workflow, is_favorite, type, duration, dimensions,
                         ai_last_scanned, ai_caption, ai_embedding, ai_error, workflow_files, workflow_prompt,
-                        workflow_hash, prompt_hash
+                        workflow_hash, prompt_hash, content_sha256
                     FROM files WHERE id = ?
                 """
                 file_info_row = conn.execute(query_fetch, (file_id,)).fetchone()
@@ -5708,7 +6009,8 @@ def move_batch():
                     'workflow_files': file_info['workflow_files'],
                     'workflow_prompt': file_info['workflow_prompt'],
                     'workflow_hash': file_info.get('workflow_hash', ''),
-                    'prompt_hash': file_info.get('prompt_hash', '')
+                    'prompt_hash': file_info.get('prompt_hash', ''),
+                    'content_sha256': file_info.get('content_sha256')
                 }
                 
                 # Check Source vs Dest (OS Agnostic comparison)
@@ -5751,17 +6053,17 @@ def move_batch():
                             type = ?, duration = ?, dimensions = ?,
                             ai_last_scanned = ?, ai_caption = ?, ai_embedding = ?, ai_error = ?,
                             workflow_files = ?, workflow_prompt = ?,
-                            workflow_hash = ?, prompt_hash = ?
+                            workflow_hash = ?, prompt_hash = ?, content_sha256 = ?
                         WHERE id = ?
                     """
                     conn.execute(query_merge, (
-                        final_dest_path, final_filename, time.time(),
+                        final_dest_path, final_filename, os.path.getmtime(final_dest_path),
                         meta['size'], meta['has_workflow'], meta['is_favorite'],
                         meta['type'], meta['duration'], meta['dimensions'],
                         meta['ai_last_scanned'], meta['ai_caption'], meta['ai_embedding'], meta['ai_error'],
                         meta['workflow_files'], 
                         meta['workflow_prompt'],
-                        meta['workflow_hash'], meta['prompt_hash'],
+                        meta['workflow_hash'], meta['prompt_hash'], meta['content_sha256'],
                         new_id
                     ))
                     conn.execute("DELETE FROM files WHERE id = ?", (file_id,))
@@ -5831,7 +6133,7 @@ def copy_batch():
                 
                 # 4. Create DB Record
                 new_id = hashlib.md5(final_dest_path.encode()).hexdigest()
-                new_mtime = time.time() # New file gets new import time
+                new_mtime = os.path.getmtime(final_dest_path)
                 
                 # Logic for Favorites
                 is_fav = file_info['is_favorite'] if keep_favorites else 0
@@ -5843,8 +6145,8 @@ def copy_batch():
                         id, path, mtime, name, type, duration, dimensions, has_workflow, 
                         size, is_favorite, last_scanned, workflow_files, workflow_prompt,
                         ai_last_scanned, ai_caption, ai_embedding, ai_error,
-                        workflow_hash, prompt_hash
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        workflow_hash, prompt_hash, content_sha256
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, (
                     new_id, final_dest_path, new_mtime, final_filename, 
                     file_info['type'], file_info['duration'], file_info['dimensions'], 
@@ -5853,7 +6155,7 @@ def copy_batch():
                     file_info['last_scanned'], 
                     file_info['workflow_files'], file_info['workflow_prompt'],
                     file_info['ai_last_scanned'], file_info['ai_caption'], file_info['ai_embedding'], file_info['ai_error'],
-                    file_info.get('workflow_hash', ''), file_info.get('prompt_hash', '')
+                    file_info.get('workflow_hash', ''), file_info.get('prompt_hash', ''), file_info.get('content_sha256')
                 ))
                 
                 copied_count += 1
@@ -5886,6 +6188,7 @@ def delete_batch():
         deleted_count = 0
         failed_files = []
         ids_to_remove_from_db = []
+        deleted_file_info = []
 
         with get_db_connection() as conn:
             # 1. Generazione corretta e sicura dei placeholder SQL (?,?,?)
@@ -5893,7 +6196,7 @@ def delete_batch():
             placeholders = ','.join(['?'] * len(file_ids))
             
             # Selezioniamo i file per verificare i percorsi
-            query_select = f"SELECT id, path FROM files WHERE id IN ({placeholders})"
+            query_select = f"SELECT id, path, mtime, content_sha256 FROM files WHERE id IN ({placeholders})"
             files_to_delete = conn.execute(query_select, file_ids).fetchall()
             
             for row in files_to_delete:
@@ -5908,6 +6211,7 @@ def delete_batch():
                     # Se l'operazione su disco riesce (o il file non c'era già più),
                     # segniamo l'ID per la rimozione dal DB
                     ids_to_remove_from_db.append(file_id)
+                    deleted_file_info.append(dict(row))
                     deleted_count += 1
                     
                 except Exception as e:
@@ -5922,6 +6226,8 @@ def delete_batch():
                 query_delete = f"DELETE FROM files WHERE id IN ({db_placeholders})"
                 conn.execute(query_delete, ids_to_remove_from_db)
                 conn.commit()
+                for file_info in deleted_file_info:
+                    cleanup_deleted_file_thumbnails(conn, file_info)
     
         # Costruzione messaggio finale
         action = "moved to trash" if DELETE_TO else "deleted"
@@ -5968,7 +6274,7 @@ def toggle_favorite(file_id):
 @management_api_only
 def delete_file(file_id):
     with get_db_connection() as conn:
-        file_info = conn.execute("SELECT path FROM files WHERE id = ?", (file_id,)).fetchone()
+        file_info = conn.execute("SELECT path, mtime, content_sha256 FROM files WHERE id = ?", (file_id,)).fetchone()
         if not file_info:
             return jsonify({'status': 'success', 'message': 'File already deleted from database.'})
         
@@ -5986,6 +6292,7 @@ def delete_file(file_id):
         # Whether the file was deleted now or was already gone, we clean up the DB.
         conn.execute("DELETE FROM files WHERE id = ?", (file_id,))
         conn.commit()
+        cleanup_deleted_file_thumbnails(conn, dict(file_info))
         action = "moved to trash" if DELETE_TO else "deleted"
         return jsonify({'status': 'success', 'message': f'File {action} successfully.'})
 
@@ -6008,7 +6315,7 @@ def rename_file(file_id):
                 SELECT 
                     path, name, size, has_workflow, is_favorite, type, duration, dimensions,
                     ai_last_scanned, ai_caption, ai_embedding, ai_error, workflow_files, workflow_prompt,
-                    workflow_hash, prompt_hash
+                    workflow_hash, prompt_hash, content_sha256
                 FROM files WHERE id = ?
             """
             file_info_row = conn.execute(query_fetch, (file_id,)).fetchone()
@@ -6035,7 +6342,8 @@ def rename_file(file_id):
                 'workflow_files': file_info['workflow_files'],
                 'workflow_prompt': file_info['workflow_prompt'],
                 'workflow_hash': file_info.get('workflow_hash', ''),
-                'prompt_hash': file_info.get('prompt_hash', '')
+                'prompt_hash': file_info.get('prompt_hash', ''),
+                    'content_sha256': file_info.get('content_sha256')
             }
             
             # Extension logic
@@ -6069,17 +6377,17 @@ def rename_file(file_id):
                         type = ?, duration = ?, dimensions = ?,
                         ai_last_scanned = ?, ai_caption = ?, ai_embedding = ?, ai_error = ?,
                         workflow_files = ?, workflow_prompt = ?,
-                        workflow_hash = ?, prompt_hash = ?
+                        workflow_hash = ?, prompt_hash = ?, content_sha256 = ?
                     WHERE id = ?
                 """
                 conn.execute(query_merge, (
-                    new_path, final_new_name, time.time(),
+                    new_path, final_new_name, os.path.getmtime(new_path),
                     meta['size'], meta['has_workflow'], meta['is_favorite'],
                     meta['type'], meta['duration'], meta['dimensions'],
                     meta['ai_last_scanned'], meta['ai_caption'], meta['ai_embedding'], meta['ai_error'],
                     meta['workflow_files'], 
                     meta['workflow_prompt'],
-                    meta['workflow_hash'], meta['prompt_hash'],
+                    meta['workflow_hash'], meta['prompt_hash'], meta['content_sha256'],
                     new_id
                 ))
                 conn.execute("DELETE FROM files WHERE id = ?", (file_id,))
@@ -6351,6 +6659,36 @@ def serve_thumbnail(file_id):
         abort(403, description="Access Denied.")
     info = get_file_info_from_db(file_id)
     filepath, mtime = info['path'], info['mtime']
+    if info['type'] in ('image', 'animated_image'):
+        try:
+            stat = os.stat(filepath)
+            digest = info.get('content_sha256')
+            if stat.st_mtime != mtime or stat.st_size != info.get('size'):
+                processed = process_single_file(filepath)
+                if not processed:
+                    raise OSError('Image changed during processing')
+                columns = ('id', 'path', 'mtime', 'name', 'type', 'duration', 'dimensions',
+                           'has_workflow', 'size', 'last_scanned', 'workflow_files',
+                           'workflow_prompt', 'workflow_hash', 'prompt_hash', 'content_sha256')
+                refreshed = dict(zip(columns, processed))
+                with get_db_connection() as conn:
+                    assignments = ', '.join(column + ' = ?' for column in columns[2:])
+                    conn.execute('UPDATE files SET ' + assignments +
+                                 ', ai_caption = NULL, ai_embedding = NULL, ai_last_scanned = 0 WHERE id = ?',
+                                 tuple(refreshed[column] for column in columns[2:]) + (file_id,))
+                    conn.commit()
+                digest, mtime = refreshed['content_sha256'], refreshed['mtime']
+            elif not digest:
+                digest = image_cache_file_sha256(filepath)
+                after = os.stat(filepath)
+                if (stat.st_size, stat.st_mtime_ns) != (after.st_size, after.st_mtime_ns):
+                    raise OSError('Image changed during hashing')
+                with get_db_connection() as conn:
+                    conn.execute('UPDATE files SET content_sha256 = ? WHERE id = ?', (digest, file_id))
+                    conn.commit()
+            return send_file(ensure_image_thumbnail(filepath, digest, mtime))
+        except Exception as exc:
+            print(f"WARNING: Image thumbnail cache unavailable: {exc}")
     file_hash = hashlib.md5((filepath + str(mtime)).encode()).hexdigest()
     existing_thumbnails = glob.glob(os.path.join(THUMBNAIL_CACHE_DIR, f"{file_hash}.*"))
     if existing_thumbnails: return send_file(existing_thumbnails[0])
@@ -11305,7 +11643,7 @@ def check_and_update_workflow_hashes(conn):
     """
     Checks PRAGMA user_version. If < 31, performs a one-time migration
     recomputing workflow_hash and prompt_hash for all workflow files,
-    then sets PRAGMA user_version = 31.
+    then updates PRAGMA user_version to DB_SCHEMA_VERSION.
     """
     try:
         cur = conn.execute("PRAGMA user_version")
@@ -11313,7 +11651,7 @@ def check_and_update_workflow_hashes(conn):
         
         if current_ver < DB_SCHEMA_VERSION:
             print(f"{Colors.YELLOW}INFO: Database schema version ({current_ver}) < {DB_SCHEMA_VERSION}. Running one-time hash alignment migration...{Colors.RESET}")
-            backfill_unhashed_workflows(conn, force_all=True)
+            backfill_unhashed_workflows(conn, force_all=current_ver < 31)
             conn.execute(f"PRAGMA user_version = {DB_SCHEMA_VERSION}")
             conn.commit()
             print(f"{Colors.GREEN}INFO: Hash alignment complete. Database updated to schema version {DB_SCHEMA_VERSION}.{Colors.RESET}")
