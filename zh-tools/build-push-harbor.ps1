@@ -15,7 +15,8 @@
   增量基底镜像，默认自动取本机最新的一版 smartgallery:*（排除本次要构建的标签）。
 
 .PARAMETER Registry
-  目标仓库前缀，默认 Harbor 上的 icegroup/smart-comfyui-gallery。
+  目标仓库前缀，默认新 Harbor 上的 icegroup/smart-comfyui-gallery（ai.icewin.cn:8081）。
+  旧仓库 harbor.map360.cn:30002/icegroup/smart-comfyui-gallery 仍可用，需要时显式传 -Registry。
 
 .PARAMETER Full
   走上游 Dockerfile 完整构建（apt + pip 全量），耗时约 10~20 分钟。
@@ -34,7 +35,7 @@
 param(
     [string]$Version,
     [string]$Base,
-    [string]$Registry = "harbor.map360.cn:30002/icegroup/smart-comfyui-gallery",
+    [string]$Registry = "ai.icewin.cn:8081/icegroup/smart-comfyui-gallery",
     [switch]$Full,
     [switch]$NoPush,
     [switch]$SkipVerify
